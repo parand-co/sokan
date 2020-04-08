@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">ثبت امضا کنندگان</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="saveForm" prependId="false">
+                        <div class="row" data-step="2" data-intro="جهت تعریف یا ویرایش یک امضا کننده از این قسمت استفاده نمایید.">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:outputLabel for="semat_id" styleClass="control-label" value="سمت:"/>
+                                    <h:selectOneMenu id="semat_id" styleClass="form-control"
+                                                     value="#{emzaKonandeganBean.sematCode}">
+                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                        <f:selectItems value="#{emzaKonandeganBean.semats}" var="semat"
+                                                       itemValue="#{semat.code}"
+                                                       itemLabel="#{semat.title}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:outputLabel for="daraje_id" styleClass="control-label" value="درجه:"/>
+                                    <h:selectOneMenu id="daraje_id" styleClass="form-control"
+                                                     value="#{emzaKonandeganBean.darajeCode}">
+                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                        <f:selectItems value="#{emzaKonandeganBean.darajes}" var="daraje"
+                                                       itemValue="#{daraje.code}"
+                                                       itemLabel="#{daraje.title}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-1" styleClass="control-label" value="نام :"/>
+                                    <h:inputText id="field2-1" styleClass="form-control" value="#{emzaKonandeganBean.name}" />
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-2" styleClass="control-label" value="نشان :"/>
+                                    <h:inputText id="field2-2" styleClass="form-control" value="#{emzaKonandeganBean.neshan}" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field2-2" class="control-label"> </label>
+                                    <span class="input-group-btn">
+                                        <p:commandButton value="ذخیره" styleClass="btn bg-success"
+                                                         style="width: 100%"
+                                                         rendered="#{!emzaKonandeganBean.edited}"
+                                                         disabled="#{!emzaKonandeganBean.createPermission}"
+                                                         actionListener="#{emzaKonandeganBean.save}"
+                                                         update="saveForm"/>
+                                    </span>
+
+                                    <span class="input-group-btn">
+                                        <p:commandButton value="ویرایش" styleClass="btn bg-success"
+                                                         style="width: 50%"
+                                                         rendered="#{emzaKonandeganBean.edited}"
+                                                         disabled="#{!emzaKonandeganBean.updatePermission}"
+                                                         actionListener="#{emzaKonandeganBean.save}"
+                                                         update="saveForm"/>
+                                        <p:commandButton value="انصراف" styleClass="btn bg-danger"
+                                                         style="width: 50%"
+                                                         rendered="#{emzaKonandeganBean.edited}"
+                                                         actionListener="#{emzaKonandeganBean.nuller}"
+                                                         update="saveForm"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-step="3" data-intro="لیست امضا کنندگان موجود در این قسمت نمایش داده خواهد شد.">
+                            <p:dataTable id="tableSTP" value="#{emzaKonandeganBean.savabegh}"
+                                         emptyMessage="داده ای وجود ندارد"
+                                         scrollable="true"
+                                         styleClass="table" var="dataTable" editable="true"
+                                         paginator="true" rows="15" style="margin-top: 20px;">
+                                <p:column headerText="نمایش" style="width: 60px;" rendered="#{emzaKonandeganBean.readPermission}">
+                                    <div data-step="4" data-intro="جهت ویرایش نمودن اطلاعات، بر روی این گزینه کلیک نمایید و در قسمت بالایی اقدام به ویرایش اطلاعات نمایید.">
+                                        <p:commandButton icon="ui-icon-eye" actionListener="#{emzaKonandeganBean.dispach(dataTable)}" update="saveForm"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="سمت">
+                                    <h:outputLabel id="shpV" value="#{dataTable.semat.title}"/>
+                                </p:column>
+                                <p:column headerText="درجه">
+                                    <h:outputLabel value="#{dataTable.daraje.title}"/>
+                                </p:column>
+                                <p:column headerText="نام">
+                                    <h:outputLabel value="#{dataTable.name}"/>
+                                </p:column>
+                                <p:column headerText="نشان">
+                                    <h:outputLabel value="#{dataTable.neshan}"/>
+                                </p:column>
+                                <p:column headerText="حذف" style="width: 60px;" rendered="#{emzaKonandeganBean.deletePermission}">
+                                    <div data-step="5" data-intro="جهت حذف سوابق، بر روی این گزینه کلیک نمایید.">
+                                        <p:commandButton icon="ui-icon-trash" styleClass="bg-danger" actionListener="#{emzaKonandeganBean.startDelete(dataTable)}" onclick="PF('delete_dlg').show()"/>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+        <p:dialog header="حذف" widgetVar="delete_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از حذف اطلاعات اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{emzaKonandeganBean.delete}" update="saveForm" oncomplete="PF('delete_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{emzaKonandeganBean.cancelDelete}" oncomplete="PF('delete_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>

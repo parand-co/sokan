@@ -1,0 +1,376 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <style type="text/css">
+            .bd-main {
+                margin-top: 28px;
+            }
+
+            .ui-dialog {
+                width: 500px;
+            }
+
+
+        </style>
+        <h:form prependId="false">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">ویرایش ساعات اضافه کاری پرسنل</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <p:outputLabel value="تاریخ"/>
+                                            <div class="input-group">
+                                                <h:inputText value="#{editOvertimeBean.dateEzf}" styleClass="form-control form-control-sm" id="dateInput"/>
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-danger btn-sm" type="button"
+                                                            onclick="$('#dateInput').val('');" style="padding: 1.7px 6px">
+                                                        <i class="icon-times"/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <p:outputLabel value="شماره پرسنلی یا جستجو"/>
+                                            <div class="input-group">
+                                                <h:inputText value="#{editOvertimeBean.personelCode}"
+                                                             styleClass="form-control form-control-sm"
+                                                             onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                                    <p:ajax listener="#{editOvertimeBean.loadPersonelsByPersNumExactly}" update="personelCount"
+                                                            event="keyup"/>
+                                                </h:inputText>
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-info btn-sm" type="button"
+                                                            onclick="$('#df').modal('show');"
+                                                            style="padding: 1.7px 6px">
+                                                        <i class="icon-search"/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <h:outputLabel value="#{editOvertimeBean.selectedPersonelsCount} پرسنل انتخاب شده است."
+                                                           id="personelCount" style="font-size: small"/>
+                                            <br/>
+                                            <h:commandButton value="نمایش" styleClass="btn btn-sm btn-outline-primary"
+                                                             actionListener="#{editOvertimeBean.loadOvertimes}">
+                                                <f:ajax execute="@form" render="tbl"/>
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p:dataTable value="#{editOvertimeBean.ezafeKariList}"
+                                                     rowIndexVar="i" var="item" id="tbl" editable="true">
+
+                                            <p:ajax event="rowEdit" listener="#{editOvertimeBean.inlineEdit(item)}" update="tbl"/>
+                                            <p:column headerText="ردیف" style="width: 60px">
+                                                <p:outputLabel value="#{i+1}"/>
+                                            </p:column>
+                                            <p:column headerText="نام و نشان">
+                                                <p:outputLabel value="#{item.personel.name} #{item.personel.neshan}"/>
+                                            </p:column>
+                                            <p:column headerText="تاریخ">
+                                                <p:outputLabel value="#{item.tarikh.tarikh}"/>
+                                            </p:column>
+                                            <p:column headerText="ساعت شروع">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                        <p:outputLabel value="#{item.saatStart}"/>
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <h:inputText value="#{item.saatStart}" id="sh1" maxlength="4"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                                        </h:inputText>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="ساعت پایان">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                        <p:outputLabel value="#{item.saatEnd}"/>
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <h:inputText value="#{item.saatEnd}" id="eh1" maxlength="4"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                                        </h:inputText>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="مدت">
+                                                <p:outputLabel value="#{item.modat}"/>
+                                            </p:column>
+                                            <p:column headerText="ویرایش">
+                                                <p:commandLink actionListener="#{editOvertimeBean.editOvertime(item)}" update="sh eh"
+                                                               oncomplete="$('#ed').modal('show');">
+                                                    <i class="icon icon-edit warning"/> </p:commandLink>
+                                            </p:column>
+                                            <p:column headerText="ویرایش خطی">
+                                                <p:rowEditor/>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                kamaDatepicker('dateInput', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+            </script>
+
+            <div class="modal fade text-xs-left" id="df" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <h4 class="modal-title" id="persName">جستجوی پرسنل</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p:outputLabel value="شماره کارت"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <h:inputText value="#{taraddodReportBean.shomareKartSearched}"
+                                                     placeholder="شماره کارت"
+                                                     styleClass="form-control form-control-sm">
+                                            <p:ajax listener="#{taraddodReportBean.loadPersonelsByCardNum}" update="tbl2"
+                                                    event="keyup"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <p:outputLabel value="شماره پرسنلی"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <h:inputText value="#{taraddodReportBean.shomarePersoneliSearched}"
+                                                     placeholder="شماره پرسنلی"
+                                                     styleClass="form-control form-control-sm">
+                                            <p:ajax listener="#{taraddodReportBean.loadPersonelsByPersNum}" update="tbl2"
+                                                    event="keyup"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <p:outputLabel value="جستجو براساس نام و نشان"/>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <h:inputText value="#{taraddodReportBean.neshanSearched}" placeholder="نام و نشان"
+                                                     styleClass="form-control form-control-sm">
+                                            <p:ajax listener="#{taraddodReportBean.loadPersonelsByNeshan}" update="tbl2"
+                                                    event="keyup"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <br/>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <p:outputLabel value="دایره"/>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h:selectOneMenu value="#{taraddodReportBean.selectedDayere}"
+                                                     styleClass="form-control form-control-sm">
+                                        <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                        <f:selectItems value="#{taraddodReportBean.dayereList}" var="d"
+                                                       itemValue="#{d.id}" itemLabel="#{d.title}"/>
+                                        <p:ajax listener="#{taraddodReportBean.changeDayere()}" update="ghesmat tbl2"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p:outputLabel value="بخش"/>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h:selectOneMenu value="#{taraddodReportBean.selectedBakhsh}" id="ghesmat"
+                                                     styleClass="form-control form-control-sm">
+                                        <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                        <f:selectItems value="#{taraddodReportBean.bakhshList}" var="d"
+                                                       itemValue="#{d.id}" itemLabel="#{d.title}"/>
+                                        <p:ajax listener="#{taraddodReportBean.changeGhesmat()}" update="tbl2"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+
+                            <p:separator/>
+                            <p:dataTable value="#{taraddodReportBean.searchedPersonels}" var="pers"
+                                         selection="#{editOvertimeBean.selectedPersonels}" style="height: 300px;position:relative;overflow: auto"
+                                         rowIndexVar="i" id="tbl2" rowKey="#{pers.id}">
+                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+                                <p:column headerText="ردیف" style="width: 60px">
+                                    <p:outputLabel value="#{i+1}"/>
+                                </p:column>
+
+                                <p:column headerText="ش کارت">
+                                    <p:outputLabel value="#{pers.shomareKart}"/>
+                                </p:column>
+
+                                <p:column headerText="ش پ">
+                                    <p:outputLabel value="#{pers.shomarePersoneli}"/>
+                                </p:column>
+
+                                <p:column headerText="نام و نشان">
+                                    <p:outputLabel value="#{pers.name} #{pers.neshan}"/>
+                                </p:column>
+
+                                <p:column headerText="درجه">
+                                    <p:outputLabel value="#{pers.daraje.title}"/>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" onclick="$('#df').modal('hide')"/>
+                            <p:commandButton value="تایید" actionListener="#{editOvertimeBean.selectDonePersonel}"
+                                             oncomplete="$('#df').modal('hide')" update="personelCount"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade text-xs-left" id="ed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-warning">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <h4 class="modal-title" id="persNamea">ویرایش ساعت</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p:outputLabel value="ساعت شروع"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <h:inputText value="#{editOvertimeBean.selectEzfEdit.saatStart}" id="sh" maxlength="4"
+                                                     styleClass="form-control form-control-sm"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                            <f:ajax event="blur" render="@this" listener="#{editOvertimeBean.changeHour2Originial}"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <p:outputLabel value="ساعت پایان"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <h:inputText value="#{editOvertimeBean.selectEzfEdit.saatEnd}" id="eh" maxlength="4"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"
+                                                     styleClass="form-control form-control-sm">
+                                            <f:ajax event="blur" render="@this" listener="#{editOvertimeBean.changeHour2Originial}"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <br/>
+
+                        </div>
+                        <div class="modal-footer">
+                            <h:commandButton value="انصراف" styleClass="btn btn-sm btn-outline-danger" onclick="$('#ed').modal('hide')"/>
+                            <h:outputLabel value=" "/>
+                            <h:commandButton value="ثبت" actionListener="#{editOvertimeBean.edit}"
+                                             styleClass="btn btn-sm btn-outline-warning" onclick="$('#ed').modal('hide')">
+                            </h:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

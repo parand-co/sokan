@@ -1,0 +1,735 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <script type="text/javascript">
+            function findPersonel(x, y) {
+                if (x.length === 9) {
+                    document.getElementById('btnFind').click();
+                }
+                if (y.length === 10) {
+                    document.getElementById('btnFind').click();
+                }
+            }
+
+
+            function diffDate(x, y) {
+                x = x.replace("_", "");
+                y = y.replace("_", "");
+                if (x.length === 10 &amp;&amp; y.length === 10) {
+                    var start = x.substring(0, 4);
+                    var end = y.substring(0, 4);
+                    if (start !== end) {
+                        document.getElementById('dateStart').style.backgroundColor = "#ff5f58";
+                        document.getElementById('dateEnd').style.backgroundColor = "#ff5f58";
+                        document.getElementById('modat').value = '0';
+                        document.getElementById('btnSave').hidden = true;
+                        document.getElementById('btnEdit').hidden = true;
+                    } else if (y &lt; x) {
+                        document.getElementById('dateStart').style.backgroundColor = "#ff5f58";
+                        document.getElementById('dateEnd').style.backgroundColor = "#ff5f58";
+                        document.getElementById('modat').value = '0';
+                        document.getElementById('btnSave').hidden = true;
+                        document.getElementById('btnEdit').hidden = true;
+                    } else {
+                        document.getElementById('dateStart').style.backgroundColor = "#acffbf";
+                        document.getElementById('dateEnd').style.backgroundColor = "#acffbf";
+                        document.getElementById('btnDiff').click();
+                        document.getElementById('btnSave').hidden = false;
+                        document.getElementById('btnEdit').hidden = false;
+
+                    }
+                }
+            }
+
+            function diffTime(x, y) {
+                if (x.length === 4 &amp;&amp; y.length === 4) {
+                    if (y &lt;= x) {
+                        document.getElementById('saatStart').style.backgroundColor = "#ff5f58";
+                        document.getElementById('saatEnd').style.backgroundColor = "#ff5f58";
+                        document.getElementById('modatMinutes').value = '0';
+                        document.getElementById('modatHours').value = '0';
+                        document.getElementById('btnSave').hidden = true;
+                        document.getElementById('btnEdit').hidden = true;
+                    } else {
+                        document.getElementById('saatStart').style.backgroundColor = "#acffbf";
+                        document.getElementById('saatEnd').style.backgroundColor = "#acffbf";
+                        document.getElementById('btnDiffTime').click();
+                        document.getElementById('btnSave').hidden = false;
+                        document.getElementById('btnEdit').hidden = false;
+
+                    }
+                }
+            }
+
+
+            function checkNull() {
+
+                var x = document.getElementById('shp').value;
+
+                var a = document.getElementById('noeMamoriyat').value;
+                var c = document.getElementById('dateStart');
+                var d = document.getElementById('dateEnd');
+                var e = document.getElementById('saatStart');
+                var f = document.getElementById('saatEnd');
+                var cf = '';
+                var ef = '';
+                var df = '';
+                var ff = '';
+                if (c) {
+                    cf = document.getElementById('dateStart').value;
+                } else if (e) {
+                    ef = document.getElementById('saatStart').value;
+                }
+
+                if (d) {
+                    df = document.getElementById('dateEnd').value;
+                } else if (f) {
+                    ff = document.getElementById('saatEnd').value;
+                }
+
+                if (cf !== '' &amp;&amp; df !== '') {
+                    if (x !== '' &amp;&amp; a !== '' &amp;&amp; c !== '' &amp;&amp; d !== '') {
+                        document.getElementById('btnSaveFinal').click();
+                    } else if (x === '') {
+                        document.getElementById('shp').style.backgroundColor = "#ff8679";
+                    } else if (a === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#ff8679";
+
+                    } else if (cf === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateStart').style.backgroundColor = "#ff8679";
+                    } else if (df === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateStart').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateEnd').style.backgroundColor = "#ff8679";
+                    }
+                } else if (ef !== '' &amp;&amp; ff !== '') {
+                    if (x !== '' &amp;&amp; a !== '' &amp;&amp; e !== '' &amp;&amp; f !== '') {
+                        document.getElementById('btnSaveFinal').click();
+                    } else if (x === '') {
+                        document.getElementById('shp').style.backgroundColor = "#ff8679";
+                    } else if (a === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#ff8679";
+
+                    } else if (ef === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('saatStart').style.backgroundColor = "#ff8679";
+                    } else if (ff === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('saatStart').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('saatEnd').style.backgroundColor = "#ff8679";
+                    }
+                }
+
+            }
+
+
+            function checkNullUpdate() {
+                var a = document.getElementById('noeMamoriyat').value;
+                var c = document.getElementById('dateStart');
+                var d = document.getElementById('dateEnd');
+                var e = document.getElementById('saatStart');
+                var f = document.getElementById('saatEnd');
+                var cf = '';
+                var ef = '';
+                var df = '';
+                var ff = '';
+                if (c) {
+                    cf = document.getElementById('dateStart').value;
+                } else if (e) {
+                    ef = document.getElementById('saatStart').value;
+                }
+
+                if (d) {
+                    df = document.getElementById('dateEnd').value;
+                } else if (f) {
+                    ff = document.getElementById('saatEnd').value;
+                }
+
+                if (cf !== '' &amp;&amp; df !== '') {
+                    if (a !== '' &amp;&amp; c !== '' &amp;&amp; d !== '') {
+                        document.getElementById('btnEditFinal').click();
+                    } else if (a === '') {
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#ff8679";
+
+                    } else if (cf === '') {
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateStart').style.backgroundColor = "#ff8679";
+                    } else if (df === '') {
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateStart').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateEnd').style.backgroundColor = "#ff8679";
+                    }
+                } else if (ef !== '' &amp;&amp; ff !== '') {
+                    if (a !== '' &amp;&amp; e !== '' &amp;&amp; f !== '') {
+                        document.getElementById('btnEditFinal').click();
+                    } else if (a === '') {
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#ff8679";
+
+                    } else if (ef === '') {
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('saatStart').style.backgroundColor = "#ff8679";
+                    } else if (ff === '') {
+                        document.getElementById('noeMamoriyat').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('saatStart').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('saatEnd').style.backgroundColor = "#ff8679";
+                    }
+                }
+            }
+
+
+        </script>
+        <div class="row">
+            <h:form id="formA" prependId="false">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title"
+                                style="color: white">اطلاعات پرسنل</h4>
+                            <h4 class="card-title" style="color: white"></h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row" data-step="2"
+                                     data-intro="در این قسمت با وارد کردن شماره پرسنلی یا کدملی می توان اطلاعات پرسنل را مشاهده کرد">
+                                    <h:panelGrid columns="12" id="pga13" style="width: 100%;text-align: center">
+
+                                        <h:outputLabel style="width: 100%" value="شماره پرسنلی"/>
+                                        <h:inputText styleClass="form-control" id="shp"
+                                                     disabled="#{savabeghMamoriyatRozaneBean.disableDispatch}"
+                                                     value="#{savabeghMamoriyatRozaneBean.shp}" maxlength="9"
+                                                     onkeyup="findPersonel(document.getElementById('shp').value,document.getElementById('meliCode').value)"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="کدملی"/>
+                                        <h:inputText styleClass="form-control" id="meliCode"
+                                                     disabled="#{savabeghMamoriyatRozaneBean.disableDispatch}"
+                                                     value="#{savabeghMamoriyatRozaneBean.meliCode}" maxlength="10"
+                                                     onkeyup="findPersonel(document.getElementById('shp').value,document.getElementById('meliCode').value)"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <p:commandButton id="btnFind" style="display: none"
+                                                         actionListener="#{savabeghMamoriyatRozaneBean.findPersonel(savabeghMamoriyatRozaneBean.shp,savabeghMamoriyatRozaneBean.meliCode)}"
+                                                         update="pga13 mask"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%" value="نام"/>
+                                        <h:inputText readonly="true" styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.personel.name}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="نشان"/>
+                                        <h:inputText readonly="true" styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.personel.neshan}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="دایره"/>
+                                        <h:inputText readonly="true" styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.personel.dayere.title}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="بخش"/>
+                                        <h:inputText readonly="true" styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.personel.bakhsh.title}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                        <h:outputLabel style="width: 100%"/> <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/> <h:outputLabel style="width: 100%"/>
+                                    </h:panelGrid>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title"
+                                style="color: white">ثبت اطلاعات</h4>
+                            <h4 class="card-title" style="color: white"></h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row" data-step="3"
+                                 data-intro="پس از مشخص شدن پرسنل امکان ثبت ماموریت (روزانه-ساعتی) با پر کردن فیلدهای زیر وجود دارد(البته اگر دسترسی ثبت برای کاربر فعال باشد).
+*با انتخاب نوع ماموریت فیلدهای تاریخ یا ساعت جایگزین می شوند.">
+                                <div class="card-block" style="width: 100%" align="right">
+                                    <h:panelGrid columns="10" id="pga2" style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="نوع ماموریت"/>
+                                        <h:selectOneMenu id="noeMamoriyat" styleClass="form-control"
+                                                         value="#{savabeghMamoriyatRozaneBean.noeMamoriyatId}"
+                                                         style="width: 100%;text-align: center;">
+                                            <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                            <f:selectItems value="#{savabeghMamoriyatRozaneBean.mojavezRozaneList}"
+                                                           var="itemMoj"
+                                                           itemLabel="#{itemMoj.roozaneSaatiTitle}"
+                                                           itemValue="#{itemMoj.id}"/>
+                                            <f:ajax listener="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyatt(savabeghMamoriyatRozaneBean.noeMamoriyatId)}"
+                                                    render="pga2 mask"/>
+                                        </h:selectOneMenu>
+
+                                        <h:outputLabel rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                       style="width: 100%" value="تاریخ شروع"/>
+                                        <h:inputText rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                     maxlength="10"
+                                                     id="dateStart" styleClass="form-control date"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.tarikhShoro}"
+                                                     style="width: 100%;text-align: center;"
+                                                     onkeyup="diffDate(document.getElementById('dateStart').value,document.getElementById('dateEnd').value)"
+                                                     onchange="diffDate(document.getElementById('dateStart').value,document.getElementById('dateEnd').value)"/>
+                                        <h:outputLabel rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                       style="width: 100%" value="تاریخ پایان"/>
+                                        <h:inputText rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                     id="dateEnd" styleClass="form-control date"
+                                                     maxlength="10"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.tarikhPayan}"
+                                                     style="width: 100%;text-align: center;"
+                                                     onkeyup="diffDate(document.getElementById('dateStart').value,document.getElementById('dateEnd').value)"
+                                                     onchange="diffDate(document.getElementById('dateStart').value,document.getElementById('dateEnd').value)"/>
+
+                                        <h:outputLabel rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                       style="width: 100%" value="ساعت شروع"/>
+                                        <h:inputText rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                     id="saatStart" styleClass="form-control" maxlength="4"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.saatShoro}"
+                                                     onkeyup="diffTime(document.getElementById('saatStart').value,document.getElementById('saatEnd').value)"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                       style="width: 100%" value="ساعت پایان"/>
+                                        <h:inputText rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                     id="saatEnd" styleClass="form-control"
+                                                     maxlength="4"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.saatEnd}"
+                                                     onkeyup="diffTime(document.getElementById('saatStart').value,document.getElementById('saatEnd').value)"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel
+                                                rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                style="width: 100%" value="مدت"/>
+                                        <h:inputText
+                                                rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                id="modatDate" styleClass="form-control"
+                                                value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.modat}"
+                                                style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel
+                                                rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                style="width: 100%" value="ساعت"/>
+                                        <h:inputText
+                                                rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                id="modatHours" styleClass="form-control"
+                                                value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.modatHours}"
+                                                style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel
+                                                rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                style="width: 100%" value="دقیقه"/>
+                                        <h:inputText
+                                                rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyat}"
+                                                id="modatMinutes" styleClass="form-control"
+                                                value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.modatMinutes}"
+                                                style="width: 100%;text-align: center;"/>
+
+
+                                        <h:outputLabel style="width: 100%" value="محل ماموریت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.mahaleMamoriyat}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                        <h:outputLabel style="width: 100%" value="تاریخ ثبت"/>
+                                        <h:inputText id="dateSabt" styleClass="form-control date"
+                                                     maxlength="10"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.tarikhSabt}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="تمدید"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.savabeghMamoriyat.tamdid}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <p:commandButton actionListener="#{savabeghMamoriyatRozaneBean.diffDate}"
+                                                         id="btnDiff"
+                                                         style="display: none"
+                                                         update="modatDate pga15 mask"/>
+                                        <p:commandButton actionListener="#{savabeghMamoriyatRozaneBean.diffTime}"
+                                                         id="btnDiffTime"
+                                                         style="display: none"
+                                                         update="modatHours modatMinutes pga15 mask"/>
+
+
+                                        <script type="text/javascript">
+                                            kamaDatepicker('dateSabt', {
+                                                markToday: true,
+                                                markHolidays: true,
+                                                highlightSelectedDay: true,
+                                                gotoToday: true
+                                            });
+
+
+                                            kamaDatepicker('dateEnd', {
+                                                markToday: true,
+                                                markHolidays: true,
+                                                highlightSelectedDay: true,
+                                                gotoToday: true
+                                            });
+                                            kamaDatepicker('dateStart', {
+                                                markToday: true,
+                                                markHolidays: true,
+                                                highlightSelectedDay: true,
+                                                gotoToday: true
+                                            });
+                                        </script>
+                                    </h:panelGrid>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h:panelGrid columns="15" id="pga15" style="width: 100%;text-align: center">
+
+                        <h:outputLabel style="width: 100%"/><h:outputLabel style="width: 100%"/><h:outputLabel
+                            style="width: 100%"/><h:outputLabel style="width: 100%"/><h:outputLabel
+                            style="width: 100%"/><h:outputLabel style="width: 100%"/><h:outputLabel
+                            style="width: 100%"/><h:outputLabel style="width: 100%"/><h:outputLabel
+                            style="width: 100%"/><h:outputLabel style="width: 100%"/>
+                        <h:outputLabel style="width: 100%"/>
+
+                        <p:commandButton id="btnSave" value="ذخیره"
+                                         type="button"
+                                         onclick="checkNull()"
+                                         disabled="#{!savabeghMamoriyatRozaneBean.createPermission}"
+                                         rendered="#{!savabeghMamoriyatRozaneBean.renderedBtnCrud}"
+                                         style="width: 100%"/>
+                        <h:outputLabel rendered="#{!savabeghMamoriyatRozaneBean.renderedBtnCrud}" style="width: 100%"/>
+                        <h:outputLabel rendered="#{!savabeghMamoriyatRozaneBean.renderedBtnCrud}" style="width: 100%"/>
+                        <h:outputLabel rendered="#{!savabeghMamoriyatRozaneBean.renderedBtnCrud}" style="width: 100%"/>
+
+                        <p:commandButton id="btnDelete"
+                                         style="width: 100%;background-color: #ff4f4f;"
+                                         rendered="#{savabeghMamoriyatRozaneBean.renderedBtnCrud}"
+                                         disabled="#{!savabeghMamoriyatRozaneBean.deletePermission}"
+                                         value="حذف"
+                                         icon="ui-icon-trash"
+                                         onclick="PF('dialogDel').show()"/>
+
+                        <p:commandButton id="btnEdit" value="ویرایش"
+                                         type="button"
+                                         onclick="checkNullUpdate()"
+                                         disabled="#{!savabeghMamoriyatRozaneBean.updatePermission}"
+                                         rendered="#{savabeghMamoriyatRozaneBean.renderedBtnCrud}"
+                                         style="width: 100%" update="aTable pga13 pga2 pga15 mask"/>
+                        <p:commandButton id="btnCancel" value="انصراف"
+                                         rendered="#{savabeghMamoriyatRozaneBean.renderedBtnCrud}"
+                                         style="width: 100%"
+                                         actionListener="#{savabeghMamoriyatRozaneBean.nuller}"
+                                         update="aTable pga13 pga2 pga15 mask"/>
+
+                        <p:commandButton id="btnSaveFinal"
+                                         style="display: none"
+                                         >
+                            <p:ajax listener="#{savabeghMamoriyatRozaneBean.save}" update="aTable pga13 pga2 pga15 mask"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnEditFinal"
+                                         actionListener="#{savabeghMamoriyatRozaneBean.update}"
+                                         style="display: none"
+                                         update="aTable pga13 pga2 pga15 mask"/>
+
+                    </h:panelGrid>
+
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title"
+                                style="color: white">جستجو</h4>
+                            <h4 class="card-title" style="color: white"></h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row" data-step="4"
+                                 data-intro="این بخش امکان جستجو براساس فیلدهای زیر جهت مشاهده در جدول پایین وجود دارذ">
+                                <div class="card-block" style="width: 100%" align="right">
+
+                                    <h:panelGrid id="pga3" columns="9" style="width: 100%">
+                                        <h:outputLabel style="width: 100%" value="شماره پرسنلی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.shpFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="شماره کارت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.shKartFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="کدملی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.meliCodeFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%;"/><h:outputLabel
+                                            style="width: 100%;"/><h:outputLabel style="width: 100%;"/>
+
+
+                                        <h:outputLabel style="width: 100%" value="نوع ماموریت"/>
+                                        <h:selectOneMenu styleClass="form-control"
+                                                         value="#{savabeghMamoriyatRozaneBean.noeMamoriyatFilter}"
+                                                         style="width: 100%;text-align: center;">
+                                            <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                            <f:selectItems value="#{savabeghMamoriyatRozaneBean.mojavezRozaneList}"
+                                                           var="itemMojz"
+                                                           itemLabel="#{itemMojz.roozaneSaatiTitle}"
+                                                           itemValue="#{itemMojz.id}"/>
+                                            <f:ajax listener="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyatt(savabeghMamoriyatRozaneBean.noeMamoriyatFilter)}"
+                                                    render="pga3"/>
+                                        </h:selectOneMenu>
+                                        <h:outputLabel style="width: 100%" value="دایره"/>
+                                        <h:selectOneMenu id="dayere" styleClass="form-control"
+                                                         disabled="#{savabeghMamoriyatRozaneBean.checkBakhsh}"
+                                                         value="#{savabeghMamoriyatRozaneBean.dayereFilter}"
+                                                         style="width: 100%;text-align: center;">
+                                            <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                            <f:selectItems value="#{savabeghMamoriyatRozaneBean.dayereList}"
+                                                           var="itemDayere"
+                                                           itemLabel="#{itemDayere.title}"
+                                                           itemValue="#{itemDayere.id}"/>
+                                            <f:ajax execute="dayere"
+                                                    listener="#{savabeghMamoriyatRozaneBean.selectDayare(savabeghMamoriyatRozaneBean.dayereFilter)}"
+                                                    render="bkh"/>
+                                        </h:selectOneMenu>
+                                        <h:outputLabel style="width: 100%" value="بخش"/>
+                                        <h:selectOneMenu id="bkh" styleClass="form-control"
+                                                         value="#{savabeghMamoriyatRozaneBean.bakhshFilter}"
+                                                         style="width: 100%;text-align: center;">
+                                            <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                            <f:selectItems value="#{savabeghMamoriyatRozaneBean.bakhshList}"
+                                                           var="itemBakhsh"
+                                                           itemLabel="#{itemBakhsh.title}"
+                                                           itemValue="#{itemBakhsh.id}"/>
+                                        </h:selectOneMenu>
+                                        <h:outputLabel style="width: 100%;"/><h:outputLabel
+                                            style="width: 100%;"/><h:outputLabel style="width: 100%;"/>
+
+                                        <h:outputLabel
+                                                rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                style="width: 100%" value="تاریخ شروع از"/>
+                                        <h:inputText rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                     styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.tarikhShoroAzFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel
+                                                rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                style="width: 100%" value="تا"/>
+                                        <h:inputText rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                     styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.tarikhShoroTaFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel
+                                                rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                style="width: 100%" value="ساعت شروع از"/>
+                                        <h:inputText id="dateStartAz"
+                                                     rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                     styleClass="form-control date"
+                                                     value="#{savabeghMamoriyatRozaneBean.saatShoroAzFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel
+                                                rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                style="width: 100%" value="تا"/>
+                                        <h:inputText id="dateStartTa"
+                                                     rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                     styleClass="form-control date"
+                                                     value="#{savabeghMamoriyatRozaneBean.saatShoroTaFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+
+
+                                        <h:outputLabel
+                                                rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                style="width: 100%" value="تاریخ پایان از"/>
+                                        <h:inputText id="datePayanAz"
+                                                     rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                     styleClass="form-control date"
+                                                     value="#{savabeghMamoriyatRozaneBean.tarikhPayanAzFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel
+                                                rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                style="width: 100%" value="تا"/>
+                                        <h:inputText id="datePayanTa"
+                                                     rendered="#{savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                     styleClass="form-control date"
+                                                     value="#{savabeghMamoriyatRozaneBean.tarikhPayanTaFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+
+
+                                        <h:outputLabel
+                                                rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                style="width: 100%" value="ساعت پایان از"/>
+                                        <h:inputText rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                     styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.saatPayanAzFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel
+                                                rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                style="width: 100%" value="تا"/>
+                                        <h:inputText rendered="#{!savabeghMamoriyatRozaneBean.selectNoeMamoriyatFilter}"
+                                                     styleClass="form-control"
+                                                     value="#{savabeghMamoriyatRozaneBean.saatPayanTaFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                        <p:commandButton value="جستجو" style="width: 100%;background-color: green;"
+                                                         id="btnSerach"
+                                                         actionListener="#{savabeghMamoriyatRozaneBean.filterTable}"
+                                                         update="aTable mask"/>
+                                    </h:panelGrid>
+                                    <script type="text/javascript">
+                                        kamaDatepicker('datePayanTa', {
+                                            markToday: true,
+                                            markHolidays: true,
+                                            highlightSelectedDay: true,
+                                            gotoToday: true
+                                        });
+                                        kamaDatepicker('datePayanAz', {
+                                            markToday: true,
+                                            markHolidays: true,
+                                            highlightSelectedDay: true,
+                                            gotoToday: true
+                                        });
+                                        kamaDatepicker('dateStartTa', {
+                                            markToday: true,
+                                            markHolidays: true,
+                                            highlightSelectedDay: true,
+                                            gotoToday: true
+                                        });
+                                        kamaDatepicker('dateStartAz', {
+                                            markToday: true,
+                                            markHolidays: true,
+                                            highlightSelectedDay: true,
+                                            gotoToday: true
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row" data-step="5"
+                                     data-intro="امکان مشاهده سوابق ماموریت ها در این قسمت و همچنین کابر در صورت نیاز به عمل ویرایش و حذف با انتخاب سطر مورد نظر و ارسال اطلاعات به بخش بالا دکمه های حذف و ویرایش برای آن فعال می شوند(البته اگر دسترسی داشته باشند)">
+                                    <div class="card-block" style="width: 100%" align="right">
+                                        <p:dataTable id="aTable" value="#{savabeghMamoriyatRozaneBean.dataTable}"
+                                                     selection="true"
+                                                     paginator="true"
+                                                     rows="5"
+                                                     rowHover="true"
+                                                     var="dataTable">
+                                            <f:facet name="header">
+                                                مشاهده سوابق
+                                            </f:facet>
+
+                                            <p:column headerText="نمایش">
+                                                <p:commandButton icon="ui-icon-eye"
+                                                                 actionListener="#{savabeghMamoriyatRozaneBean.dispach(dataTable)}"
+                                                                 update="aTable pga13 pga2 pga15 mask"/>
+                                            </p:column>
+                                            <p:column headerText="شماره پرسنلی">
+                                                <h:outputLabel value="#{dataTable.personel.shomarePersoneli}"/>
+                                            </p:column>
+                                            <p:column headerText="نام">
+                                                <h:outputLabel value="#{dataTable.personel.name}"/>
+                                            </p:column>
+                                            <p:column headerText="نشان">
+                                                <h:outputLabel value="#{dataTable.personel.neshan}"/>
+                                            </p:column>
+                                            <p:column headerText="تاریخ/ساعت شروع">
+                                                <h:outputLabel value="#{dataTable.tarikhShoro}"/>
+                                                <h:outputLabel value="#{dataTable.saatShoro}"/>
+                                            </p:column>
+                                            <p:column headerText="تاریخ/ساعت پایان">
+                                                <h:outputLabel value="#{dataTable.tarikhPayan}"/>
+                                                <h:outputLabel value="#{dataTable.saatEnd}"/>
+                                            </p:column>
+                                            <p:column headerText="مدت">
+                                                <h:outputLabel value="#{dataTable.modat}"/>
+                                            </p:column>
+                                            <p:column headerText="تمدید">
+                                                <h:outputLabel value="#{dataTable.tamdid}"/>
+                                            </p:column>
+                                            <p:column headerText="نوع ماموریت">
+                                                <h:outputLabel value="#{dataTable.noeMamoriyat.title}"/>
+                                            </p:column>
+                                            <p:column headerText="محل ماموریت">
+                                                <h:outputLabel value="#{dataTable.mahaleMamoriyat}"/>
+                                            </p:column>
+
+                                        </p:dataTable>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+
+        </div>
+        <h:form id="dilForm" prependId="false">
+            <p:dialog header="حذف" closable="true" widgetVar="dialogDel" height="100" width="500"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+                <h4></h4>
+                <div class="row">
+                    <div>آیا از حذف این اطلاعات مطمئنید؟</div>
+                </div>
+
+                <div class="footer">
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="خیر"
+                                     onsuccess="PF('dialogDel').hide()"
+                                     update="formA"/>
+                    <p:commandButton styleClass="btn bg-success" value="بله"
+                                     actionListener="#{savabeghMamoriyatRozaneBean.delete}"
+                                     onsuccess="PF('dialogDel').hide()"
+                                     update="aTable mask"/>
+                </div>
+            </p:dialog>
+        </h:form>
+
+        <h:form prependId="false" id="mask">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.date').mask('9999/99/99');
+                });
+
+                $(document).ready(function () {
+                    $('.currency').mask('999,999,999');
+                });
+
+                $(document).ready(function () {
+                    $('.time').mask('99:99');
+                });
+            </script>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,159 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">درجه</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="searchForm" prependId="false">
+                        <div>
+                            <br/>
+                            <div class="row" data-step="2" data-intro="جهت مشاده سوابق، میتوانید از طریق فیلترهای زیر اقدام نمایید.">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field2-1" styleClass="control-label" value="فعالیت:"/>
+                                        <h:selectOneMenu id="field2-1" styleClass="form-control"
+                                                         value="#{logHistoryBean.activeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItem itemLabel="ایجاد" itemValue="ایجاد"/>
+                                            <f:selectItem itemLabel="ویرایش" itemValue="ویرایش"/>
+                                            <f:selectItem itemLabel="حذف" itemValue="حذف"/>
+                                            <f:selectItem itemLabel="پیمایش" itemValue="پیمایش"/>
+                                            <f:selectItem itemLabel="ورود به سامانه" itemValue="ورود به سامانه"/>
+                                            <f:selectItem itemLabel="خروج از سامانه" itemValue="خروج از سامانه"/>
+                                            <f:selectItem itemLabel="ورود ناموفق" itemValue="ورود ناموفق"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field2-2" styleClass="control-label" value="تاریخ از:"/>
+                                        <h:inputText value="#{logHistoryBean.tarikhAz}" id="field2-2" styleClass="form-control date" placeholder="تاریخ"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field2-3" styleClass="control-label" value="تاریخ تا:"/>
+                                        <h:inputText value="#{logHistoryBean.tarikhTa}" id="field2-3" styleClass="form-control date" placeholder="تاریخ"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field2-4" styleClass="control-label" value="شماره پرسنلی:"/>
+                                        <h:inputText value="#{logHistoryBean.shp}" id="field2-4" styleClass="form-control"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;" placeholder="شماره پرسنلی"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field2-5" styleClass="control-label" value="نام کاربری:"/>
+                                        <h:inputText value="#{logHistoryBean.user}" id="field2-5" styleClass="form-control" placeholder="نام کاربری"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="field2-5" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                            <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                             style="width: 100%"
+                                                             rendered="#{logHistoryBean.readPermission}"
+                                                             actionListener="#{logHistoryBean.search}"
+                                                             update="searchForm mask"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+                            kamaDatepicker('field2-2', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                            kamaDatepicker('field2-3', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                        </script>
+
+                        <div data-step="3" data-intro="سوابق جستجو شده، در این قسمت نمایش داده خواهد شد.">
+                            <p:dataTable id="tableSTP" value="#{logHistoryBean.savabegh}"
+                                         emptyMessage="داده ای وجود ندارد"
+                                         scrollable="true"
+                                         styleClass="table" var="dataTable" editable="true"
+                                         paginator="true" rows="15" style="margin-top: 20px;">
+                                <p:column headerText="نام کاربری" style="width: 110px;">
+                                    <h:outputLabel value="#{dataTable.user.userName}"/>
+                                </p:column>
+                                <p:column headerText="شماره پرسنلی">
+                                    <h:outputLabel value="#{dataTable.user.personel.shomarePersoneli}"/>
+                                </p:column>
+                                <p:column headerText="نام و نام خانوادگی">
+                                    <h:outputLabel value="#{dataTable.user.personel.name} #{dataTable.user.personel.neshan}"/>
+                                </p:column>
+                                <p:column headerText="درجه">
+                                    <h:outputLabel value="#{dataTable.user.personel.daraje.title}"/>
+                                </p:column>
+                                <p:column headerText="تاریخ">
+                                    <h:outputLabel value="#{dataTable.date}"/>
+                                </p:column>
+                                <p:column headerText="زمان">
+                                    <h:outputLabel value="#{dataTable.time}"/>
+                                </p:column>
+                                <p:column headerText="فعالیت">
+                                    <h:outputLabel value="#{dataTable.action}"/>
+                                </p:column>
+                                <p:column headerText="فرم">
+                                    <h:outputLabel value="#{dataTable.form.title}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
+                    </h:form>
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                </div>
+            </div>
+
+        </div>
+
+        <h:form prependId="false" id="mask">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.date').mask('9999/99/99');
+                });
+
+                $(document).ready(function () {
+                    $('.currency').mask('999,999,999');
+                });
+
+                $(document).ready(function () {
+                    $('.time').mask('99:99');
+                });
+            </script>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

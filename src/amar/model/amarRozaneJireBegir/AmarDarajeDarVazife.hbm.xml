@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="dataBaseModel.baseTable">
+    <class name="amar.model.amarRozaneJireBegir.AmarDarajeDarVazife" table="a_AmarDarajeDarVazife" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <property name="nEdeKol"/>
+        <property name="nMorakhasi"/>
+        <property name="nBastari"/>
+        <property name="nNahast"/>
+        <property name="nFarar"/>
+        <property name="nBazdasht"/>
+        <property name="nMontazerBekhedmat"/>
+        <property name="nMamorAzEde"/>
+        <property name="nJameMotafareghe"/>
+        <property name="nMamorBeEde"/>
+        <property name="nJameHazer"/>
+        <property name="nSobhane"/>
+        <property name="nNahar"/>
+        <property name="nSham"/>
+        <property name="sharh"/>
+
+    </class>
+</hibernate-mapping>

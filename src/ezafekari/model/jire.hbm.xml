@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="ezafekari.model" >
+    <class name="Jire" table="ez_jire" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <property name="mah"/>
+        <property name="sal"/>
+        <property name="rooz"/>
+        <property name="tedadjire"/>
+        <many-to-one name="personel" class="amar.model.Personel"/>
+        <many-to-one name="dayere" class="dataBaseModel.baseTable.Dayere"/>
+        <many-to-one name="bakhsh" class="dataBaseModel.baseTable.Bakhsh"/>
+    </class>
+</hibernate-mapping>

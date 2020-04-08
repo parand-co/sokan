@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2020-03-05T10:13:31 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MizBoodjeh" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="18e04064-3cc6-4010-8496-13be3cf8aebd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="month" class="java.lang.String"/>
+	<parameter name="emzaFar" class="java.lang.String"/>
+	<parameter name="emzaEzafe" class="java.lang.String"/>
+	<parameter name="emzaDayere" class="java.lang.String"/>
+	<parameter name="emzaBazresi" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.String"/>
+	<field name="persName" class="java.lang.String"/>
+	<field name="persCode" class="java.lang.String"/>
+	<field name="yegan" class="java.lang.String"/>
+	<field name="modat" class="java.lang.String"/>
+	<field name="makhaz" class="java.lang.String"/>
+	<field name="mablagh" class="java.lang.String"/>
+	<field name="accNum" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="114" y="32" width="315" height="20" uuid="054d033b-66d5-4fd9-af3f-89a07fd99303"/>
+				<textElement textAlignment="Center">
+					<font fontName="a111" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[فرم پیش سند]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="8" width="74" height="20" uuid="cb95a19d-86a9-45d3-8f2a-1717b5d669c3"/>
+				<textElement textAlignment="Center">
+					<font fontName="a111" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[بسمه تعالی]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="53" width="155" height="20" uuid="95eea57a-30fa-45fa-8fae-1834ff5d74d7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="a111" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[سند اضافه کاری مربوط به ماه]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="53" width="55" height="19" uuid="18f9b87e-67df-484f-a815-dc9097a68496"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25">
+			<staticText>
+				<reportElement x="520" y="5" width="33" height="20" uuid="e1408b58-28ad-4ea2-8bd6-ab0fac4412f5">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ردیف]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="5" width="64" height="20" uuid="4856caf6-43b6-400b-8296-eebcad6bbff7">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[     شماره پرسنلی]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="5" width="60" height="20" uuid="1578b7ce-0f0e-4c03-8adb-8168503abe8a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[نام و نام خانوادگی]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="5" width="60" height="20" uuid="f292a649-76c6-43a6-83ef-503448a3c960"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[یگان/ قسمت]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="5" width="60" height="20" uuid="88fd158b-d1a5-4adb-8bda-d0d18ee160c4"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[مبلغ کل]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="5" width="66" height="20" uuid="cd4d71c3-c359-443f-a864-3d665ca26212">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[مبنای پرداخت]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="5" width="70" height="20" uuid="44f07a4a-2c37-42a5-a95f-5c15923b676c">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[جمع ساعت]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="5" width="70" height="20" uuid="9cf104fc-e70d-444e-89a8-ae91562cdf84"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[شماره حساب]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="5" width="70" height="20" uuid="49d7b311-1322-4153-bfd0-ae166a4886e8"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[دستورات فرماندهی]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="520" y="1" width="33" height="23" uuid="cf26dff9-7221-4e7c-87d5-db055d7e6f34"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="8"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="461" y="1" width="59" height="23" uuid="6fa151a0-beef-48bb-a010-3e9762f6a405"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="8"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{persName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="396" y="0" width="64" height="24" uuid="4a044ad1-374f-4287-8fa2-faa924a0eee1">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="8" isBold="false"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{persCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="336" y="0" width="60" height="24" uuid="635e209f-87fd-4e86-956d-ae795cb7706c"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="8"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{yegan}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="266" y="1" width="70" height="23" uuid="c78e1450-f2bd-4aea-8b82-63a56bd4a28c"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="0.75" tabStopWidth="80"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modat}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="200" y="0" width="66" height="24" uuid="84a42211-434b-45e5-a704-26080087aa73"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="0.75" tabStopWidth="80"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{makhaz}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1" width="60" height="23" uuid="08684ae3-6c6a-45da-b7ba-4d742ec77477"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="0.75" tabStopWidth="80"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mablagh}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="0" width="70" height="24" uuid="4c7bf5c7-a9f8-4053-8c71-4ae686d105dd"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="7"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="0.75" tabStopWidth="80"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accNum}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="1" width="70" height="23" uuid="741d79be-7e75-4a45-8e74-f368856cc3e8"/>
+			</rectangle>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="66">
+			<textField>
+				<reportElement x="387" y="15" width="72" height="19" uuid="452cd997-1168-4e79-a171-7a1af1de4db4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{emzaEzafe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="461" y="15" width="94" height="20" uuid="1a40e127-03bf-4962-9198-80dd920d0261"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="a111" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[مسئول شعبه اضافه کاری]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="15" width="74" height="20" uuid="1ebfaba0-47f2-46ec-ba29-d5d0324f56af"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="a111" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[رئیس دایره]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="202" y="15" width="82" height="19" uuid="c479a381-9602-4a11-8167-a7fa686c3d31"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{emzaDayere}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="121" y="15" width="75" height="20" uuid="2608b343-599d-4b00-9685-33d891278894"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="a111" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[رئیس بازرسی]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="28" y="15" width="90" height="19" uuid="c6d653ed-c920-49ed-946c-ac10cf21144e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{emzaBazresi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="49" width="216" height="17" uuid="7fd574f6-a7e0-490f-8aae-23110b033042"/>
+				<textElement textAlignment="Right">
+					<font fontName="a111" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{emzaFar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="295" y="49" width="144" height="17" uuid="884d9591-c62f-4b61-b08d-7dd35c11d308"/>
+				<textElement textAlignment="Left">
+					<font fontName="a111" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[فرمانده کارخانجات نداجا - بندرعباس :]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

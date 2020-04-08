@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" >
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+
+        <!--ahmadi-->
+        <!--<property name="hibernate.connection.url">ENC(GdkmGJJpsoJ+T0BMj+EFgUgFtc3sd533mqDpn6L6rBQTOSNlP5S93gSi3V6Q0T+JRYmCGXVr5iAXCeKzIVJeIbz5PVCp24DGzOD3ZUpDFb4=)</property>-->
+        <!--<property name="hibernate.connection.username">ENC(YFgtBO8oySVCqYTykAVICQ==)</property>-->
+        <!--<property name="hibernate.connection.password">ENC(Mv1BXpThc3BFtLMYr+6SFQ==)</property>-->
+
+
+        <!--hashemi-->
+        <property name="hibernate.connection.url">ENC(GdkmGJJpsoJ+T0BMj+EFgUgFtc3sd533mqDpn6L6rBQTOSNlP5S93gSi3V6Q0T+JRYmCGXVr5iAXCeKzIVJeIbz5PVCp24DGzOD3ZUpDFb4=)</property>
+        <property name="hibernate.connection.username">ENC(zjKR9Rp7sdT5/2xYPUE1eA==)</property>
+        <property name="hibernate.connection.password">ENC(s8Xyu/gYLQ/OdKFEbJKvPQ==)</property>
+
+        <!--server-->
+        <!--<property name="hibernate.connection.url">ENC(Mk1YVB22QiHJsNoQnAIPB0rjiLWVY4ELMdIoV54A8h7Tg62fVOyO6F/ciuGV9c9OUVJHA1c1LmsCvTxKRXXz48a8qm5NT82IWkfffhn4C00=)</property>-->
+        <!--<property name="hibernate.connection.username">ENC(rTQRS/kHMxHFJGxJOJKLRQ==)</property>-->
+        <!--<property name="hibernate.connection.password">ENC(MrqOMfpLlh2mp0W76claAg==)</property>-->
+
+
+        <property name="hibernate.connection.pool_size">1000</property>
+
+        <!--<property name="hbm2ddl.auto">update</property>-->
+
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.autocommit">false</property>
+        <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+
+        <mapping resource="dataBaseModel/baseTable/paygah.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/bakhsh.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/daraje.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/dayere.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/dayType.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/fMostaghel.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/goroh.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/hoviat.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/jensiyat.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/madrak.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/mojavezRozane.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/mojavezSaati.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/noeEstekhdam.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/raste.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/semat.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/tabaghe.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/taghvim.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/takhasos.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/vazeyatTaahol.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/yegan.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/VazeyatMorakhasi.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/NoeMorakhasi.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/Month.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/TypeHokmeKar.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/ArjaiyatHokmeKar.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/VaziyatAnjamHokmeKar.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/AnjamDahandeHokmeKar.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/TypeKarHokmeKar.hbm.xml"/>
+        <mapping resource="dataBaseModel/baseTable/VazeyatHokmKar.hbm.xml"/>
+
+        <!--authentication-->
+        <mapping resource="dataBaseModel/authentication/form/Form.hbm.xml"/>
+        <mapping resource="dataBaseModel/authentication/module/Module.hbm.xml"/>
+        <mapping resource="dataBaseModel/authentication/permission/Permission.hbm.xml"/>
+        <mapping resource="dataBaseModel/authentication/subPermission/SubPermission.hbm.xml"/>
+        <mapping resource="dataBaseModel/authentication/user/User.hbm.xml"/>
+        <mapping resource="dataBaseModel/authentication/role/Role.hbm.xml"/>
+        <mapping resource="dataBaseModel/authentication/user/UserQuestion.hbm.xml"/>
+
+        <!--logHistory-->
+        <mapping resource="dataBaseModel/baseTable/LogHistory.hbm.xml"/>
+
+        <!--amar-->
+        <mapping resource="amar/model/SavabeghAmarJireBegirRozane.hbm.xml"/>
+        <mapping resource="amar/model/Personel.hbm.xml"/>
+        <mapping resource="amar/model/ZirNeviseGozareshat.hbm.xml"/>
+        <mapping resource="amar/model/SavabeghJabejaeeGorohKari.hbm.xml"/>
+        <mapping resource="amar/model/SavabeghMojavezeSaati.hbm.xml"/>
+        <mapping resource="amar/model/SavabeghTaradod.hbm.xml"/>
+        <mapping resource="amar/model/taraddod.hbm.xml"/>
+
+        <mapping resource="amar/model/amarRozaneJireBegir/AmarAfsaranYekVaDo.hbm.xml"/>
+        <mapping resource="amar/model/amarRozaneJireBegir/AmarAfsaranSe.hbm.xml"/>
+        <mapping resource="amar/model/amarRozaneJireBegir/AmarDarajeDaran.hbm.xml"/>
+        <mapping resource="amar/model/amarRozaneJireBegir/AmarKarmandanElmi.hbm.xml"/>
+        <mapping resource="amar/model/amarRozaneJireBegir/AmarKarmandanTajrobi.hbm.xml"/>
+        <mapping resource="amar/model/amarRozaneJireBegir/AmarAfsarVazife.hbm.xml"/>
+        <mapping resource="amar/model/amarRozaneJireBegir/AmarDaneshjoVazife.hbm.xml"/>
+        <mapping resource="amar/model/amarRozaneJireBegir/AmarDarajeDarVazife.hbm.xml"/>
+        <mapping resource="amar/model/amarRozaneJireBegir/AmarNavi.hbm.xml"/>
+
+
+
+        <!--omorKoli-->
+        <mapping resource="omorkoliAndgharardadi/model/SavabeghEsterahatPezeshki.hbm.xml"/>
+        <mapping resource="omorkoliAndgharardadi/model/SavabeghMamoriyatRozane.hbm.xml"/>
+        <mapping resource="omorkoliAndgharardadi/model/SavabeghMashaghel.hbm.xml"/>
+        <mapping resource="omorkoliAndgharardadi/model/SavabeghMorakhasi.hbm.xml"/>
+        <mapping resource="omorkoliAndgharardadi/model/SavabeghNahast.hbm.xml"/>
+        <mapping resource="omorkoliAndgharardadi/model/SavabeghTabaghePezeshki.hbm.xml"/>
+
+
+        <!--ezafeKari-->
+        <mapping resource="ezafekari/model/ezafatoKosoorat.hbm.xml"/>
+        <mapping resource="ezafekari/model/emza.hbm.xml"/>
+        <mapping resource="ezafekari/model/ezafekari.hbm.xml"/>
+        <mapping resource="ezafekari/model/jire.hbm.xml"/>
+        <mapping resource="ezafekari/model/sanad.hbm.xml"/>
+
+        <!--dashboard-->
+        <mapping resource="dashboard/model/News.hbm.xml"/>
+        <mapping resource="dashboard/model/banner.hbm.xml"/>
+
+        <!--net.hokmeKar-->
+        <mapping resource="net/hokmeKar/model/sabthokmeKar.hbm.xml"/>
+
+
+
+
+    </session-factory>
+</hibernate-configuration>

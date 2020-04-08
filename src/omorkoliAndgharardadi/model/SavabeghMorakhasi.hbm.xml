@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="dataBaseModel.baseTable">
+    <class name="omorkoliAndgharardadi.model.SavabeghMorakhasi" table="a_SavabeghMorakhasi"
+           lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="personel"
+                     class="amar.model.Personel"/>
+        <many-to-one name="noeMorakhasi"
+                     class="NoeMorakhasi"/>
+        <many-to-one name="vazeyat"
+                     class="VazeyatMorakhasi"/>
+        <property name="tarikhShoro"/>
+        <property name="tarikhPayan"/>
+        <property name="modat"/>
+        <property name="tamdid"/>
+        <property name="tarikhSabt"/>
+        <property name="tedadEstehghaghi"/>
+        <property name="tedadTashvighi"/>
+        <property name="tedadTorahi"/>
+        <property name="tedadEstelaji"/>
+        <property name="tedadTatili"/>
+        <property name="tedadAshae"/>
+        <property name="tedadDaryanavardi"/>
+        <property name="tedadEnteghal"/>
+        <property name="shomareName"/>
+        <property name="tozihat"/>
+        <property name="tarikhName"/>
+        <many-to-one name="dayere"
+                     class="Dayere"/>
+        <many-to-one name="bakhsh"
+                     class="Bakhsh"/>
+    </class>
+</hibernate-mapping>

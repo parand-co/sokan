@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <style type="text/css">
+        body {
+            background: url('../resources/images/faliat.png') no-repeat center center fixed;
+            background-size: 100% 100%;
+        }
+
+    </style>
+
+    <h:outputScript library="js" name="farsitype.js"/>
+    <link rel="stylesheet" href="/resources/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/resources/css/style.css"/>
+</h:head>
+
+<h:body dir="RTL">
+    <h:form id="form_faliat" prependId="false">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+
+        <div style="margin-top: 4%; margin-right: auto; margin-left: auto ; width: 1000px; height: 600px; border: 2px solid #000; background:#c3c8ff;border-radius: 8px;">
+            <div style="margin-top: 1%; padding-right: 38%;">
+
+                <div>
+                    <p:outputLabel style="font-family: 'B Nazanin';font-weight: bold;">
+                        فرم ثبت ساعت فعالیت روزانه
+                    </p:outputLabel>
+                </div>
+                <div>
+                    <p:inputMask value="" id="pers_number" style="margin-top:15px;font-family: 'B Nazanin';font-weight: bold;"
+                                 mask="099999999" placeholder="شماره پرسنلی">
+                        <p:keyFilter regEx="/[0-9]/"/>
+                    </p:inputMask>
+
+                </div>
+
+                <div>
+                    <p:inputMask value="" id="persvorod_r" onfocus="getID(this)"
+                                 mask="9999/99/99" placeholder="تاریخ" style="margin-top:15px;font-family: 'B Nazanin';font-weight: bold;"/>
+                </div>
+                <div><p:inputText value="" id="repeat_pass"
+                                  placeholder="ساعت"
+                                  style="margin-top:15px;font-family: 'B Nazanin';font-weight: bold;"></p:inputText>
+                </div>
+                <div>
+                    <p:commandButton value="ثبت"
+                                     style="width: 198px;height:35px;font-family: 'B Nazanin';font-weight: bold;margin-top: 12px;background-color: #303e57;color: #fff;"/>
+                </div>
+            </div>
+            <div>
+                <p:dataTable id="tblfaliat" value="" var="listuser" paginator="true"
+                             rows="8"
+                             emptyMessage=""
+                             rowIndexVar="index" style="margin-top: 30px;font-family: 'B Nazanin';font-weight: bold;text-align: center;">
+
+                    <p:column headerText="ردیف" style="width: 60px;">
+                        <h:outputLabel value="#{index+1}"/>
+                    </p:column>
+
+                    <p:column headerText="شماره پرسنلی ">
+                        <h:outputLabel value=""/>
+                    </p:column>
+
+                    <p:column headerText="تاریخ ثبت">
+                        <h:outputLabel value=""/>
+                    </p:column>
+
+                    <p:column headerText="تعداد ساعت">
+                        <h:outputLabel value=""/>
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+
+        </div>
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="dataBaseModel.baseTable">
+    <class name="amar.model.Taraddod" table="a_taraddod" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+
+        <many-to-one name="personel" class="amar.model.Personel"/>
+        <many-to-one name="taghvim" class="Taghvim"/>
+        <many-to-one name="vaziat" class="MojavezRozane"/>
+        <property name="saat"/>
+        <property name="edited"/>
+        <property name="shomareDastgah"/>
+        <many-to-one name="goroh" class="Goroh"/>
+
+    </class>
+</hibernate-mapping>

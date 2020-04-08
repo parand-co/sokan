@@ -1,0 +1,420 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">سوابق مشاغل</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="searchForm" prependId="false">
+                        <div data-step="2" data-intro="جهت مشاده سوابق مشاغل سازمانی پرسنل، میتوانید از طریق فیلترهای زیر اقدام نمایید.">
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shpersoneli" styleClass="control-label" value="شماره پرسنلی:"/>
+                                        <h:inputText id="shpersoneli" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.shpSearch}" maxlength="9"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shcodemeli" styleClass="control-label" value="کد ملی:"/>
+                                        <h:inputText id="shcodemeli" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.codeMeliSearch}" maxlength="10"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shkart" styleClass="control-label" value="شماره کارت:"/>
+                                        <h:inputText id="shkart" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.cartNumberSearch}" maxlength="4"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="nameSearch" styleClass="control-label" value="نام:"/>
+                                        <h:inputText id="nameSearch" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.nameSearch}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshanSearch" styleClass="control-label" value="نشان:"/>
+                                        <h:inputText id="neshanSearch" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.familySearch}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="daraje_id" styleClass="control-label" value="درجه:"/>
+                                        <h:selectOneMenu id="daraje_id" styleClass="form-control"
+                                                         value="#{savabeghMashaghelSazmaniBean.darajeCodeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{savabeghMashaghelSazmaniBean.darajes}" var="daraje"
+                                                           itemValue="#{daraje.id}"
+                                                           itemLabel="#{daraje.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="yegan_id" styleClass="control-label" value="یگان خدمتی:"/>
+                                        <h:selectOneMenu id="yegan_id" styleClass="form-control"
+                                                         value="#{savabeghMashaghelSazmaniBean.yeganCodeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{savabeghMashaghelSazmaniBean.series}" var="yegan"
+                                                           itemValue="#{yegan.id}"
+                                                           itemLabel="#{yegan.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="dayere_id" styleClass="control-label" value="دایره:"/>
+                                        <h:selectOneMenu id="dayere_id" styleClass="form-control"
+                                                         value="#{savabeghMashaghelSazmaniBean.dayereCodeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{savabeghMashaghelSazmaniBean.dayeres}" var="dayere"
+                                                           itemValue="#{dayere.id}"
+                                                           itemLabel="#{dayere.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <h:outputLabel for="rtaeed" styleClass="control-label" value="شاغل در:"/>
+                                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                            <p:selectOneRadio id="vaziyat" value="#{savabeghMashaghelSazmaniBean.vaziyatSearch}">
+                                                <f:selectItem itemLabel="داخل کاخانجات" itemValue="1" />
+                                                <f:selectItem itemLabel="خارج کارخانجات" itemValue="2" />
+                                                <f:selectItem itemLabel="هردو" itemValue="3" />
+                                            </p:selectOneRadio>
+                                        </h:panelGrid>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="dayere_id" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                            <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                             style="width: 100%"
+                                                             rendered="#{savabeghMashaghelSazmaniBean.readPermission}"
+                                                             actionListener="#{savabeghMashaghelSazmaniBean.search}"
+                                                             update="searchForm mask"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-step="3" data-intro="سوابق مشاغل سازمانی جستجو شده، در این قسمت نمایش داده خواهد شد.">
+                            <p:dataTable id="tableSTP" value="#{savabeghMashaghelSazmaniBean.savabegh}"
+                                         emptyMessage="داده ای وجود ندارد"
+                                         scrollable="true"
+                                         styleClass="table" var="dataTable" editable="true"
+                                         paginator="true" rows="15" style="margin-top: 20px;">
+                                <p:column headerText="نمایش" style="width: 60px;" rendered="#{savabeghMashaghelSazmaniBean.readPermission}">
+                                    <div data-step="4" data-intro="جهت ویرایش نمودن اطلاعات، بر روی این گزینه کلیک نمایید و در فرم پایین صفحه اقدام به ویرایش اطلاعات نمایید.">
+                                        <p:commandButton icon="ui-icon-eye" actionListener="#{savabeghMashaghelSazmaniBean.dispach(dataTable)}" update="saveForm mask"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="شماره پرسنلی" style="width: 110px;">
+                                    <h:outputLabel id="shpV" value="#{dataTable.personel.shomarePersoneli}"/>
+                                </p:column>
+                                <p:column headerText="شماره کارت">
+                                    <h:outputLabel value="#{dataTable.personel.shomareKart}"/>
+                                </p:column>
+                                <p:column headerText="کد ملی">
+                                    <h:outputLabel value="#{dataTable.personel.codeMeli}"/>
+                                </p:column>
+                                <p:column headerText="نام">
+                                    <h:outputLabel value="#{dataTable.personel.name}"/>
+                                </p:column>
+                                <p:column headerText="نشان">
+                                    <h:outputLabel value="#{dataTable.personel.neshan}"/>
+                                </p:column>
+                                <p:column headerText="تاریخ انتصاب">
+                                    <h:outputLabel value="#{dataTable.tarikhEntesab}"/>
+                                </p:column>
+                                <p:column headerText="تاریخ انفصال">
+                                    <h:outputLabel value="#{dataTable.tarikhEnfesal}"/>
+                                </p:column>
+                                <p:column headerText="دایره">
+                                    <h:outputLabel value="#{dataTable.dayere.title}"/>
+                                </p:column>
+                                <p:column headerText="بخش">
+                                    <h:outputLabel value="#{dataTable.bakhsh.title}"/>
+                                </p:column>
+                                <p:column headerText="سری">
+                                    <h:outputLabel value="#{dataTable.seri}"/>
+                                </p:column>
+                                <p:column headerText="بند">
+                                    <h:outputLabel value="#{dataTable.band}"/>
+                                </p:column>
+                                <p:column headerText="سطر">
+                                    <h:outputLabel value="#{dataTable.satr}"/>
+                                </p:column>
+                                <p:column headerText="عنوان شغل سازمانی">
+                                    <h:outputLabel value="#{dataTable.titleShoghlSazmani}"/>
+                                </p:column>
+                                <p:column headerText="عنوان شغل عملی">
+                                    <h:outputLabel value="#{dataTable.titleShoghlAmali}"/>
+                                </p:column>
+                                <p:column headerText="شاغل در">
+                                    <h:outputLabel value="#{savabeghMashaghelSazmaniBean.checkVaziyat(dataTable.vazeyatShagheli)}"/>
+                                </p:column>
+                                <p:column headerText="حذف" style="width: 60px;" rendered="#{savabeghMashaghelSazmaniBean.deletePermission}">
+                                    <div data-step="5" data-intro="جهت حذف سوابق، بر روی این گزینه کلیک نمایید.">
+                                        <p:commandButton icon="ui-icon-trash" styleClass="bg-danger" actionListener="#{savabeghMashaghelSazmaniBean.startDelete(dataTable)}" onclick="PF('delete_dlg').show()"/>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </h:form>
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">ثبت مشاغل سازمانی</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="saveForm" prependId="false">
+                        <div data-step="6" data-intro="جهت ثبت و ویرایش اطلاعات سوابق مشاغل سازمانی، از این قسمت اقدام نمایید.">
+                            <div class="row">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group" data-step="7" data-intro="جهت جستجوی پرسنل با شماره پرسنلی از این قسمت اقدام نمایید.">
+                                            <h:outputLabel for="shp" styleClass="control-label" value="شماره پرسنلی:"/>
+                                            <h:inputText id="shp" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.shp}" maxlength="9"
+                                                         disabled="#{savabeghMashaghelSazmaniBean.edited}"
+                                                         onkeyup="kavosh(this.value.length, 1);"
+                                                         onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                            <h:commandButton id="kep" style="display: none">
+                                                <f:ajax execute="saveForm" listener="#{savabeghMashaghelSazmaniBean.findPersonel}"
+                                                        render="saveForm mask"/>
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group" data-step="8" data-intro="جهت جستجوی پرسنل با کدملی از این قسمت اقدام نمایید.">
+                                            <h:outputLabel for="cm" styleClass="control-label" value="کدملی:"/>
+                                            <h:inputText id="cm" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.cm}" maxlength="10"
+                                                         disabled="#{savabeghMashaghelSazmaniBean.edited}"
+                                                         onkeyup="kavosh1(this.value.length, 1);"
+                                                         onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                            <h:commandButton id="kep1" style="display: none">
+                                                <f:ajax execute="saveForm" listener="#{savabeghMashaghelSazmaniBean.findPersonel}"
+                                                        render="saveForm mask"/>
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <br/>
+                                        <br/>
+                                        <h:outputLabel for="shp" styleClass="control-label" value="#{savabeghMashaghelSazmaniBean.moshakhasat}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-step="9" data-intro="اطلاعات سوابق مشاغل سازمانی را میتوانید در فیلدهای زیر وارد یا ویرایش نمایید.">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="dayere_ids" styleClass="control-label" value="دایره:"/>
+                                            <h:selectOneMenu id="dayere_ids" styleClass="form-control"
+                                                             value="#{savabeghMashaghelSazmaniBean.dayereCode}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{savabeghMashaghelSazmaniBean.dayeres}" var="dayeres"
+                                                               itemValue="#{dayeres.code}"
+                                                               itemLabel="#{dayeres.title}"/>
+                                                <f:ajax listener="#{savabeghMashaghelSazmaniBean.fillBakhsh(savabeghMashaghelSazmaniBean.dayereCode)}"
+                                                        render="bakhsh_ids"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="bakhsh_ids" styleClass="control-label" value="بخش:"/>
+                                            <h:selectOneMenu id="bakhsh_ids" styleClass="form-control"
+                                                             value="#{savabeghMashaghelSazmaniBean.bakhshCode}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{savabeghMashaghelSazmaniBean.bakhshes}" var="bakhshes"
+                                                               itemValue="#{bakhshes.code}"
+                                                               itemLabel="#{bakhshes.title}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-5" styleClass="control-label" value="تاریخ انتصاب:"/>
+                                            <h:inputText value="#{savabeghMashaghelSazmaniBean.tarikhEntesab}" id="field2-5" styleClass="form-control date" placeholder="تاریخ"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-6" styleClass="control-label" value="تاریخ انفصال:"/>
+                                            <h:inputText value="#{savabeghMashaghelSazmaniBean.tarikhEnfesal}" id="field2-6" styleClass="form-control date" placeholder="تاریخ"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-1" styleClass="control-label" value="عنوان شغل سازمانی:"/>
+                                            <h:inputText id="field2-1" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.onvaneShoghlSazmani}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-2" styleClass="control-label" value="عنوان شغل عملی:"/>
+                                            <h:inputText id="field2-2" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.onvaneShoghlAmali}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="seri_ids" styleClass="control-label" value="سری:"/>
+                                            <h:inputText id="seri_ids" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.seriTitle}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-3" styleClass="control-label" value="بند:"/>
+                                            <h:inputText value="#{savabeghMashaghelSazmaniBean.band}" id="field2-3" styleClass="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-4" styleClass="control-label" value="سطر:"/>
+                                            <h:inputText value="#{savabeghMashaghelSazmaniBean.satr}" id="field2-4" styleClass="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="daraje_shoghl" styleClass="control-label" value="درجه شغل:"/>
+                                            <h:selectOneMenu id="daraje_shoghl" styleClass="form-control"
+                                                             value="#{savabeghMashaghelSazmaniBean.darajeCode}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{savabeghMashaghelSazmaniBean.darajes}" var="darajec"
+                                                               itemValue="#{darajec.code}"
+                                                               itemLabel="#{darajec.title}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-8" styleClass="control-label" value="شاغل در داخل کارخانجات:"/>
+                                            <h:selectBooleanCheckbox id="field2-8" styleClass="form-control" value="#{savabeghMashaghelSazmaniBean.vaziyat}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="field2-8" class="control-label"> </label>
+                                            <span class="input-group-btn">
+                                        <p:commandButton value="ذخیره" styleClass="btn bg-success"
+                                                         style="width: 100%"
+                                                         rendered="#{!savabeghMashaghelSazmaniBean.edited}"
+                                                         disabled="#{!savabeghMashaghelSazmaniBean.createPermission}"
+                                                         actionListener="#{savabeghMashaghelSazmaniBean.save}"
+                                                         update="saveForm searchForm mask"/>
+                                    </span>
+
+                                            <span class="input-group-btn">
+                                        <p:commandButton value="ویرایش" styleClass="btn bg-success"
+                                                         rendered="#{savabeghMashaghelSazmaniBean.edited}"
+                                                         disabled="#{!savabeghMashaghelSazmaniBean.updatePermission}"
+                                                         actionListener="#{savabeghMashaghelSazmaniBean.edit}"
+                                                         update="saveForm searchForm mask"/>
+                                        <p:commandButton value="انصراف" styleClass="btn bg-danger"
+                                                         rendered="#{savabeghMashaghelSazmaniBean.edited}"
+                                                         actionListener="#{savabeghMashaghelSazmaniBean.nuller}"
+                                                         update="saveForm searchForm mask"/>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            kamaDatepicker('field2-5', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                            kamaDatepicker('field2-6', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                        </script>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+        <p:dialog header="حذف" widgetVar="delete_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از حذف اطلاعات اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{savabeghMashaghelSazmaniBean.delete}" update="searchForm mask" oncomplete="PF('delete_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{savabeghMashaghelSazmaniBean.cancelDelete}" oncomplete="PF('delete_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+        <h:form prependId="false" id="mask">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.date').mask('9999/99/99');
+                });
+
+                $(document).ready(function () {
+                    $('.currency').mask('999,999,999');
+                });
+
+                $(document).ready(function () {
+                    $('.time').mask('99:99');
+                });
+            </script>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

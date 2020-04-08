@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2020-03-05T11:25:36 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MizBoodjeh" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="18e04064-3cc6-4010-8496-13be3cf8aebd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="makhaz" class="java.lang.String"/>
+	<parameter name="bankName" class="java.lang.String"/>
+	<parameter name="mahVaSal" class="java.lang.String"/>
+	<parameter name="shomarehMadrak" class="java.lang.String"/>
+	<parameter name="tarekh" class="java.lang.String"/>
+	<parameter name="motesadiTanzem" class="java.lang.String"/>
+	<parameter name="sarparastDastoor" class="java.lang.String"/>
+	<parameter name="raiesNirooEnsani" class="java.lang.String"/>
+	<parameter name="afsar" class="java.lang.Integer"/>
+	<parameter name="darejehDar" class="java.lang.Integer"/>
+	<parameter name="karMand" class="java.lang.Integer"/>
+	<parameter name="bazNeshasteh" class="java.lang.Integer"/>
+	<parameter name="roozMozd" class="java.lang.Integer"/>
+	<parameter name="hesabBodjehe" class="java.lang.Integer"/>
+	<parameter name="radif" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="252" splitType="Stretch">
+			<staticText>
+				<reportElement x="469" y="9" width="76" height="20" uuid="054d033b-66d5-4fd9-af3f-89a07fd99303"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[بسمه تعالی]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="11" width="58" height="18" uuid="d474c6d3-7170-4ffc-924f-849db06f3971"/>
+				<textElement textAlignment="Right">
+					<font fontName="a111"/>
+				</textElement>
+				<text><![CDATA[دستور (     )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="56" width="542" height="34" uuid="07ecc9ed-d4f1-494d-9c36-15b099109bb8"/>
+				<textElement textAlignment="Right">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<text><![CDATA[به استناد دستور العمل اجرایی ماده 150 قانون آجا تعداد پرسنل مشروحه ذیل جمعی یگان کارخانجات که در ساعت خارج از وقت اداری حق استفاده از 1/176 حقوق ثابت و مزایای شغل را به عنوان اضافه کاری دارند ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="468" y="36" width="75" height="20" uuid="bee41aac-a1d2-4f47-9d09-d5648ba3a7ee"/>
+				<textElement textAlignment="Right">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<text><![CDATA[ماده (12)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="468" y="93" width="75" height="20" uuid="d2e9ebfd-d912-4abe-8e39-f31345629a9b"/>
+				<textElement textAlignment="Right">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<text><![CDATA[پروژه کارخانجات]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="118" width="60" height="24" uuid="09ae1402-375d-4e0a-9273-7bb1cf8f9f63">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<text><![CDATA[ماه و سال]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="198" y="118" width="57" height="24" uuid="30a50237-e42c-4eee-9912-2ef29a86a38b">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[روزمزد]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="118" width="55" height="24" uuid="93d47e6d-afa8-4f15-a717-33c6b56ff721">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<text><![CDATA[افسر]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="118" width="76" height="24" uuid="3cd2618d-7d41-4abc-807f-4a609838236f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[حساب بودجه ای]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="118" width="78" height="24" uuid="ecf1759c-92d0-4b51-ab6c-36f28a632e6c">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<text><![CDATA[درجه دار]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="118" width="34" height="24" uuid="0a1e3400-2966-469b-ac31-da20f2fed845">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<text><![CDATA[ردیف]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-8" y="118" width="70" height="24" uuid="b37b4785-def7-4a76-9121-4dc87080a6b2">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[نام بانک]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="118" width="66" height="24" uuid="24b5a44f-acd1-4643-bd0f-7b134ff459e9">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<text><![CDATA[بازنشسته]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="118" width="56" height="24" uuid="06e4b61c-98e5-4ebb-ab94-cbf52465c253">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<text><![CDATA[کارمند]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="455" y="143" width="55" height="21" uuid="aee5ebf8-9329-4381-95dc-cf5400690215"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{afsar}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="-8" y="143" width="70" height="21" uuid="d9ef6bba-d599-433d-9bba-4eebc8beabd0">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="8" isBold="false"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bankName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="321" y="143" width="56" height="21" uuid="13202eb7-131a-44be-a4c5-2d9a6e6a579b">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="8" isBold="false"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{karMand}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="510" y="143" width="34" height="21" uuid="39590be1-c2d8-42f0-8df4-585f552e6381"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{radif}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="255" y="143" width="66" height="21" uuid="f327f160-f772-4578-bc79-7fd4f85c0027"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bazNeshasteh}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="377" y="142" width="78" height="22" uuid="0088fe78-f6bc-405e-b9dc-973950b3c09a"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="8"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{darejehDar}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="138" y="142" width="60" height="22" uuid="e3db2114-1f33-4fc4-a688-4e2a6de5c7db">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="8" isBold="false"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mahVaSal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="198" y="143" width="57" height="21" uuid="8cb22ee5-46f3-4f6e-a075-78fc84d1a3f4"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="8"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{roozMozd}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="271" y="236" width="202" height="16" uuid="b1f327b7-ae88-4ec1-98e6-31f5999b4dbd"/>
+				<textElement>
+					<font fontName="a111" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[رئیس نیرو انسانی منطقه یکم امامت نداجا :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="29" y="235" width="236" height="16" uuid="ce536261-166d-4c8f-a095-8658af0a9b58"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="a111" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{raiesNirooEnsani}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="436" y="212" width="77" height="16" uuid="fab25682-8e47-493e-8a1a-6bdf0f2bf573"/>
+				<textElement textAlignment="Left">
+					<font fontName="a111" size="10"/>
+				</textElement>
+				<text><![CDATA[متصدی تنظیم : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="212" width="170" height="16" uuid="b6154f76-e64a-4d62-9899-e86a807568e7"/>
+				<textElement textAlignment="Left">
+					<font fontName="a111" size="10"/>
+				</textElement>
+				<text><![CDATA[سرپرست شعبه دستور منطقه یکم نداجا :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="185" width="77" height="16" uuid="5754a316-d4a0-44a2-a0a6-f496ac24978a"/>
+				<textElement textAlignment="Left">
+					<font fontName="a111" size="10"/>
+				</textElement>
+				<text><![CDATA[شماره مدرک : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="310" y="211" width="122" height="16" uuid="fe05f10f-0ab9-41c7-8392-bb724404029a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="a111" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motesadiTanzem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-2" y="211" width="122" height="16" uuid="555e6094-199e-494a-a470-3e693d0a5f7b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="a111" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motesadiTanzem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="291" y="185" width="52" height="16" uuid="cb25747b-0694-40cf-a463-c821488319ab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tarekh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="185" width="55" height="16" uuid="81facdaa-8b7b-4b22-b81d-c4c4813e296a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="a111" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{shomarehMadrak}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="62" y="142" width="76" height="22" uuid="bbde18f6-0688-4f27-95ca-ec3c5d65e9cd">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="a111" size="8" isBold="false"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hesabBodjehe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="346" y="185" width="40" height="16" uuid="3e4c7369-22e9-4b40-b806-8f03db14e784"/>
+				<textElement textAlignment="Right">
+					<font fontName="a111" size="10"/>
+				</textElement>
+				<text><![CDATA[به تاریخ :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="73" y="186" width="216" height="16" uuid="2c0eac11-a528-4542-a416-02797ad26985"/>
+				<textElement textAlignment="Right">
+					<font fontName="a111" size="10"/>
+				</textElement>
+				<text><![CDATA[نیرو انسانی کارخانجات نداجا - بندرعباس]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

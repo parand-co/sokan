@@ -1,0 +1,720 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <div class="row">
+            <div class="row" data-step="2"
+                 data-intro="در این قسمت سوابق اطلاعاتی پرسنل قابل مشاهده می باشد و همچنین قابلیت سرچ در بالای هر ستون وجود دارد که هم به صورت تکی و یا گروهی کار می کنند">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white"> اطلاعات پرسنل (<h:outputLabel
+                                    style="background-color: #6c452b"
+                                    value="موجودی:#{personelBean.mojodi}---تعداد پرسنل نزدیک به انقضا-#{personelBean.countEngheza}"></h:outputLabel>)
+                            </h4>
+                            <h4 class="card-title" style="color: white"></h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="card-block">
+
+                            </div>
+                            <script type="text/javascript">
+
+                            </script>
+
+                            <h:form id="formT" prependId="false" enctype="multipart/form-data">
+                                <script type="text/javascript">
+                                    function updateEngheza() {
+                                        if (dataTable.tarikhEngheza !== '') {
+                                            document.getElementById('').click()
+                                        }
+                                    }
+                                </script>
+                                <h:outputLabel value="#{personelBean.emroz}" id="emroz" style="display: none"/>
+                                <div class="table-responsive">
+                                    <p:dataTable id="tableP" value="#{personelBean.personelList}"
+                                                 rowHover="true"
+                                                 selectionMode="single"
+                                                 selection="#{personelBean.selectionTable}"
+                                                 rowKey="#{dataTable.id}"
+                                                 styleClass="table" var="dataTable"
+                                                 paginator="true" rows="10">
+                                        <p:ajax event="rowSelect" process="tableP" listener="#{personelBean.dispach}"
+                                                update="formT formV"/>
+                                        <div class="row" data-step="3"
+                                             data-intro="به منظور انجام ویرایش و حذف اطلاعات می بایست ابتدا بروی سطر مورد نظر کلیک نمایید و پس از آن اطلاعات به قسمت پایین ارسال می گردند و اگر شما دسترسی به قابلیت های ویرایش و حذف داشته باشین می توانید کلید های ویرایش و حذف را مشاهده بفرمایید">
+                                            <p:column id="shpC" headerText="شماره پرسنلی"
+                                                      sortBy="#{dataTable.shomarePersoneli}"
+                                                      filterBy="#{dataTable.shomarePersoneli}">
+                                                <h:outputLabel id="shpV" value="#{dataTable.shomarePersoneli}"/>
+                                            </p:column>
+                                            <p:column headerText="کدملی" sortBy="#{dataTable.shomarePersoneli}"
+                                                      filterBy="#{dataTable.codeMeli}">
+                                                <h:outputLabel value="#{dataTable.codeMeli}"/>
+                                            </p:column>
+                                            <p:column headerText="شماره کارت" sortBy="#{dataTable.shomarePersoneli}"
+                                                      filterBy="#{dataTable.shomareKart}">
+                                                <h:outputLabel value="#{dataTable.shomareKart}"/>
+                                            </p:column>
+                                            <p:column headerText="نام" id="namH" sortBy="#{dataTable.shomarePersoneli}"
+                                                      filterBy="#{dataTable.name}">
+                                                <h:outputLabel id="namV" value="#{dataTable.name}"/>
+                                            </p:column>
+                                            <p:column headerText="نشان" sortBy="#{dataTable.shomarePersoneli}"
+                                                      filterBy="#{dataTable.neshan}">
+                                                <h:outputLabel value="#{dataTable.neshan}"/>
+                                            </p:column>
+                                            <p:column headerText="نام پدر" filterBy="#{dataTable.namePedar}">
+                                                <h:outputLabel value="#{dataTable.namePedar}"/>
+                                            </p:column>
+                                            <p:column headerText="نوع استخدام" filterBy="#{dataTable.tarikhEstekhdam}">
+                                                <h:outputLabel value="#{dataTable.noeEstekhdam.title}"/>
+                                            </p:column>
+                                            <p:column headerText="تاریخ استخدام"
+                                                      filterBy="#{dataTable.tarikhEstekhdam}">
+                                                <h:outputLabel value="#{dataTable.tarikhEstekhdam}"/>
+                                            </p:column>
+                                            <p:column headerText="تاریخ انقضا" filterBy="#{dataTable.tarikhEngheza}">
+                                                <p:outputLabel style="#{personelBean.styleEngheza}"
+                                                               value="#{personelBean.checkEngheza(dataTable.tarikhEngheza)}"
+                                                               onchange="updateEngheza()" id="enghezaDate"/>
+                                            </p:column>
+                                            <p:column headerText="دایره" filterBy="#{dataTable.dayere.title}">
+                                                <h:outputLabel style="#{personelBean.styleEngheza}"
+                                                               value="#{dataTable.dayere.title}"/>
+                                            </p:column>
+                                            <p:column headerText="بخش" filterBy="#{dataTable.bakhsh.title}">
+                                                <h:outputLabel style="#{personelBean.styleEngheza}"
+                                                               value="#{dataTable.bakhsh.title}"/>
+                                            </p:column>
+                                        </div>
+                                    </p:dataTable>
+                                </div>
+                                <p:commandButton style="display: none" update="tableP"/>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class=" col-lg-12">
+                <div class="card">
+                    <h:form id="formV" prependId="false" enctype="multipart/form-data">
+                        <p:growl id="pgr" showDetail="true" showSummary="true" autoUpdate="true"/>
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">ثبت و ویرایش اطلاعات</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" data-step="4"
+                             data-intro="این قسمت به منظور ذخیره اطلاعات شخص جدید و یا ویرایش اطلاعات می باشد(فرآیند ذخیره در ادامه)">
+                            <div class="card-body">
+                                <script type="text/javascript">
+                                    function checkTextShp(shp) {
+                                        if (shp.length == 9) {
+                                            document.getElementById('btnCheck').click();
+                                        }
+
+                                    }
+
+                                    function checkTextShoKart(shp) {
+                                        if (shp.length == 4 || shp.length == 5) {
+                                            document.getElementById('btnCheck').click();
+                                        }
+
+                                    }
+
+                                    function checkMeleiCode(code) {
+                                        if (code.length == 10) {
+                                            document.getElementById('btnCheckMeliCode').click();
+                                        }
+
+                                    }
+
+                                </script>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <p:tabView id="tabS" prependId="false">
+                                            <p:tab title="استخدام">
+
+                                                <div class="row">
+                                                    <div class="row" data-step="5"
+                                                         data-intro="جهت ثبت اطلاعات شخص جدید ابتدا می بایست نوع پرسنل(نوع استخدام)شخص مشخص گرددوپس انتخاب نوع استخدام سامانه شماره کارت جدید برای شخص تولید می نماید(اگر شخص قراردادی باشد سیستم به صورت هوشمند علاوه بر شماره کارت، شماره پرسنلی جدید تولید می کند)">
+                                                        <div class="col-md-1">
+                                                            <h:outputLabel style="width: 100%;" value="نوع استخدام"/>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <h:selectOneMenu id="noeEstekhdam" style="width: 100%;"
+                                                                             styleClass="form-control form-control-sm"
+                                                                             disabled="#{personelBean.disableNoeEstekhdam}"
+                                                                             value="#{personelBean.noeEstekhdamId}">
+                                                                <f:passThroughAttribute name="data-live-search"
+                                                                                        value="true"/>
+                                                                <f:selectItem itemLabel="انتخاب کنید"
+                                                                              itemValue="#{null}"/>
+                                                                <f:selectItems value="#{personelBean.noeEstekhdamList}"
+                                                                               var="itemNoEst"
+                                                                               itemLabel="#{itemNoEst.code}---#{itemNoEst.title}"
+                                                                               itemValue="#{itemNoEst.id}">
+                                                                </f:selectItems>
+                                                                <f:ajax execute="noeEstekhdam"
+                                                                        listener="#{personelBean.checkNoeEstekhdam(personelBean.noeEstekhdamId)}"
+                                                                        render="formV noeEstekhdam shp shoKart"/>
+                                                            </h:selectOneMenu>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9"/>
+                                                </div>
+                                                <div class="row">
+                                                    <div data-step="6"
+                                                         data-intro="در این قسمت با وارد نمودن شماره پرسنلی سامانه آن شماره پرسنلی را بررسی و در صورت صحیح بودن آن را تایید می نماید و در ادامه بقیه قسمت ها را به همین شکل پر نمایید.">
+                                                        <div class="col-md-1">
+                                                            <h:outputLabel style="width: 100%;" value="شماره پرسنلی"/>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <h:inputText id="shp"
+                                                                         style="width: 100%;#{personelBean.danger}"
+                                                                         styleClass="form-control"
+                                                                         disabled="#{personelBean.disableEdit}"
+                                                                         maxlength="9"
+                                                                         value="#{personelBean.personel.shomarePersoneli}"
+                                                                         onkeyup="checkTextShp(document.getElementById('shp').value);">
+                                                            </h:inputText>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel style="width: 100%;" value="شماره کارت"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h:inputText id="shoKart"
+                                                                     style="width: 100%;#{personelBean.danger}"
+                                                                     maxlength="5"
+                                                                     styleClass="form-control"
+                                                                     disabled="#{personelBean.disableEdit}"
+                                                                     value="#{personelBean.personel.shomareKart}"
+                                                                     onkeyup="checkTextShoKart(document.getElementById('shoKart').value);">
+
+                                                        </h:inputText>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel style="width: 100%;" value="کدملی"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h:inputText id="meliCode"
+                                                                     style="width: 100%;#{personelBean.danger}"
+                                                                     maxlength="10"
+                                                                     disabled="#{personelBean.disableEdit}"
+                                                                     styleClass="form-control"
+                                                                     value="#{personelBean.personel.codeMeli}"
+                                                                     onkeyup="checkMeleiCode(document.getElementById('meliCode').value)">
+                                                        </h:inputText>
+
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel id="vazMeliCode"
+                                                                       value="#{personelBean.vazMeliCode}"
+                                                                       style="#{personelBean.displayCheckCodeMeli}"
+                                                                       rendered="#{personelBean.showVazMeliCode}"/>
+                                                    </div>
+                                                    <div class="col-md-2"/>
+
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel style="width: 100%;" value="گروه"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                         style="width: 100%;"
+                                                                         styleClass="form-control form-control-sm"
+                                                                         value="#{personelBean.gorohId}">
+                                                            <f:passThroughAttribute name="data-live-search"
+                                                                                    value="true"/>
+                                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                            <f:selectItems value="#{personelBean.gorohList}"
+                                                                           var="itemGoroh"
+                                                                           itemLabel="#{itemGoroh.code}---#{itemGoroh.title}"
+                                                                           itemValue="#{itemGoroh.id}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel style="width: 100%;" value="درجه"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                         style="width: 100%;"
+                                                                         styleClass="form-control form-control-sm"
+                                                                         value="#{personelBean.darajeId}">
+                                                            <f:passThroughAttribute name="data-live-search"
+                                                                                    value="true"/>
+                                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                            <f:selectItems value="#{personelBean.darajeList}"
+                                                                           var="itemDaraje"
+                                                                           itemLabel="#{itemDaraje.code}---#{itemDaraje.title}"
+                                                                           itemValue="#{itemDaraje.id}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel style="width: 100%;" value="مدرک"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+
+                                                        <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                         style="width: 100%;"
+                                                                         styleClass="form-control form-control-sm"
+                                                                         value="#{personelBean.madrakId}">
+                                                            <f:passThroughAttribute name="data-live-search"
+                                                                                    value="true"/>
+                                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                            <f:selectItems value="#{personelBean.madrakList}"
+                                                                           var="itemMdk"
+                                                                           itemLabel="#{itemMdk.code}---#{itemMdk.title}"
+                                                                           itemValue="#{itemMdk.id}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel style="width: 100%;" value="سمت"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                         style="width: 100%;"
+                                                                         styleClass="form-control form-control-sm"
+                                                                         value="#{personelBean.sematId}">
+                                                            <f:passThroughAttribute name="data-live-search"
+                                                                                    value="true"/>
+                                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                            <f:selectItems value="#{personelBean.sematList}"
+                                                                           var="itemSemat"
+                                                                           itemLabel="#{itemSemat.code}---#{itemSemat.title}"
+                                                                           itemValue="#{itemSemat.id}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel style="width: 100%;" value="تاریخ استخدام"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h:inputText id="dateEstekhdam"
+                                                                     disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control date"
+                                                                     value="#{personelBean.personel.tarikhEstekhdam}"/>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel style="width: 100%;" value="فعال"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+
+                                                        <h:selectBooleanCheckbox disabled="#{personelBean.disable}"
+                                                                                 value="#{personelBean.personel.active}"/>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel style="width: 100%;" value="تاریخ انقضا"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h:inputText id="dateEngheza" disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control date"
+                                                                     value="#{personelBean.personel.tarikhEngheza}"/>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h:outputLabel style="width: 100%;" value="علت قطع کار"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h:inputTextarea
+                                                                disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                styleClass="form-control"
+                                                                value="#{personelBean.personel.elateGhateKar}"/>
+                                                    </div>
+                                                </div>
+
+
+                                                <h:commandButton id="btnCheck" style="display: none">
+                                                    <f:ajax execute="shp shoKart meliCode"
+                                                            listener="#{personelBean.checkPersonel(personelBean.personel.shomarePersoneli,
+                                                personelBean.personel.shomareKart)}"
+                                                            render="formV"/>
+                                                </h:commandButton>
+                                                <h:commandButton id="btnCheckMeliCode" style="display: none">
+                                                    <f:ajax execute="shp shoKart meliCode"
+                                                            listener="#{personelBean.checkCodeMeli(personelBean.personel.codeMeli)}"
+                                                            render="formV vazMeliCode btnSave "/>
+                                                </h:commandButton>
+                                            </p:tab>
+                                            <p:tab title="شناسنامه">
+                                                <h:panelGrid id="pgSh" columns="6" width="90%"
+                                                             style="margin-right: 5%;margin-left: 5%;">
+                                                    <h:outputLabel style="width: 100%;" value="نام"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.name}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="نشان"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.neshan}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="نام پدر"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.namePedar}"/>
+                                                    <h:outputLabel style="width: 100%;" value="شماره شناسنامه"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.shomareShenasname}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="تلفن ثابت"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.tellSabet}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="تلفن همراه"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.tellHamrah}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="آدرس"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.address}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="تاریخ تولد"/>
+                                                    <h:inputText id="dateBir" disabled="#{personelBean.disable}"
+                                                                 style="width: 100%;"
+                                                                 styleClass="form-control date"
+                                                                 value="#{personelBean.personel.tarikhTavalod}"/>
+                                                </h:panelGrid>
+                                                <script type="text/javascript">
+                                                    kamaDatepicker('dateEstekhdam', {
+                                                        markToday: true,
+                                                        markHolidays: true,
+                                                        highlightSelectedDay: true,
+                                                        gotoToday: true
+                                                    });
+                                                    kamaDatepicker('dateBir', {
+                                                        markToday: true,
+                                                        markHolidays: true,
+                                                        highlightSelectedDay: true,
+                                                        gotoToday: true
+                                                    });
+                                                    kamaDatepicker('dateEngheza', {
+                                                        markToday: true,
+                                                        markHolidays: true,
+                                                        highlightSelectedDay: true,
+                                                        gotoToday: true
+                                                    });
+                                                </script>
+                                            </p:tab>
+                                            <p:tab title="خدمتی" id="tabKhedmati">
+                                                <h:panelGrid id="pgKh" columns="6" width="90%"
+                                                             style="margin-right: 5%;margin-left: 5%;">
+                                                    <h:outputLabel style="width: 100%;" value="دایره"/>
+                                                    <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     value="#{personelBean.dayereId}">
+                                                        <f:passThroughAttribute name="data-live-search" value="true"/>
+                                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                        <f:selectItems value="#{personelBean.dayereList}"
+                                                                       var="itemDayere"
+                                                                       itemLabel="#{itemDayere.code}---#{itemDayere.title}"
+                                                                       itemValue="#{itemDayere.id}"/>
+                                                    </h:selectOneMenu>
+
+                                                    <h:outputLabel style="width: 100%;" value="بخش"/>
+                                                    <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     value="#{personelBean.bakhshId}">
+                                                        <f:passThroughAttribute name="data-live-search" value="true"/>
+                                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                        <f:selectItems value="#{personelBean.bakhshList}"
+                                                                       var="itemBakhsh"
+                                                                       itemLabel="#{itemBakhsh.code}---#{itemBakhsh.title}"
+                                                                       itemValue="#{itemBakhsh.id}"/>
+                                                    </h:selectOneMenu>
+                                                    <h:outputLabel style="width: 100%;" value="شماره حساب حکمت"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.shomareHesabHekmat}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="شماره حساب سپه"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.shomareHesabSepah}"/>
+                                                    <h:outputLabel style="width: 100%;" value="جنسیت"/>
+                                                    <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     value="#{personelBean.jensiyatId}">
+                                                        <f:passThroughAttribute name="data-live-search" value="true"/>
+                                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                        <f:selectItems value="#{personelBean.jensiyatList}"
+                                                                       var="itemJns"
+                                                                       itemLabel="#{itemJns.code}---#{itemJns.title}"
+                                                                       itemValue="#{itemJns.id}"/>
+                                                    </h:selectOneMenu>
+
+                                                    <h:outputLabel style="width: 100%;" value="وضعیت تاهل"/>
+                                                    <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     value="#{personelBean.vazeyatTaaholId}">
+                                                        <f:passThroughAttribute name="data-live-search" value="true"/>
+                                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                        <f:selectItems value="#{personelBean.vazeyatTaaholList}"
+                                                                       var="itemVazTah"
+                                                                       itemLabel="#{itemVazTah.code}---#{itemVazTah.title}"
+                                                                       itemValue="#{itemVazTah.id}"/>
+                                                    </h:selectOneMenu>
+
+                                                    <h:outputLabel style="width: 100%;" value="سقف مرخصی"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.saghfeMorakhasi}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="تاریخ انتقال"/>
+                                                    <h:inputText id="dateEnteghal" disabled="#{personelBean.disable}"
+                                                                 style="width: 100%;"
+                                                                 styleClass="form-control date"
+                                                                 value="#{personelBean.personel.tarikhEnteghal}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="هویت"/>
+                                                    <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     value="#{personelBean.hoviyatId}">
+                                                        <f:passThroughAttribute name="data-live-search" value="true"/>
+                                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                        <f:selectItems value="#{personelBean.hoviyatList}"
+                                                                       var="itemHoviyat"
+                                                                       itemLabel="#{itemHoviyat.code}---#{itemHoviyat.title}"
+                                                                       itemValue="#{itemHoviyat.id}"/>
+                                                    </h:selectOneMenu>
+                                                    <h:outputLabel style="width: 100%;" value="نوع طبقه"/>
+                                                    <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     value="#{personelBean.tabagheId}">
+                                                        <f:passThroughAttribute name="data-live-search" value="true"/>
+                                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                        <f:selectItems value="#{personelBean.tabagheList}"
+                                                                       var="itemTabgh"
+                                                                       itemLabel="#{itemTabgh.code}---#{itemTabgh.title}"
+                                                                       itemValue="#{itemTabgh.id}"/>
+                                                    </h:selectOneMenu>
+                                                    <h:outputLabel style="width: 100%;" value="یگان"/>
+                                                    <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     value="#{personelBean.yeganId}">
+                                                        <f:passThroughAttribute name="data-live-search" value="true"/>
+                                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                        <f:selectItems value="#{personelBean.yeganList}" var="itemYegan"
+                                                                       itemLabel="#{itemYegan.code}---#{itemYegan.title}"
+                                                                       itemValue="#{itemYegan.id}"/>
+                                                    </h:selectOneMenu>
+
+                                                    <h:outputLabel style="width: 100%;" value="فرماندهی مستقل"/>
+                                                    <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     value="#{personelBean.farmandehiMostaghelId}">
+                                                        <f:passThroughAttribute name="data-live-search" value="true"/>
+                                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                        <f:selectItems value="#{personelBean.farmandehiMostaghelList}"
+                                                                       var="itemFmo"
+                                                                       itemLabel="#{itemFmo.code}---#{itemFmo.title}"
+                                                                       itemValue="#{itemFmo.id}"/>
+                                                    </h:selectOneMenu>
+                                                    <h:outputLabel style="width: 100%;" value="رسته"/>
+                                                    <h:selectOneMenu disabled="#{personelBean.disable}"
+                                                                     style="width: 100%;"
+                                                                     styleClass="form-control form-control-sm"
+                                                                     value="#{personelBean.rasteId}">
+                                                        <f:passThroughAttribute name="data-live-search" value="true"/>
+                                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                        <f:selectItems value="#{personelBean.rasteList}" var="itemRaste"
+                                                                       itemLabel="#{itemRaste.code}---#{itemRaste.title}"
+                                                                       itemValue="#{itemRaste.id}"/>
+                                                    </h:selectOneMenu>
+
+
+                                                </h:panelGrid>
+                                                <script type="text/javascript">
+                                                    kamaDatepicker('dateEnteghal', {
+                                                        markToday: true,
+                                                        markHolidays: true,
+                                                        highlightSelectedDay: true,
+                                                        gotoToday: true
+                                                    });
+                                                </script>
+                                            </p:tab>
+                                            <p:tab title="شغلی">
+                                                <h:panelGrid id="pgShoghl" columns="6" width="90%"
+                                                             style="margin-right: 5%;margin-left: 5%;">
+                                                    <h:outputLabel style="width: 100%;" value="شاغل کارخانجات"/>
+                                                    <h:selectBooleanCheckbox disabled="#{personelBean.disable}"
+                                                                             value="#{personelBean.personel.dakhelOrKharej}"/>
+                                                    <h:outputLabel style="width: 100%;" value="سری"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.seri}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="بند"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.band}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="سطر"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.satr}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="عنوان شغل"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.onvaneShoghl}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="حق شغل"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.haghShoghl}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="حق شاغل"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.hagheShaghel}"/>
+
+                                                    <h:outputLabel style="width: 100%;" value="فوق العاده مدیریت"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.fogholadeModiriyat}"/>
+
+
+                                                    <h:outputLabel style="width: 100%;" value="سقف اضافه کار"/>
+                                                    <h:inputText disabled="#{personelBean.disable}" style="width: 100%;"
+                                                                 styleClass="form-control"
+                                                                 value="#{personelBean.personel.saghfeEzafeKar}"/>
+                                                </h:panelGrid>
+                                            </p:tab>
+                                            <p:tab title="تصویر پرسنلی">
+                                                <h:panelGrid id="pAvatar" columns="6" width="90%"
+                                                             style="margin-right: 5%;margin-left: 5%;">
+                                                    <t:inputFile id="browse" styleClass="file-styled"
+                                                                 value="#{personelBean.avatar}" mod="simple"
+                                                                 multiple="true"
+                                                                 disabled="#{personelBean.disable}">
+                                                        <f:passThroughAttribute name="data-show-caption" value="false"/>
+                                                    </t:inputFile>
+                                                </h:panelGrid>
+                                            </p:tab>
+                                        </p:tabView>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p:graphicImage id="avdf" styleClass="img-thumbnail img-fluid"
+                                                        itemprop="thumbnail"
+                                                        alt="#{personelBean.personel.shomarePersoneli}"
+                                                        style="margin-top: 45px"
+                                                        value="#{pic.dycriptPicture(personelBean.personel.axe)}"
+                                                        height="100"
+                                                        width="100%" stream="false" cache="false"/>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col-md-8"/>
+                                    <div class="col-md-1">
+                                        <h:commandButton id="btnSave"
+                                                         rendered="#{personelBean.createPermission}"
+                                                         styleClass="btn btn-blue btn-block"
+                                                         style="width: 100%;#{personelBean.displaySave}"
+                                                         disabled="#{personelBean.disable}" value="ثبت">
+                                            <f:ajax listener="#{personelBean.save}" execute="formT formV"
+                                                    render="formT formV"/>
+                                        </h:commandButton>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <h:commandButton id="btnEdit"
+                                                         styleClass="btn btn-blue btn-block"
+                                                         rendered="#{personelBean.updatePermission}"
+                                                         style="width: 100%;#{personelBean.displayEditOrNuller}"
+                                                         disabled="#{personelBean.disable}" value="ویرایش">
+                                            <f:ajax listener="#{personelBean.edit}" execute="formT formV"
+                                                    render="formT tableP formV"/>
+                                        </h:commandButton>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p:commandButton id="btnCancel"
+                                                         style="width: 100%;background-color: #ff4f4f;#{personelBean.displayEditOrNuller}"
+                                                         disabled="#{personelBean.disable}" value="انصراف"
+                                                         styleClass="button"
+                                                         icon="ui-icon-close" actionListener="#{personelBean.nuller}"
+                                                         update="formT formV"/>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p:commandButton id="btnDelete"
+                                                         style="width: 100%;background-color: #ff4f4f;#{personelBean.displayEditOrNuller}"
+                                                         rendered="#{mojavezhayeSaatiBean.deletePermission}"
+                                                         disabled="#{personelBean.disable}"
+                                                         value="حذف"
+                                                         icon="ui-icon-trash"
+                                                         onclick="PF('dialogDel').show()"/>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <h:form id="dilForm" prependId="false">
+            <p:dialog header="حذف" closable="true" widgetVar="dialogDel" height="100" width="500"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+                <h4></h4>
+                <div class="row">
+                    <div>آیا از حذف این اطلاعات مطمئنید؟</div>
+                </div>
+
+                <div class="footer">
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="خیر"
+                                     actionListener="#{personelBean.cancelDelete}" onsuccess="PF('dialogDel').hide()"
+                                     update="formT formV"/>
+                    <p:commandButton styleClass="btn bg-success" value="بله"
+                                     actionListener="#{personelBean.delete}" onsuccess="PF('dialogDel').hide()"
+                                     update="formV"/>
+                </div>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

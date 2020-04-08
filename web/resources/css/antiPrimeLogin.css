@@ -1,0 +1,145 @@
+.ui-state-default {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.ui-state-default {
+    -moz-box-shadow: inset 0 0 0 #fff !important;
+    -webkit-box-shadow: inset 0 0 0 #fff !important;
+    box-shadow: inset 0 0 0 #fff !important;
+}
+
+.ui-widget {
+    font-family: inherit !important;
+    font-size: 13px !important;
+}
+
+.ui-button {
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    display: inline-block;
+    position: relative;
+    touch-action: manipulation;
+    padding: 7px 12px !important;
+    border-radius: 2px;
+    cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+    background-color: #2196F3 !important;
+    border: 1px solid #2196F3 !important;
+    color: #fff !important;
+}
+.ui-button.ui-state-hover,
+.ui-button.ui-state-focus {
+    color: #fff !important;
+    -webkit-box-shadow: inherit !important;
+    box-shadow: inherit !important;
+}
+.ui-button.ui-state-active {
+    -webkit-box-shadow: inherit !important;
+    box-shadow: inherit !important;
+}
+.ui-button.ui-state-disabled {
+    cursor: inherit !important;
+    opacity: inherit !important;
+    filter: inherit !important;
+    -webkit-box-shadow: inherit !important;
+    box-shadow: inherit !important;
+}
+.ui-button[class*=bg-].ui-state-hover,
+.ui-button[class*=bg-].ui-state-focus {
+    color: #fff !important;
+    -webkit-box-shadow: inherit !important;
+    box-shadow: inherit !important;
+}
+.ui-button[class*=bg-].ui-state-active {
+    -webkit-box-shadow: inherit !important;
+    box-shadow: inherit !important;
+}
+.ui-button.ui-button-link {
+    background-color: #2196F3 !important;
+    border-color: #2196F3 !important;
+}
+.ui-button.ui-button-link.ui-state-hover,
+.ui-button.ui-button-link.ui-state-focus {
+    color: #fff !important;
+}
+.ui-button.ui-button-link.ui-state-hover,
+.ui-button.ui-button-link.ui-state-focus,
+.ui-button.ui-button-link.ui-state-active {
+    -webkit-box-shadow: inherit !important;
+    box-shadow: inherit !important;
+}
+.ui-button::-moz-focus-inner {
+    border: inherit !important;
+    padding: inherit !important;
+}
+.ui-button-text-icon-primary .ui-button-icon-primary,
+.ui-button-text-icons .ui-button-icon-primary,
+.ui-button-icon-primary .ui-button-icons-only {
+    margin-left: inherit !important;
+}
+.ui-button-text-icon-secondary .ui-button-icon-secondary,
+.ui-button-text-icons .ui-button-icon-secondary,
+.ui-button-icons-only .ui-button-icon-secondary {
+    margin-right: inherit !important;
+}
+.ui-button-icon-only {
+    padding-left: inherit !important;
+    padding-right: inherit !important;
+}
+.ui-button-icon-only .ui-button-text,
+.ui-button-icons-only .ui-button-text {
+    display: inherit !important;
+}
+.ui-buttonset {
+    display: inherit !important;
+    vertical-align: inherit !important;
+    position: inherit !important;
+}
+.ui-buttonset .ui-button {
+    border-radius: inherit !important;
+    margin-right: inherit !important;
+    float: inherit !important;
+}
+.ui-buttonset .ui-button:first-child,
+.ui-buttonset .ui-helper-hidden-accessible:first-child + .ui-button {
+    margin-right: inherit !important;
+}
+.ui-buttonset .ui-button:first-child,
+.ui-buttonset .ui-helper-hidden-accessible:first-child + .ui-button:not(:last-child) {
+    border-bottom-right-radius: inherit !important;
+    border-top-right-radius: inherit !important;
+}
+.ui-buttonset .ui-button:last-child {
+    border-bottom-left-radius: inherit !important;
+    border-top-left-radius: inherit !important;
+}
+.ui-buttonset-split {
+    position: inherit !important;
+    display: inherit !important;
+}
+.ui-buttonset-split > ul {
+    position: inherit !important;
+    text-align: center !important;
+    min-width: inherit !important;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    text-shadow: 0 0 0 !important;
+}
+
+.ui-button-text-icon-left .ui-button-text{
+    padding: 0 !important;
+}
+
+.ui-button-icon-left {
+    right: 25% !important;
+    left: inherit !important;
+}
+
+.ui-icon {
+    text-indent: 0 !important;
+    background-image: none !important;
+}

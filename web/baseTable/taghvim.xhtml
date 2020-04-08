@@ -1,0 +1,238 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:g="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+
+        <h:outputScript>
+            function changeDayType(roz) {
+                var num = "";
+                if(roz &lt; 10){
+                    num = 0 + roz.toString();
+                } else {
+                    num = roz.toString();
+                }
+                #{taghvimBaseTableBean.edit(num)};
+            }
+        </h:outputScript>
+
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">تقویم</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="searchForm" prependId="false">
+                        <div data-step="2" data-intro="جهت مشاده تقویم،سال، ماه و گروه مورد نظر را انتخاب نموده و در انتها گزینه جستجو را کلیک نمایید.">
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="sal_id" styleClass="control-label" value="سال:"/>
+                                        <h:selectOneMenu id="sal_id" styleClass="form-control"
+                                                         value="#{taghvimBaseTableBean.salCode}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{taghvimBaseTableBean.sals}" var="sals"
+                                                           itemValue="#{sals}"
+                                                           itemLabel="#{sals}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="month_id" styleClass="control-label" value="ماه:"/>
+                                        <h:selectOneMenu id="month_id" styleClass="form-control"
+                                                         value="#{taghvimBaseTableBean.mahCode}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{taghvimBaseTableBean.months}" var="mah"
+                                                           itemValue="#{mah.code}"
+                                                           itemLabel="#{mah.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="group_id" styleClass="control-label" value="گروه:"/>
+                                        <h:selectOneMenu id="group_id" styleClass="form-control"
+                                                         value="#{taghvimBaseTableBean.gorohId}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="0"/>
+                                            <f:selectItems value="#{taghvimBaseTableBean.gorohs}" var="goroh"
+                                                           itemValue="#{goroh.id}"
+                                                           itemLabel="#{goroh.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="group_id" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                            <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                             style="width: 100%"
+                                                             rendered="#{taghvimBaseTableBean.readPermission}"
+                                                             actionListener="#{taghvimBaseTableBean.search}"
+                                                             update="searchForm taghvim"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+
+                    <h:form prependId="false" id="taghvim">
+                        <div data-step="3" data-intro="جهت تغییر وضعیت هر روز، بر روی آن کلیک نموده تا تغییر وضعیت دهد. رنگ سفید وضعیت عادی، نارنجی نیمه تعطیل و قرمز تعطیل می باشد.">
+                            <c:if test="#{taghvimBaseTableBean.edited == true}">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <div class="fc-content" style="position: relative;">
+                                            <div class="fc-view fc-view-month fc-grid" style="position:relative" unselectable="on">
+                                                <table class="fc-border-separate" style="width:100%" cellspacing="0">
+                                                    <thead>
+                                                    <tr class="fc-first fc-last">
+                                                        <th class="fc-day-header fc-sat fc-widget-header fc-first" style="width: 100px">شنبه</th>
+                                                        <th class="fc-day-header fc-sun fc-widget-header" style="width: 100px;">یکشنبه</th>
+                                                        <th class="fc-day-header fc-mon fc-widget-header" style="width: 100px;">دوشنبه</th>
+                                                        <th class="fc-day-header fc-tue fc-widget-header" style="width: 100px;">سه شنبه</th>
+                                                        <th class="fc-day-header fc-wed fc-widget-header" style="width: 100px;">چهارشنبه</th>
+                                                        <th class="fc-day-header fc-thu fc-widget-header" style="width: 100px;">پنج شنبه</th>
+                                                        <th class="fc-day-header fc-fri fc-widget-header fc-last" style="width: 100px;">جمعه</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    <c:forEach items="#{taghvimBaseTableBean.haftes}" var="hafte">
+                                                        <c:if test="#{hafte.hafte == 1}">
+                                                            <tr class="fc-week fc-first">
+                                                                <c:forEach items="#{hafte.roozModels}" var="rooz">
+                                                                    <c:if test="#{rooz.hafteTitle == 'شنبه'}">
+                                                                        <td class="fc-day fc-sun fc-widget-content fc-first" style="#{taghvimBaseTableBean.colorDay(rooz.dayType)}">
+                                                                            <g:commandLink styleClass="btn bg-orange-400" style="color: black">
+                                                                                <f:ajax listener="#{taghvimBaseTableBean.edit(rooz.rooz)}" render="taghvim"/>
+                                                                                #{rooz.rooz}
+                                                                            </g:commandLink>
+                                                                        </td>
+                                                                    </c:if>
+
+                                                                    <c:if test="#{rooz.hafteTitle != 'شنبه' and rooz.hafteTitle != 'جمعه'}">
+                                                                        <td class="fc-day fc-sun fc-widget-content" style="#{taghvimBaseTableBean.colorDay(rooz.dayType)}">
+                                                                            <g:commandLink styleClass="btn bg-orange-400" style="color: black">
+                                                                                <f:ajax listener="#{taghvimBaseTableBean.edit(rooz.rooz)}" render="taghvim"/>
+                                                                                #{rooz.rooz}
+                                                                            </g:commandLink>
+                                                                        </td>
+                                                                    </c:if>
+
+                                                                    <c:if test="#{rooz.hafteTitle == 'جمعه'}">
+                                                                        <td class="fc-day fc-sun fc-widget-content fc-last" style="#{taghvimBaseTableBean.colorDay(rooz.dayType)}">
+                                                                            <g:commandLink styleClass="btn bg-orange-400" style="color: black">
+                                                                                <f:ajax listener="#{taghvimBaseTableBean.edit(rooz.rooz)}" render="taghvim"/>
+                                                                                #{rooz.rooz}
+                                                                            </g:commandLink>
+                                                                        </td>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </tr>
+                                                        </c:if>
+                                                        <c:if test="#{hafte.hafte != 1 and hafte.hafte != taghvimBaseTableBean.tedadHafte}">
+                                                            <tr class="fc-week">
+                                                                <c:forEach items="#{hafte.roozModels}" var="rooz">
+                                                                    <c:if test="#{rooz.hafteTitle == 'شنبه'}">
+                                                                        <td class="fc-day fc-sun fc-widget-content fc-first" style="#{taghvimBaseTableBean.colorDay(rooz.dayType)}">
+                                                                            <g:commandLink styleClass="btn bg-orange-400" style="color: black">
+                                                                                <f:ajax listener="#{taghvimBaseTableBean.edit(rooz.rooz)}" render="taghvim"/>
+                                                                                #{rooz.rooz}
+                                                                            </g:commandLink>
+                                                                        </td>
+                                                                    </c:if>
+
+                                                                    <c:if test="#{rooz.hafteTitle != 'شنبه' and rooz.hafteTitle != 'جمعه'}">
+                                                                        <td class="fc-day fc-sun fc-widget-content" style="#{taghvimBaseTableBean.colorDay(rooz.dayType)}">
+                                                                            <g:commandLink styleClass="btn bg-orange-400" style="color: black">
+                                                                                <f:ajax listener="#{taghvimBaseTableBean.edit(rooz.rooz)}" render="taghvim"/>
+                                                                                #{rooz.rooz}
+                                                                            </g:commandLink>
+                                                                        </td>
+                                                                    </c:if>
+
+                                                                    <c:if test="#{rooz.hafteTitle == 'جمعه'}">
+                                                                        <td class="fc-day fc-sun fc-widget-content fc-last" style="#{taghvimBaseTableBean.colorDay(rooz.dayType)}">
+                                                                            <g:commandLink styleClass="btn bg-orange-400" style="color: black">
+                                                                                <f:ajax listener="#{taghvimBaseTableBean.edit(rooz.rooz)}" render="taghvim"/>
+                                                                                #{rooz.rooz}
+                                                                            </g:commandLink>
+                                                                        </td>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </tr>
+                                                        </c:if>
+                                                        <c:if test="#{hafte.hafte == taghvimBaseTableBean.tedadHafte}">
+                                                            <tr class="fc-week fc-last">
+                                                                <c:forEach items="#{hafte.roozModels}" var="rooz">
+                                                                    <c:if test="#{rooz.hafteTitle == 'شنبه'}">
+                                                                        <td class="fc-day fc-sun fc-widget-content fc-first" style="#{taghvimBaseTableBean.colorDay(rooz.dayType)}">
+                                                                            <g:commandLink styleClass="btn bg-orange-400" style="color: black">
+                                                                                <f:ajax listener="#{taghvimBaseTableBean.edit(rooz.rooz)}" render="taghvim"/>
+                                                                                #{rooz.rooz}
+                                                                            </g:commandLink>
+                                                                        </td>
+                                                                    </c:if>
+
+                                                                    <c:if test="#{rooz.hafteTitle != 'شنبه' and rooz.hafteTitle != 'جمعه'}">
+                                                                        <td class="fc-day fc-sun fc-widget-content" style="#{taghvimBaseTableBean.colorDay(rooz.dayType)}">
+                                                                            <g:commandLink styleClass="btn bg-orange-400" style="color: black">
+                                                                                <f:ajax listener="#{taghvimBaseTableBean.edit(rooz.rooz)}" render="taghvim"/>
+                                                                                #{rooz.rooz}
+                                                                            </g:commandLink>
+                                                                        </td>
+                                                                    </c:if>
+
+                                                                    <c:if test="#{rooz.hafteTitle == 'جمعه'}">
+                                                                        <td class="fc-day fc-sun fc-widget-content fc-last" style="#{taghvimBaseTableBean.colorDay(rooz.dayType)}">
+                                                                            <g:commandLink styleClass="btn bg-orange-400" style="color: black">
+                                                                                <f:ajax listener="#{taghvimBaseTableBean.edit(rooz.rooz)}" render="taghvim"/>
+                                                                                #{rooz.rooz}
+                                                                            </g:commandLink>
+                                                                        </td>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </tr>
+                                                        </c:if>
+                                                    </c:forEach>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </c:if>
+                        </div>
+                    </h:form>
+
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                </div>
+            </div>
+
+        </div>
+
+
+    </ui:define>
+
+</ui:composition>

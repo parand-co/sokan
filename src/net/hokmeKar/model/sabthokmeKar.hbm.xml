@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.hokmeKar.model" >
+    <class name="net.hokmeKar.model.SabtHokmeKar" table="n_SabtHokmeKar" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <property name="shomareDarkhast"/>
+        <property name="hozeKari"/>
+        <property name="codeShenavar"/>
+        <property name="emamReza"/>
+        <property name="tarikhSabt"/>
+        <property name="tarikhDarkhast"/>
+        <property name="sharh"/>
+        <many-to-one name="noeHokmeKar" class="dataBaseModel.baseTable.TypeHokmeKar"/>
+        <many-to-one name="yegan" class="dataBaseModel.baseTable.Bakhsh"/>
+        <many-to-one name="arjaiyatHokmeKar" class="dataBaseModel.baseTable.ArjaiyatHokmeKar"/>
+        <many-to-one name="vaziyatAnjamHokmeKar" class="dataBaseModel.baseTable.VaziyatAnjamHokmeKar"/>
+        <many-to-one name="anjamDahandeHokmeKar" class="dataBaseModel.baseTable.AnjamDahandeHokmeKar"/>
+        <many-to-one name="noeKareHokmeKar" class="dataBaseModel.baseTable.TypeKarHokmeKar"/>
+    </class>
+</hibernate-mapping>

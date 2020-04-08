@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <style type="text/css">
+            .bd-main{
+                position: relative !important;
+            }
+        </style>
+        <h:form prependId="false">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">پرسنل قطع کار شده</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block" data-step="2" data-intro="لیست پرسنل قطع کار شده در این جدول نمایش داده خواهد شد.">
+                                <p:dataTable value="#{ghateKarBean.qateKarPersonels}" paginator="true" rows="10" var="personel" rowIndexVar="i" id="aaa">
+                                    <p:column headerText="ردیف" style="width: 60px;">
+                                        <h:outputLabel value="#{i+1}"/>
+                                    </p:column>
+
+                                    <p:column headerText="شماره کارت " filterBy="#{personel.shomareKart}">
+                                        <h:outputLabel value="#{personel.shomareKart}"/>
+                                    </p:column>
+
+                                    <p:column headerText="شماره پرسنلی " filterBy="#{personel.shomarePersoneli}">
+                                        <h:outputLabel value="#{personel.shomarePersoneli}"/>
+                                    </p:column>
+
+                                    <p:column headerText="نام و نشان">
+                                        <h:outputLabel value="#{personel.name} #{personel.neshan}"/>
+                                    </p:column>
+
+                                    <p:column headerText="دلیل قطع کار">
+                                        <h:outputLabel value="#{personel.elateGhateKar}"/>
+                                    </p:column>
+
+                                    <p:column headerText="تاریخ پایان">
+                                        <h:outputLabel value="#{personel.tarikhEngheza}"/>
+                                    </p:column>
+
+                                    <p:column headerText="فعال کردن">
+                                        <div data-step="3" data-intro="جهت فعال نمودن پرسنل قطع کار شده از این بخش استفاده نمایید.">
+                                            <p:splitButton value="فعال دائمی"  actionListener="#{ghateKarBean.activePersonel(personel,1)}" icon="ui-icon-check">
+                                                <p:menuitem value="فعال مدت دار" icon="ui-icon-check" onclick="PF('expireDateDialog').show()" actionListener="#{ghateKarBean.copyPersonel(personel)}"/>
+                                            </p:splitButton>
+                                        </div>
+                                    </p:column>
+
+                                    <f:facet name="footer">
+                                        <div data-step="4" data-intro="پرسنلی که تاریخ انقضای آنها گذشته است، به وسیله این دکمه قطع کار خواهند شد.">
+                                            <p:commandButton value="بروزرسانی" actionListener="#{ghateKarBean.updatePersonels}"
+                                                             onclick="PF('dig').show()" icon="ui-icon-refresh"
+                                                             oncomplete="PF('dig').hide()" onerror="PF('dig').hide()" update="aaa">
+                                            </p:commandButton>
+                                        </div>
+                                    </f:facet>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p:dialog closable="false" showHeader="true" modal="true" resizable="false" draggable="false" header="مشخص کردن تاریخ انقضا"
+                      widgetVar="expireDateDialog" style="height: 500px">
+                <p:separator/>
+                <p:inputText value="#{ghateKarBean.expireDate}" styleClass="form-control-sm form-control" id="exDate" placeholder="تاریخ انقضا"/>
+                <br/>
+                <p:commandButton value="انصراف" onclick="PF('expireDateDialog').hide()"/>
+                <p:commandButton value="تایید" oncomplete="PF('expireDateDialog').hide()" actionListener="#{ghateKarBean.activePersonel(null,2)}"/>
+            </p:dialog>
+
+            <p:dialog closable="false" showHeader="false" modal="true" resizable="false" draggable="false"
+                      widgetVar="dig" style="background: transparent">\\
+                <img src="../resources/images/loader/app_loading.gif"/>
+            </p:dialog>
+
+            <script type="text/javascript">
+                kamaDatepicker('exDate', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+            </script>
+        </h:form>
+    </ui:define>
+</ui:composition>

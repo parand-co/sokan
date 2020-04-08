@@ -1,0 +1,235 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:form prependId="false">
+
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">ویرایش مشخصات حقوقی پرسنل</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"/></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"/></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"/></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <p:panel toggleable="true" header="جستجو بر اساس نوع پرسنل">
+                                            <p:selectManyCheckbox id="grid" value="#{editFinanceFieldsBean.selectedNoeEstekhdams}" layout="responsive" columns="3">
+                                                <f:selectItems value="#{editFinanceFieldsBean.noeEstekhdams}" var="s" itemLabel="#{s.title}" itemValue="#{s.title}"/>
+                                                <f:ajax listener="#{editFinanceFieldsBean.filterByNoeEstekhdam}" render="tbl"/>
+                                            </p:selectManyCheckbox>
+                                        </p:panel>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <p:dataTable value="#{editFinanceFieldsBean.personels}" var="item"
+                                                         paginator="true"
+                                                         rows="#{editFinanceFieldsBean.rows}"
+                                                         id="tbl" rowIndexVar="i">
+                                                <f:facet name="header">
+                                                    <h:outputLabel value="لیست پرسنل"/>
+                                                </f:facet>
+                                                <p:column headerText="ردیف" style="width:60px;">
+                                                    <h:outputLabel value="#{i+1}"/>
+                                                </p:column>
+                                                <p:column headerText="شماره پرسنلی" filterBy="#{item.shomarePersoneli}" filterMatchMode="contains">
+                                                    <h:outputLabel value="#{item.shomarePersoneli}"/>
+                                                </p:column>
+                                                <p:column headerText="درجه">
+                                                    <h:outputLabel value="#{item.daraje.title}"/>
+                                                </p:column>
+                                                <p:column headerText="نام و نشان" filterBy="#{item.name} #{item.neshan}" filterMatchMode="contains">
+                                                    <h:outputLabel value="#{item.name} #{item.neshan}"/>
+                                                </p:column>
+                                                <p:column headerText="شماره کارت" filterBy="#{item.shomareKart}" filterMatchMode="contains">
+                                                    <h:outputLabel value="#{item.shomareKart}"/>
+                                                </p:column>
+                                                <p:column headerText="شماره کارت">
+                                                    <h:outputLabel value="#{item.noeEstekhdam.title}"/>
+                                                </p:column>
+                                                <p:column headerText="محل شغل سازمانی">
+                                                    <h:outputLabel value="#{item.darajeShoghl.id}"/>
+                                                </p:column>
+                                                <p:column headerText="ویرایش اطلاعات حقوقی">
+                                                    <p:commandLink actionListener="#{editFinanceFieldsBean.showEditModal(item)}" update="m6">
+                                                        <i class="icon-edit"/>
+                                                    </p:commandLink>
+                                                </p:column>
+                                                <f:facet name="footer">
+                                                    <h:outputLabel value="تعداد رکورد نمایش در هر صفحه "/>
+                                                    <h:selectOneMenu value="#{editFinanceFieldsBean.rows}">
+                                                        <f:selectItem itemValue="10" itemLabel="10"/>
+                                                        <f:selectItem itemValue="15" itemLabel="15"/>
+                                                        <f:selectItem itemValue="30" itemLabel="30"/>
+                                                        <f:selectItem itemValue="50" itemLabel="50"/>
+                                                        <f:ajax execute="@form" render="tbl"/>
+                                                    </h:selectOneMenu>
+                                                </f:facet>
+                                            </p:dataTable>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">دیگر امکانات</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"/></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"/></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"/></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <p:panel header="ویرایش فرمول اضافه کاری" >
+                                                <h:outputLabel value="فرمول اضافه کاری : "/>
+                                                <h:inputText value="#{editFinanceFieldsBean.formool}" style="width: 50px" id="ab"
+                                                onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                                <h:outputLabel value="/1"/>
+                                                <h:outputLabel value="   "/>
+                                                <h:commandButton value="ثبت" actionListener="#{editFinanceFieldsBean.saveFormool()}" styleClass="btn btn-outline-success btn-sm"/>
+                                            </p:panel>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade text-xs-left" id="df" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <h4 class="modal-title" id="persName">ویرایش مشخصات حقوقی پرسنل</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p:panel id="m6">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="حق شغل"/>
+                                        <h:inputText value="#{editFinanceFieldsBean.selectedPersonel.haghShoghl}" id="m1" styleClass="form-control form-control-sm"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                            <f:ajax event="keyup" listener="#{editFinanceFieldsBean.calcMakhaz()}" render="makhaz"/>
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="حق شاغل"/>
+                                        <h:inputText value="#{editFinanceFieldsBean.selectedPersonel.hagheShaghel}" id="m2" styleClass="form-control form-control-sm"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                            <f:ajax event="keyup" listener="#{editFinanceFieldsBean.calcMakhaz()}" render="makhaz"/>
+                                        </h:inputText>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="فوق العاده مدیریت"/>
+                                        <h:inputText value="#{editFinanceFieldsBean.selectedPersonel.fogholadeModiriyat}" id="m3" styleClass="form-control form-control-sm"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                            <f:ajax event="keyup" listener="#{editFinanceFieldsBean.calcMakhaz()}" render="makhaz"/>
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="ماخذ"/>
+                                        <h:inputText value="#{editFinanceFieldsBean.checkMakhaz()}" id="makhaz" readonly="true" styleClass="form-control form-control-sm"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="سقف اضافه کاری"/>
+                                        <h:inputText value="#{editFinanceFieldsBean.selectedPersonel.saghfeEzafeKar}" id="saghf" styleClass="form-control form-control-sm"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="جایگاه سازمانی"/>
+                                        <c:if test="#{editFinanceFieldsBean.selectedPersonel.darajeShoghl == null}">
+                                            <h:selectOneMenu value="#{editFinanceFieldsBean.darajeShoghlID}" styleClass="form-control form-control-sm">
+                                                <f:selectItem itemValue="0" itemLabel="انتخاب کنید"/>
+                                                <f:selectItems value="#{editFinanceFieldsBean.darajeList}" var="d"
+                                                               itemValue="#{d.id}"
+                                                               itemLabel="#{d.title}"/>
+                                            </h:selectOneMenu>
+                                        </c:if>
+                                        <c:if test="#{editFinanceFieldsBean.selectedPersonel.darajeShoghl != null}">
+                                            <h:selectOneMenu value="#{editFinanceFieldsBean.selectedPersonel.darajeShoghl.id}" styleClass="form-control form-control-sm">
+                                                <f:selectItems value="#{editFinanceFieldsBean.darajeList}" var="d"
+                                                               itemValue="#{d.id}"
+                                                               itemLabel="#{d.title}"/>
+                                            </h:selectOneMenu>
+                                        </c:if>
+                                    </div>
+                                    <div class="col-sm-3" id="aaa">
+                                        <p:outputLabel value="مدرک"/>
+                                        <c:if test="#{editFinanceFieldsBean.selectedPersonel.madrak == null}">
+                                            <h:selectOneMenu value="#{editFinanceFieldsBean.madrakID}" id="aa" styleClass="form-control form-control-sm">
+                                                <f:selectItem itemValue="0" itemLabel="انتخاب کنید"/>
+                                                <f:selectItems value="#{editFinanceFieldsBean.madrakList}" var="d"
+                                                               itemLabel="#{d.title}"
+                                                               itemValue="#{d.id}"/>
+                                                <f:ajax listener="#{editFinanceFieldsBean.changeMadrak}" render="aaa madrakMakhaz"/>
+                                            </h:selectOneMenu>
+                                        </c:if>
+                                        <c:if test="#{editFinanceFieldsBean.selectedPersonel.madrak != null}">
+                                            <h:selectOneMenu value="#{editFinanceFieldsBean.selectedPersonel.madrak.id}" id="bb" styleClass="form-control form-control-sm">
+                                                <f:selectItems value="#{editFinanceFieldsBean.madrakList}" var="d"
+                                                               itemLabel="#{d.title}"
+                                                               itemValue="#{d.id}"/>
+                                                <f:ajax listener="#{editFinanceFieldsBean.changeMadrak}" render="aaa madrakMakhaz"/>
+                                            </h:selectOneMenu>
+                                        </c:if>
+
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="ماخذ مدرک"/>
+                                        <h:inputText value="#{editFinanceFieldsBean.selectedPersonel.madrak.makhaz}" id="madrakMakhaz" readonly="true" styleClass="form-control form-control-sm"/>
+                                    </div>
+                                </div>
+                            </p:panel>
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" onclick="$('#df').modal('hide')"/>
+                            <p:commandButton value="تایید" actionListener="#{editFinanceFieldsBean.confirmChanges()}"
+                                             oncomplete="$('#df').modal('hide')"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

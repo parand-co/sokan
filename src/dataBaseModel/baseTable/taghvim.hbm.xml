@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="dataBaseModel.baseTable" >
+    <class name="Taghvim" table="_taghvim" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <property name="code"/>
+        <property name="tarikh"/>
+        <property name="roozHafte"/>
+        <property name="tarikhMiladi"/>
+        <many-to-one name="dayType" class="dataBaseModel.baseTable.DayType"/>
+
+        <many-to-one name="dayTypeG1" class="dataBaseModel.baseTable.DayType"/>
+        <many-to-one name="dayTypeG2" class="dataBaseModel.baseTable.DayType"/>
+        <many-to-one name="dayTypeG3" class="dataBaseModel.baseTable.DayType"/>
+        <many-to-one name="dayTypeG4" class="dataBaseModel.baseTable.DayType"/>
+        <many-to-one name="dayTypeG5" class="dataBaseModel.baseTable.DayType"/>
+        <many-to-one name="dayTypeG6" class="dataBaseModel.baseTable.DayType"/>
+        <many-to-one name="dayTypeG7" class="dataBaseModel.baseTable.DayType"/>
+
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+    <title>سامانه سکان</title>
+    <link rel="icon" type="image/x-icon" href="./resources/images/favicon.png"/>
+    <h:outputStylesheet library="css" name="dashboardStyles.css"/>
+    <h:outputStylesheet library="css" name="stylesIcomoon.css"/>
+    <h:outputStylesheet library="css" name="dashboardModal.css"/>
+    <h:outputStylesheet library="css" name="antiPrimeLogin.css"/>
+    <h:outputStylesheet library="css" name="dashboardCore.css"/>
+    <h:outputStylesheet library="css" name="dashboardColors.css"/>
+    <h:outputStylesheet library="css" name="fontAwesome.min.css"/>
+
+    <h:outputScript library="js" name="dashboardJquery-1.7.1.min.js"/>
+    <h:outputScript library="js" name="dashboardTwo-tabmenu.js"/>
+    <h:outputScript library="js" name="dashboardJquery.min.js"/>
+    <h:outputScript library="js" name="dashboardBootstrap.min.js"/>
+    <h:outputScript library="js" name="sweetalert.min.js"/>
+
+</h:head>
+
+<h:body dir="RTL">
+
+    <h:form>
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <div class="main-box">
+            <div id="Header">
+                <div class="banner">
+                    <div class="GENERALTEXT">
+                        <div id='WebPart_banner' style='width:100%'>
+                            <table class="GENERALTEXT dg" cellspacing="0" border="0"
+                                   id="WebPart_banner_dgGeneralText"
+                                   style="border-collapse:collapse;Direction:rtl;">
+                                <tr>
+                                    <td>
+                                        <table border="0" width="100%" cellpadding="0" cellspacing="0" class="List">
+                                            <tr>
+                                                <td class="ListContent">
+                                                    <div class="Summary">
+                                                        <h:graphicImage width="980" height="144" value="resources/images/dashboard/banner.png"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box-shadow-bg">
+                <div class="box-container">
+                    <div id="TopBar">
+                        <div class="topMenu fl-right">
+                            <div class="GENERALTEXT">
+                                <a href="#" onclick="document.location='#{config.url}dashboard.xhtml'">
+                                    <div class="top-menu-ph">
+                                        <div class="top-menu-trigger">صفحه اصلی</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="GENERALTEXT">
+                                <a href="#">
+                                    <div class="top-menu-ph">
+                                        <div class="top-menu-trigger" onclick="swal('جهت ارتباط با راهبر سامانه ناوبانیکم علیرضا فولادوند با شماره 54369 تماس حاصل فرمایید.')">تماس با ما</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="GENERALTEXT">
+                                <a href="#">
+                                    <div class="top-menu-ph">
+                                        <div class="top-menu-trigger" data-toggle="modal" data-target="#modal-aboat">درباره ما</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="GENERALTEXT">
+                                <a href="#">
+                                    <div class="top-menu-ph">
+                                        <div id="gateway" class="top-menu-trigger" data-toggle="modal" data-target="#modal-tabbed">ورود کاربران</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="date-time">
+                            <div class="DATETIMEDIGITALSERVER">
+                                <div class="DateDigitalServer">
+                                    <span id="WebPart_lblDate" class="DateCaption" style="font-family: IRANSans-web, serif !important;">#{dashboardBean.date}</span>
+                                    &nbsp;
+                                    <span id="WebPart_lblTime" class="TimeCaption" style="font-family: IRANSans-web, serif !important;">#{dashboardBean.time}</span>
+                                    <input type="hidden" name="name_lblHours" id="WebPart_lblHours"/>
+                                    <input type="hidden" name="name_lblMinutes" id="WebPart_lblMinutes"/>
+                                    <input type="hidden" name="name_lblSeconds" id="WebPart_lblSeconds"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="MidBar">
+                        <div class="internal">
+                            <div class="NEWS">
+                                <div id='WebPartC' style='width:100%'>
+                                    <div style="padding:6px;">
+                                        <div class="Content">
+                                            <div class="clearfix">
+                                                <div class="dhts">
+                                                    <span class="Date" dir="rtl">#{newsBean.insertDate}</span>
+                                                    <div class="Title" style="font-size: 15px; margin: 5px;">#{newsBean.title}</div>
+                                                    <div class="Content-text" style="font-size: 15px; margin: 5px;">
+                                                        <p style="display:none">.</p>
+                                                        <br/>
+                                                        #{newsBean.matn}
+                                                        <br/>
+                                                        <br/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br style="clear:both"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="BotMidBar">
+
+
+                        <div class="quickLinks">
+                            <div class="SiPo-WEBSITE">
+                                <div class="flink-border">
+                                    <div class="flink-title">
+
+                                    </div>
+                                    <div class="flink-content">
+                                        <div style="width:100%; padding: 25px; text-align: center; background: #33240b;">
+                                            <h:outputStylesheet>
+                                                .r-website-box div {
+                                                    color: #fff;
+                                                    font-size: 15px;
+                                                    line-height: 20px;
+                                                    margin-top: 5px;
+                                                }
+
+                                                .r-link-row-a {
+                                                    color: #000;
+                                                    text-decoration: none;
+                                                    font-size: 12px;
+                                                    line-height: 20px;
+                                                    display: inline;
+                                                }
+
+                                                .r-link-row {
+                                                    color: #000;
+                                                    text-decoration: none;
+                                                    font-size: 12px;
+                                                    line-height: 20px;
+                                                    display: inline;
+                                                }
+
+                                                .r-title-box-links {
+                                                    min-height: 22px;
+                                                    height: auto;
+                                                    /*border-top: 1px solid #313234;*/
+                                                }
+                                            </h:outputStylesheet>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="flink-bottom">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div style="height: 0; visibility: hidden">
+                        <div class="sprites">sprites</div>
+                        <div class="sprites-1">sprites</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </h:form>
+
+    <div id="modal-tabbed" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content login-form width-400">
+
+                <!-- Form -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#basic-tab1" data-toggle="tab" onclick="modalTabDisable(1)"><h6><i class="icon-enter2 position-left"></i>ورود به سامانه</h6></a></li>
+                    <li><a href="#basic-tab2" data-toggle="tab" onclick="modalTabDisable(2)"><h6><i class="fa fa-user-secret position-left"></i> بازیابی کلمه عبور</h6></a></li>
+                </ul>
+
+                <div class="tab-content modal-body">
+                    <div class="tab-pane fade in active" style="display: block" id="basic-tab1">
+
+                        <h:form class="modal-body" prependId="false">
+                            <div class="text-center">
+                                <div class="icon-object border-success text-success"><i class="fa fa-anchor"></i></div>
+                                <h5 class="content-group">ورود به حساب کاربری <small class="display-block">اطلاعات خود را وارد کنید</small></h5>
+                            </div>
+
+                            <div class="form-group has-feedback has-feedback-left">
+                                <h:inputText type="text" class="form-control" value="#{login.username}" a:placeholder="نام کاربری"/>
+                                <div class="form-control-feedback">
+                                    <i class="icon-user text-muted"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group has-feedback has-feedback-left">
+                                <h:inputSecret type="password" class="form-control" value="#{login.password}" a:placeholder="کلمه عبور"/>
+                                <div class="form-control-feedback">
+                                    <i class="icon-lock2 text-muted"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group" align="center">
+
+                                <h:outputText rendered="#{login.captchaFrame}" id="titr" styleClass="display-block" value="تصویر امنیتی"/>
+
+                                <p:graphicImage id="image" value="#{login.captcha}" height="35" style="margin-top: 8px"
+                                                stream="false" cache="false" rendered="#{login.captchaFrame}"/>
+
+                                <p:commandButton actionListener="#{login.createCaptcha}" rendered="#{login.captchaFrame}"
+                                                 class="btn btn-primary btn-block" value="کد امنیتی جدید"
+                                                 icon="icon-spinner9" id="reCapcha" update="@form"/>
+
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <h:inputText id="captcha" type="text" class="form-control"
+                                                 value="#{login.captchaInput}" rendered="#{login.captchaFrame}"
+                                                 a:placeholder="تصویر امنیتی">
+                                        <div class="form-control-feedback">
+                                            <i class="user-secret text-muted"></i>
+                                        </div>
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 5px">
+                                <p:commandButton actionListener="#{login.login}" class="btn btn-primary btn-block"
+                                                 value="ورود" icon="icon-circle-left2" id="login" update="@form">
+                                </p:commandButton>
+                                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">لغو</button>
+                            </div>
+                        </h:form>
+
+                    </div>
+
+                    <div class="tab-pane fade" style="display: none" id="basic-tab2">
+                        <h:form prependId="false">
+                            <div class="text-center">
+                                <div class="icon-object border-success text-success"><i class="fa fa-key"></i></div>
+                                <h5 class="content-group">بازیابی کلمه عبور <small class="display-block">تمامی فیلدها ضروری هستند</small></h5>
+                            </div>
+
+                            <div class="form-group has-feedback has-feedback-left">
+                                <h:inputText type="text" class="form-control" value="#{changePassword.username}" a:placeholder="نام کاربری"/>
+                                <div class="form-control-feedback">
+                                    <i class="icon-user text-muted"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group has-feedback has-feedback-left">
+                                <center>
+                                    <h5 class="content-group"><small class="display-block">سوال امنیتی اول</small></h5>
+                                </center>
+                                <h:selectOneMenu value="#{changePassword.questionOne}" class="form-control">
+                                    <f:selectItem itemValue="#{null}" itemLabel="سوال مورد نظر را انتخاب نمایید"/>
+                                    <f:selectItems value="#{changePassword.userQuestions1}"
+                                                   var="t"
+                                                   itemValue="#{t.code}" itemLabel="#{t.title}"/>
+                                </h:selectOneMenu>
+                                <div class="form-group" style="margin-top: 3px">
+                                    <h:inputText type="text" class="form-control" value="#{changePassword.answer1}" a:placeholder="پاسخ سوال اول"/>
+                                    <div class="form-control-feedback">
+                                        <i class="icon-insert-template text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group has-feedback has-feedback-left">
+                                <center>
+                                    <h5 class="content-group"><small class="display-block">سوال امنیتی دوم</small></h5>
+                                </center>
+                                <h:selectOneMenu value="#{changePassword.questionTwo}" class="form-control">
+                                    <f:selectItem itemValue="#{null}" itemLabel="سوال مورد نظر را انتخاب نمایید"/>
+                                    <f:selectItems value="#{changePassword.userQuestions2}"
+                                                   var="t"
+                                                   itemValue="#{t.code}" itemLabel="#{t.title}"/>
+                                </h:selectOneMenu>
+                                <div class="form-group" style="margin-top: 3px">
+                                    <h:inputText type="text" class="form-control" value="#{changePassword.answer2}" a:placeholder="پاسخ سوال دوم"/>
+                                    <div class="form-control-feedback">
+                                        <i class="icon-insert-template text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group has-feedback has-feedback-left">
+                                <center>
+                                    <h5 class="content-group"><small class="display-block">کلمه عبور جدید</small></h5>
+                                </center>
+                                <div class="form-group" style="margin-top: 3px">
+                                    <h:inputSecret type="text" class="form-control" value="#{changePassword.password1}" a:placeholder="کلمه عبور جدید"/>
+                                    <div class="form-control-feedback">
+                                        <i class="icon-lock2 text-muted"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 3px">
+                                    <h:inputSecret type="text" class="form-control" value="#{changePassword.password2}" a:placeholder="تکرار کلمه عبور جدید"/>
+                                    <div class="form-control-feedback">
+                                        <i class="icon-lock2 text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p:commandButton actionListener="#{changePassword.proccess}" class="btn bg-indigo-400 btn-block"
+                                             value="تغییر کلمه عبور" icon="icon-rotate-cw2" id="reset" update="@form">
+                            </p:commandButton>
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">لغو</button>
+                        </h:form>
+                    </div>
+
+                </div>
+                <!-- /form -->
+
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-aboat" class="modal fade">
+        <div class="modal-dialog modal-medium">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h5 class="modal-title">درباره تیم طراحی و توسعه سامانه منابع انسانی نداجا</h5>
+                    <h4> </h4>
+                </div>
+                <!-- modal -->
+                <div class="modal-body">
+
+                    <p:fieldset legend="درباره تیم طراحی و توسعه سامانه منابع انسانی نداجا" style="background-color: #e3ddd8">
+                        <p:tabView prependId="false" id="tww" orientation="right" dynamic="true">
+                            <p:tab id="tanonee" title="تیم مدیریت و برنامه ریزی" titleStyle="background-color: #e3ddd8">
+                                <p:panelGrid id="pgtaa" columns="2" cellpadding="10">
+                                    <p:outputLabel value="سفارش دهنده"/>
+                                    <p:outputLabel value="معاونت نیروی انسانی نداجا"/>
+                                    <p:outputLabel value="مجری"/>
+                                    <p:outputLabel value="مدیریت نرم افزار نداجا"/>
+                                    <p:outputLabel value="مدیر يروژه"/>
+                                    <p:outputLabel value="ناوبانیکم وحید احمدی یکتا"/>
+                                </p:panelGrid>
+                            </p:tab>
+                            <p:tab id="tantwoo" title="برنامه نویسان" titleStyle="background-color: #e3ddd8">
+                                <p:panelGrid cellpadding="false" cellspacing="false" columns="3">
+                                    <p:outputLabel value="ناوبانیکم وحید احمدی یکتا"/>
+                                    <p:outputLabel value="ناوباندوم مهدی هاشمی"/>
+                                    <p:outputLabel value="کارمند حمید شفیعی"/>
+                                </p:panelGrid>
+                            </p:tab>
+                            <p:tab id="tabthreee" title="طراحی و گرافیک" titleStyle="background-color: #e3ddd8">
+                                <p:panelGrid cellpadding="false" cellspacing="false" columns="2">
+                                    <p:outputLabel value="گرافیک و HTML"/>
+                                    <p:outputLabel value="ناوباندوم مهدی هاشمی"/>
+                                </p:panelGrid>
+                            </p:tab>
+                        </p:tabView>
+                        <div class="col-md-9"></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-5"></div>
+                        <div class="col-md-10" style="margin-top: 7px">
+                            <p:outputLabel value="تماس با واحد مدیریت سامانه :"/>
+                        </div>
+                        <div class="col-md-5"></div>
+                        <div class="col-md-10" style="margin-top: 7px">
+                            <p:outputLabel
+                                    value="ستاد کل نداجا - معاونت فاوا نداجا - مدیریت نرم افزار نداجا -"/>
+                            <p:outputLabel value="تلفن تماس :3299"/>
+                        </div>
+                    </p:fieldset>
+
+                </div>
+                <!-- /modal -->
+            </div>
+        </div>
+    </div>
+
+    <h:outputScript library="js" name="jquery.iosslider.min.js"/>
+    <h:outputScript library="js" name="clock.js"/>
+
+</h:body>
+
+</html>

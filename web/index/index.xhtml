@@ -1,0 +1,287 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-xl-3 col-lg-6 col-xs-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="p-2 text-xs-center bg-cyan bg-darken-2 media-left media-middle">
+                                <i class="icon-user-check font-large-2 white"/>
+                            </div>
+                            <div class="p-2 bg-cyan white media-body">
+                                <h5>عده حاضر</h5>
+                                <h5 class="text-bold-400">#{indexBean.tedadHazer}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-xs-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="p-2 text-xs-center bg-deep-orange bg-darken-2 media-left media-middle">
+                                <i class="icon-user-minus font-large-2 white"/>
+                            </div>
+                            <div class="p-2 bg-deep-orange white media-body">
+                                <h5>عده غائب</h5>
+                                <h5 class="text-bold-400">#{indexBean.tedadNahast}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-xs-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="p-2 text-xs-center bg-teal bg-darken-2 media-left media-middle">
+                                <i class="icon-eye-plus font-large-2 white"></i>
+                            </div>
+                            <div class="p-2 bg-teal white media-body">
+                                <h5>تعداد بازدید</h5>
+                                <h5 class="text-bold-400">#{indexBean.tedadBazdid}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-xs-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="p-2 text-xs-center bg-pink bg-darken-2 media-left media-middle">
+                                <i class="icon-stats-dots font-large-2 white"></i>
+                            </div>
+                            <div class="p-2 bg-pink white media-body">
+                                <h5>تعداد کاربران آنلاین</h5>
+                                <h5 class="text-bold-400">#{indexBean.tedadOnline}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class=" col-lg-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title" style="color: white">آمار کاربران</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-block">
+                            <h:form prependId="false" id="mainForm">
+                                <p:panel header="">
+                                    <div class="row" data-step="2" data-intro="جهت فیلتر نمودن گزارش از این قسمت اقدام نمایید.">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="field1-1" class="control-label">تاریخ گزارش از</label>
+                                                <p:inputText value="#{chartBean.tarikhAz}" id="field1-1" styleClass="form-control date"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="field1-2" class="control-label">تاریخ گزارش تا</label>
+                                                <p:inputText value="#{chartBean.tarikhTa}" id="field1-2" styleClass="form-control date"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="field1-2" class="control-label">#{chartBean.dayereBakhshTitle}</label>
+                                                <h:selectOneMenu id="field1-3" styleClass="form-control"
+                                                                 value="#{chartBean.dayereCode}" rendered="#{chartBean.dayere}">
+                                                    <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                    <f:selectItems value="#{chartBean.dayeres}" var="dayere"
+                                                                   itemValue="#{dayere.code}"
+                                                                   itemLabel="#{dayere.title}"/>
+                                                </h:selectOneMenu>
+
+                                                <h:selectOneMenu id="field1-5" styleClass="form-control"
+                                                                 value="#{chartBean.dayereCode}" rendered="#{chartBean.bakhsh}">
+                                                    <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                    <f:selectItems value="#{chartBean.bakhshes}" var="bakhsh"
+                                                                   itemValue="#{bakhsh.code}"
+                                                                   itemLabel="#{bakhsh.title}"/>
+                                                </h:selectOneMenu>
+                                                <h:selectOneMenu id="field1-4" styleClass="form-control"
+                                                                 value="#{chartBean.formCode}" rendered="#{chartBean.form}">
+                                                    <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                    <f:selectItems value="#{chartBean.forms}" var="form"
+                                                                   itemValue="#{form.code}"
+                                                                   itemLabel="#{form.title}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="field1-4" class="control-label"> </label>
+                                                <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                                 style="width: 100%"
+                                                                 actionListener="#{chartBean.makeChart}"
+                                                                 update="barChart pieChart"/>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </p:panel>
+                                <script type="text/javascript">
+                                    kamaDatepicker('field1-1', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                    kamaDatepicker('field1-2', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                </script>
+                            </h:form>
+
+                            <div class="card-block" data-step="3" data-intro="در این قسمت میتوانید آمار عملکر خود و کاربران زیر مجموعه خود را بصورت گرافیکی مشاهده نمایید.">
+                                <ul class="nav nav-tabs nav-justified">
+                                    <li class="nav-item">
+                                        <div data-step="4" data-intro="با انتخاب این گزینه نمودار بصورت میله ای به شما نمایش داده خواهد شد.">
+                                            <a class="nav-link active" id="active-tab" data-toggle="tab" href="#basic-tab1" aria-controls="active" aria-expanded="true">نمودار میله ای</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <div data-step="5" data-intro="با انتخاب این گزینه نمودار بصورت دایره ای به شما نمایش داده خواهد شد.">
+                                            <a class="nav-link" id="link-tab" data-toggle="tab" href="#basic-tab2" aria-controls="link" aria-expanded="false">نمودار دایره ای</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="tab-content px-1 pt-1">
+                                    <div role="tabpanel" class="tab-pane fade active in" id="basic-tab1" aria-labelledby="active-tab" aria-expanded="true">
+                                        <br/>
+                                        <h:form prependId="false" id="barChart">
+                                            <h:outputLabel id="barData" value="#{chartBean.data}" style="display: none"/>
+                                            <h:outputLabel id="barLabel" value="#{chartBean.label}" style="display: none"/>
+                                            <h:outputLabel id="barCount" value="#{chartBean.count}" style="display: none"/>
+                                            <h:outputLabel id="barTitle" value="#{chartBean.chartTitle}" style="display: none"/>
+                                            <canvas id="barChartShow" width="200" height="100"></canvas>
+                                            <script type="text/javascript">
+                                                createBarChart();
+                                                function createBarChart() {
+                                                    var dt = document.getElementById('barData').textContent;
+                                                    var lb = document.getElementById('barLabel').textContent;
+                                                    var title = document.getElementById('barTitle').textContent;
+                                                    var count = document.getElementById('barCount').textContent;
+                                                    var ctx = document.getElementById('barChartShow').getContext('2d');
+
+                                                    var color = [];
+                                                    for(var i = 0; i &lt; count; i++){
+                                                        color.push('rgba(218, 58, 58, 1)');
+                                                    }
+
+                                                    var data = dt.split(",");
+                                                    var label= lb.split(",");
+
+                                                    var barChartShow = new Chart(ctx, {
+                                                        type: 'bar',
+                                                        data: {
+                                                            labels: label,
+                                                            datasets: [{
+                                                                label: title,
+                                                                data: data,
+                                                                backgroundColor: color,
+                                                                borderWidth: 1
+                                                            }]
+                                                        },
+                                                        options: {
+                                                            scales: {
+                                                                yAxes: [{
+                                                                    ticks: {
+                                                                        beginAtZero: true
+                                                                    }
+                                                                }]
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            </script>
+                                        </h:form>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="basic-tab2" role="tabpanel" aria-labelledby="link-tab" aria-expanded="false">
+                                        <br/>
+                                        <h:form prependId="false" id="pieChart">
+                                            <h:outputLabel id="pieData" value="#{chartBean.data}" style="display: none"/>
+                                            <h:outputLabel id="pieLabel" value="#{chartBean.label}" style="display: none"/>
+                                            <h:outputLabel id="pieCount" value="#{chartBean.count}" style="display: none"/>
+                                            <h:outputLabel id="pieTitle" value="#{chartBean.chartTitle}" style="display: none"/>
+                                            <canvas id="pieChartShow" width="200" height="100"></canvas>
+                                            <script type="text/javascript">
+                                                createPieChart();
+                                                function createPieChart() {
+                                                    var dt = document.getElementById('pieData').textContent;
+                                                    var lb = document.getElementById('pieLabel').textContent;
+                                                    var title = document.getElementById('pieTitle').textContent;
+                                                    var count = document.getElementById('pieCount').textContent;
+                                                    var ctx = document.getElementById('pieChartShow').getContext('2d');
+
+                                                    var color = [];
+                                                    var colorHistory = ['rgba(218, 58, 58, 1)', 'rgba(2, 136, 209, 1)', 'rgba(34, 209, 2, 1)',
+                                                        'rgba(251, 255, 0, 1)', 'rgba(255, 255, 255, 1)', 'rgba(0, 0, 0, 1)',
+                                                        'rgba(224, 50, 211, 1)', 'rgba(77, 37, 239, 1)', 'rgba(34, 209, 2, 1)',
+                                                        'rgba(245, 217, 217, 1)', 'rgba(144, 208, 132, 1)', 'rgba(31, 115, 16, 1)',
+                                                        'rgba(115, 85, 16, 1)', 'rgba(220, 163, 33, 1)', 'rgba(158, 140, 98, 1)',
+                                                        'rgba(36, 230, 212, 1)', 'rgba(133, 178, 203, 1)', 'rgba(38, 166, 154, 1)',
+                                                        'rgba(143, 143, 143, 1)', 'rgba(205, 220, 57, 1)', 'rgba(121, 85, 72, 1)',
+                                                        'rgba(255, 193, 7, 1)', 'rgba(255, 152, 0, 1)', 'rgba(255, 87, 34, 1)',
+                                                        'rgba(96, 125, 139, 1)', 'rgba(3, 169, 244, 1)', 'rgba(75, 27, 76, 1)',
+                                                        'rgba(90, 125, 49, 1)', 'rgba(165, 88, 9, 1)', 'rgba(38, 50, 56, 1)',
+                                                        'rgba(2, 209, 85, 1)', 'rgba(178, 197, 186, 1)', 'rgba(4, 151, 208, 1)',
+                                                        'rgba(103, 58, 183, 1)', 'rgba(171, 144, 220, 1)', 'rgba(92, 0, 255, 1)',
+                                                        'rgba(210, 185, 147, 1)', 'rgba(147, 210, 158, 1)', 'rgba(100, 190, 224, 1)'];
+                                                    for(var i = 0; i &lt; count; i++){
+                                                        color.push(colorHistory[i]);
+                                                    }
+
+                                                    var data = dt.split(",");
+                                                    var label= lb.split(",");
+
+                                                    var pieChartShow = new Chart(ctx, {
+                                                        type: 'pie',
+                                                        data: {
+                                                            labels: label,
+                                                            datasets: [{
+                                                                label: title,
+                                                                data: data,
+                                                                backgroundColor: color,
+                                                                borderWidth: 1
+                                                            }]
+                                                        }
+                                                    });
+                                                }
+                                            </script>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ projects table with monthly chart -->
+
+    </ui:define>
+
+</ui:composition>

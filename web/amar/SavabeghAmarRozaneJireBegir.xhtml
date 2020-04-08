@@ -1,0 +1,1004 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <div class="row">
+
+            <div class=" col-lg-12">
+                <div class="card">
+                    <h:form id="formA" prependId="false">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title"
+                                style="color: white">آماره روزانه جیره بگیر #{savabeghAmarRozaneJireBegirBean.dayere.title}-#{savabeghAmarRozaneJireBegirBean.bakhsh.title}-#{savabeghAmarRozaneJireBegirBean.taghvim.tarikh}-#{savabeghAmarRozaneJireBegirBean.taghvim.roozHafte} </h4>
+                            <h4 class="card-title" style="color: white"></h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row" data-step="2"
+                             data-intro="در این بخش امکان ثبت آمار به تفکیک افسران،درجه داران،کارمندان و ... را دارا می باشد(دایره و بخش توسط سیستم ثبت می گردد براساس دسترسی اقدامگر)">
+                            <p:tabView id="tabK" prependId="false"
+                                       activeIndex="#{savabeghAmarRozaneJireBegirBean.tabIndex}">
+                                <p:tab title="آمار افسران">
+                                    <h:panelGrid columns="15" id="am1" style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="شرح"/>
+                                        <h:outputLabel style="width: 100%" value="عده کل"/>
+                                        <h:outputLabel style="width: 100%" value="مرخصی"/>
+                                        <h:outputLabel style="width: 100%" value="بستری"/>
+                                        <h:outputLabel style="width: 100%" value="نهست"/>
+                                        <h:outputLabel style="width: 100%" value="فرار"/>
+                                        <h:outputLabel style="width: 100%" value="بازداشت"/>
+                                        <h:outputLabel style="width: 100%" value="منتظرخدمت"/>
+                                        <h:outputLabel style="width: 100%" value="مامورازعده"/>
+                                        <h:outputLabel style="width: 100%" value="جمع متفرقه"/>
+                                        <h:outputLabel style="width: 100%" value="ماموربعده"/>
+                                        <h:outputLabel style="width: 100%" value="جمعی حاضر"/>
+                                        <h:outputLabel style="width: 100%" value="صبحانه"/>
+                                        <h:outputLabel style="width: 100%" value="ناهار"/>
+                                        <h:outputLabel style="width: 100%" value="شام"/>
+
+                                        <h:outputLabel style="width: 100%" value="افسران 1و2"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEdeKolAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMorakhasiAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBastariAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNahastAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nFararAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBazdashtAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMontazerBekhedmatAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorAzEdeAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameMotafaregheAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorBeEdeAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameHazerAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nSobhaneAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNaharAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nShamAfsarYekVaDo}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                        <h:outputLabel style="width: 100%" value="افسران 3"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEdeKolAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMorakhasiAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBastariAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNahastAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nFararAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBazdashtAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMontazerBekhedmatAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorAzEdeAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameMotafaregheAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorBeEdeAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameHazerAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nSobhaneAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNaharAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nShamAfsarSe}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                    </h:panelGrid>
+                                    <div align="left">
+                                        <p:commandButton value="بعدی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.nextTab(1)}"
+                                                         update="tabK"/>
+                                    </div>
+                                </p:tab>
+                                <p:tab title="آماردرجه داران">
+                                    <h:panelGrid columns="15" id="am2" style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="شرح"/>
+                                        <h:outputLabel style="width: 100%" value="عده کل"/>
+                                        <h:outputLabel style="width: 100%" value="مرخصی"/>
+                                        <h:outputLabel style="width: 100%" value="بستری"/>
+                                        <h:outputLabel style="width: 100%" value="نهست"/>
+                                        <h:outputLabel style="width: 100%" value="فرار"/>
+                                        <h:outputLabel style="width: 100%" value="بازداشت"/>
+                                        <h:outputLabel style="width: 100%" value="منتظرخدمت"/>
+                                        <h:outputLabel style="width: 100%" value="مامورازعده"/>
+                                        <h:outputLabel style="width: 100%" value="جمع متفرقه"/>
+                                        <h:outputLabel style="width: 100%" value="ماموربعده"/>
+                                        <h:outputLabel style="width: 100%" value="جمعی حاضر"/>
+                                        <h:outputLabel style="width: 100%" value="صبحانه"/>
+                                        <h:outputLabel style="width: 100%" value="ناهار"/>
+                                        <h:outputLabel style="width: 100%" value="شام"/>
+
+
+                                        <h:outputLabel style="width: 100%" value="درجه داران2"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEdeKolDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMorakhasiDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBastariDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNahastDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nFararDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBazdashtDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMontazerBekhedmatDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorAzEdeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameMotafaregheDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorBeEdeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameHazerDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nSobhaneDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNaharDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nShamDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                    </h:panelGrid>
+                                    <div align="left">
+                                        <p:commandButton value="بعدی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.nextTab(2)}"
+                                                         update="tabK"/>
+                                        <p:commandButton value="قبلی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.backTab(0)}"
+                                                         update="tabK"/>
+                                    </div>
+                                </p:tab>
+                                <p:tab title="آمار کارمندان علمی و تجربی">
+                                    <h:panelGrid columns="15" id="am3" style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="شرح"/>
+                                        <h:outputLabel style="width: 100%" value="عده کل"/>
+                                        <h:outputLabel style="width: 100%" value="مرخصی"/>
+                                        <h:outputLabel style="width: 100%" value="بستری"/>
+                                        <h:outputLabel style="width: 100%" value="نهست"/>
+                                        <h:outputLabel style="width: 100%" value="فرار"/>
+                                        <h:outputLabel style="width: 100%" value="بازداشت"/>
+                                        <h:outputLabel style="width: 100%" value="منتظرخدمت"/>
+                                        <h:outputLabel style="width: 100%" value="مامورازعده"/>
+                                        <h:outputLabel style="width: 100%" value="جمع متفرقه"/>
+                                        <h:outputLabel style="width: 100%" value="ماموربعده"/>
+                                        <h:outputLabel style="width: 100%" value="جمعی حاضر"/>
+                                        <h:outputLabel style="width: 100%" value="صبحانه"/>
+                                        <h:outputLabel style="width: 100%" value="ناهار"/>
+                                        <h:outputLabel style="width: 100%" value="شام"/>
+
+
+                                        <h:outputLabel style="width: 100%" value="کارمندان علمی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEdeKolKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMorakhasiKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBastariKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNahastKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nFararKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBazdashtKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMontazerBekhedmatKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorAzEdeKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameMotafaregheKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorBeEdeKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameHazerKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nSobhaneKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNaharKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nShamKarmandElmi}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                        <h:outputLabel style="width: 100%" value="کارمندان تجربی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEdeKolKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMorakhasiKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBastariKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNahastKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nFararKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBazdashtKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMontazerBekhedmatKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorAzEdeKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameMotafaregheKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorBeEdeKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameHazerKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nSobhaneKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNaharKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nShamKarmandTajrobi}"
+                                                     style="width: 100%;text-align: center;"/>
+
+
+                                    </h:panelGrid>
+                                    <div align="left">
+                                        <p:commandButton value="بعدی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.nextTab(3)}"
+                                                         update="tabK"/>
+                                        <p:commandButton value="قبلی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.backTab(1)}"
+                                                         update="tabK"/>
+                                    </div>
+                                </p:tab>
+                                <p:tab title="آمار وظیفه">
+                                    <h:panelGrid columns="15" id="am4" style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="شرح"/>
+                                        <h:outputLabel style="width: 100%" value="عده کل"/>
+                                        <h:outputLabel style="width: 100%" value="مرخصی"/>
+                                        <h:outputLabel style="width: 100%" value="بستری"/>
+                                        <h:outputLabel style="width: 100%" value="نهست"/>
+                                        <h:outputLabel style="width: 100%" value="فرار"/>
+                                        <h:outputLabel style="width: 100%" value="بازداشت"/>
+                                        <h:outputLabel style="width: 100%" value="منتظرخدمت"/>
+                                        <h:outputLabel style="width: 100%" value="مامورازعده"/>
+                                        <h:outputLabel style="width: 100%" value="جمع متفرقه"/>
+                                        <h:outputLabel style="width: 100%" value="ماموربعده"/>
+                                        <h:outputLabel style="width: 100%" value="جمعی حاضر"/>
+                                        <h:outputLabel style="width: 100%" value="صبحانه"/>
+                                        <h:outputLabel style="width: 100%" value="ناهار"/>
+                                        <h:outputLabel style="width: 100%" value="شام"/>
+
+                                        <h:outputLabel style="width: 100%" value="افسران وظیفه"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEdeKolVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMorakhasiVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBastariVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNahastVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nFararVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBazdashtVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMontazerBekhedmatVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorAzEdeVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameMotafaregheVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorBeEdeVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameHazerVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nSobhaneVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNaharVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nShamVazifeAfsar}"
+                                                     style="width: 100%;text-align: center;"/>
+
+
+                                        <h:outputLabel style="width: 100%" value="دانشجویان وظیفه"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEdeKolVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMorakhasiVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBastariVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNahastVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nFararVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBazdashtVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMontazerBekhedmatVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorAzEdeVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameMotafaregheVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorBeEdeVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameHazerVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nSobhaneVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNaharVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nShamVazifeDaneshjo}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                        <h:outputLabel style="width: 100%" value="درجه داران وظیفه"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEdeKolVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMorakhasiVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBastariVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNahastVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nFararVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBazdashtVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMontazerBekhedmatVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorAzEdeVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameMotafaregheVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorBeEdeVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameHazerVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nSobhaneVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNaharVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nShamVazifeDarajedar}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                        <h:outputLabel style="width: 100%" value="ناوی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEdeKolNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMorakhasiNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBastariNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNahastNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nFararNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBazdashtNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMontazerBekhedmatNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorAzEdeNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameMotafaregheNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nMamorBeEdeNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nJameHazerNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nSobhaneNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nNaharNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nShamNavi}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                    </h:panelGrid>
+                                    <div align="left">
+                                        <p:commandButton value="بعدی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.nextTab(4)}"
+                                                         update="tabK"/>
+                                        <p:commandButton value="قبلی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.backTab(2)}"
+                                                         update="tabK"/>
+                                    </div>
+                                </p:tab>
+                                <p:tab title="آمار مداومت">
+                                    <h:panelGrid columns="6" id="pga20" style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="مداومتکاری"/>
+                                        <h:outputLabel style="width: 100%" value="اضافه کاری"/>
+                                        <h:outputLabel style="width: 100%" value="ملاحظات"/>
+                                        <h:outputLabel style="width: 100%" value="ثبت جیره ناهار"/>
+                                        <h:outputLabel style="width: 100%" value="تعدادجیره ناهار"/>
+                                        <h:outputLabel style="width: 100%"/>
+
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nModavematKari}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEzafekari}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:inputTextarea styleClass="form-control"
+                                                         value="#{savabeghAmarRozaneJireBegirBean.molahezat}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        <p:commandButton id="btnNahar" value="جیره ناهار"
+                                                         onclick="PF('dialogJire').show();"/>
+
+                                        <h:outputLabel styleClass="form-control" id="tedadJire"
+                                                       value="#{savabeghAmarRozaneJireBegirBean.selectedPersonelList.size()}"
+                                                       style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                    </h:panelGrid>
+                                    <div align="left">
+                                        <p:commandButton value="بعدی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.nextTab(5)}"
+                                                         update="tabK"/>
+                                        <p:commandButton value="قبلی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.backTab(3)}"
+                                                         update="tabK"/>
+                                    </div>
+                                </p:tab>
+                                <p:tab title="تغییرات آماری پایور">
+                                    <h:panelGrid title="تغییرات آماری پایور" columns="8" id="pga14"
+                                                 style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="ازمرخصی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzMorakhasiPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به مرخصی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeMorakhasiPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="ازنهست"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzNahastPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به نهست"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeNahastPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="ازبستری"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzBastariPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به بستری"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeBastariPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="از ماموریت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzMamoriyatPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به ماموریت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeMamoriyatPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="کسرازآمار"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nKasrAzAmarPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="اضاف به آمار"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEzafBeAmarPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="اضاف به ماموربه عده"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEzafBeMamorBeEdePayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="کسرازآمارماموربه عده"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nKasrAzMamorBeEdePayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به انتظارخدمت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeEntezarBeKhedmatPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="از انتظارخدمت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzEntezarKhedmatPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به بازداشت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeBazdashtPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="ازبازداشت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzBazdashtPayvar}"
+                                                     style="width: 100%;text-align: center;"/>
+
+
+                                    </h:panelGrid>
+                                    <div align="left">
+                                        <p:commandButton value="بعدی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.nextTab(6)}"
+                                                         update="tabK"/>
+                                        <p:commandButton value="قبلی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.backTab(4)}"
+                                                         update="tabK"/>
+                                    </div>
+                                </p:tab>
+                                <p:tab title="تغییرات آماری ناوی">
+                                    <h:panelGrid title="تغییرات آماری " columns="8" id="pga16"
+                                                 style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="ازمرخصی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzMorakhasiVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به مرخصی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeMorakhasiVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="ازنهست"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzNahastVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به نهست"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeNahastVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="ازبستری"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzBastariVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به بستری"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeBastariVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="از ماموریت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzMamoriyatVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به ماموریت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeMamoriyatVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="کسرازآمار"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nKasrAzAmarVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="اضاف به آمار"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEzafBeAmarVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="اضاف به ماموربه عده"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nEzafBeMamorBeEdeVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="کسرازآمارماموربه عده"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nKasrAzMamorBeEdeVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به انتظارخدمت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeEntezarBeKhedmatVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="از انتظارخدمت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzEntezarKhedmatVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="به بازداشت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nBeBazdashtVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="ازبازداشت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.nAzBazdashtVazife}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                    </h:panelGrid>
+                                    <div align="left">
+                                        <p:commandButton value="بعدی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.nextTab(7)}"
+                                                         update="tabK"/>
+                                        <p:commandButton value="قبلی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.backTab(5)}"
+                                                         update="tabK"/>
+                                    </div>
+                                </p:tab>
+                                <p:tab title="امضا کنندگان">
+                                    <h:panelGrid title="نفرات امضا ککنده " columns="8" id="pga111"
+                                                 style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="مسیول اداری:"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.sarparasteShobeAmar}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="فرمانده"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.farmandeYegan}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="سرپرست شعبه آمار"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghAmarRozaneJireBegirBean.sarparasteShobeAmarNiroEnsani}"
+                                                     style="width: 100%;text-align: center;"/>
+
+                                    </h:panelGrid>
+                                    <div align="left">
+                                        <p:commandButton value="قبلی"
+                                                         actionListener="#{savabeghAmarRozaneJireBegirBean.backTab(6)}"
+                                                         update="tabK"/>
+                                    </div>
+                                </p:tab>
+                            </p:tabView>
+
+
+                        </div>
+
+
+                        <h:panelGrid columns="15" id="pga15" style="width: 100%;text-align: center">
+
+                            <h:outputLabel style="width: 100%"/><h:outputLabel style="width: 100%"/><h:outputLabel
+                                style="width: 100%"/><h:outputLabel style="width: 100%"/><h:outputLabel
+                                style="width: 100%"/><h:outputLabel style="width: 100%"/><h:outputLabel
+                                style="width: 100%"/><h:outputLabel style="width: 100%"/><h:outputLabel
+                                style="width: 100%"/>
+                            <div class="row" data-step="3"
+                                 data-intro="با کلیک بروی این دکمه،یک دیالوگ باز می گردد که امکان جستجو و پر کردن برخی از بخش  های گزارش جهت تکمیل نمودن گزارش آمار خروجی را دارا می باشد.">
+                                <p:commandButton id="btnRep"
+                                                 style="width: 100%;background-color: #ff4f4f;"
+                                                 value="گزارش"
+                                                 icon="ui-icon-report"
+                                                 onclick="PF('dialogRep').show()"/>
+                            </div>
+                            <p:commandButton id="btnSave" value="ذخیره"
+                                             actionListener="#{savabeghAmarRozaneJireBegirBean.save}"
+                                             rendered="#{!savabeghAmarRozaneJireBegirBean.showCrud}"
+                                             disabled="#{!savabeghAmarRozaneJireBegirBean.createPermission}"
+                                             style="width: 100%"
+                                             update="formA formB "/>
+
+                            <p:commandButton id="btnDelete"
+                                             style="width: 100%;background-color: #ff4f4f;"
+                                             value="حذف"
+                                             disabled="#{!savabeghAmarRozaneJireBegirBean.deletePermission}"
+                                             rendered="#{savabeghAmarRozaneJireBegirBean.showCrud}"
+                                             icon="ui-icon-trash"
+                                             onclick="PF('dialogDel').show()"/>
+
+                            <p:commandButton id="btnEdit" value="ویرایش"
+                                             actionListener="#{savabeghAmarRozaneJireBegirBean.update}"
+                                             rendered="#{savabeghAmarRozaneJireBegirBean.showCrud}"
+                                             disabled="#{!savabeghAmarRozaneJireBegirBean.updatePermission}"
+                                             style="width: 100%"
+                                             update="formA formB "/>
+                            <p:commandButton id="btnCancel" value="انصراف"
+                                             actionListener="#{savabeghAmarRozaneJireBegirBean.nuller}"
+                                             style="width: 100%"
+                                             rendered="#{savabeghAmarRozaneJireBegirBean.showCrud}"
+                                             update="formA formB "/>
+
+                        </h:panelGrid>
+                    </h:form>
+                    <h:form id="formB" prependId="false">
+                        <div class="card" style="width: 100%;">
+                            <div class="card-header" style="background: #bfa67c">
+                                <h4 class="card-title"
+                                    style="color: white">آمار امروز</h4>
+                                <h4 class="card-title" style="color: white"></h4>
+                                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                        <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row" data-step="4"
+                                 data-intro="مشاهده آمار ثبت شده امروز به تفکیک دایره ، بخش یا همه آن ها براساس دسترسی کاربر(البته اگر آمار امروز ثبت شده باشد).در این بخش کاربر می تواند در صورت نیاز به ویرایش یا حذف با انتخاب سطر مورد نظر و ارسال اطلاعات به بخش بالای فرم علاوه بر مشاهده اطلاعات می تواند اگر دکمه های ویرایش و حذف فعال بود(دسترسی داشت) عمل مورد نظر خود را انجام دهد">
+                                <div class="card-body">
+                                    <div class="card-block" style="width: 100%" align="right">
+                                        <p:dataTable id="aTable" value="#{savabeghAmarRozaneJireBegirBean.dataTable}"
+
+                                                     paginator="true"
+                                                     rows="5"
+                                                     rowHover="true"
+                                                     var="dataTable">
+                                            <p:column headerText="نمایش">
+                                                <p:commandButton value="انتخاب"
+                                                                 actionListener="#{savabeghAmarRozaneJireBegirBean.dispach(dataTable)}"
+                                                                 update="formA formB  NaharForm btnCancel btnEdit btnDelete btnSave"/>
+                                            </p:column>
+                                            <p:column headerText="تاریخ">
+                                                <h:outputLabel value="#{dataTable.taghvim.tarikh}"/>
+                                            </p:column>
+                                            <p:column headerText="دایره">
+                                                <h:outputLabel value="#{dataTable.dayere.title}"/>
+                                            </p:column>
+                                            <p:column headerText="بخش">
+                                                <h:outputLabel value="#{dataTable.bakhsh.title}"/>
+                                            </p:column>
+                                            <p:column headerText="مسیول اداری">
+                                                <h:outputLabel value="#{dataTable.sarparasteShobeAmar}"/>
+                                            </p:column>
+                                            <p:column headerText="فرمانده">
+                                                <h:outputLabel value="#{dataTable.farmandeYegan}"/>
+                                            </p:column>
+                                        </p:dataTable>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+
+
+        </div>
+        <h:form id="NaharForm" prependId="false">
+            <p:dialog header="جیره ناهار" closable="true" widgetVar="dialogJire" height="700" width="900"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+                <h:panelGrid id="pgNahar" style="width: 100%;" columns="8">
+
+                    <p:dataTable id="tableNahar" value="#{savabeghAmarRozaneJireBegirBean.personelList}" var="nahar"
+                                 selection="#{savabeghAmarRozaneJireBegirBean.selectedPersonelList}"
+                                 rowKey="#{nahar.id}">
+                        <p:column headerText="انتخاب" selectionMode="multiple" style="width:40px;text-align:center"/>
+                        <p:column headerText="شماره پرسنلی" filterBy="#{nahar.shomarePersoneli}" filterMatchMode="contains">
+                            <h:outputLabel value="#{nahar.shomarePersoneli}"/>
+                        </p:column>
+                        <p:column headerText="کدملی" filterBy="#{nahar.codeMeli}" filterMatchMode="contains">
+                            <h:outputLabel value="#{nahar.codeMeli}"/>
+                        </p:column>
+                        <p:column headerText="نام" filterBy="#{nahar.name}" filterMatchMode="contains">
+                            <h:outputLabel value="#{nahar.name}"/>
+                        </p:column>
+                        <p:column headerText="نشان" filterBy="#{nahar.neshan}" filterMatchMode="contains">
+                            <h:outputLabel value="#{nahar.neshan}"/>
+                        </p:column>
+                        <p:column headerText="دایره" filterBy="#{nahar.dayere.title}" filterMatchMode="contains">
+                            <h:outputLabel value="#{nahar.dayere.title}"/>
+                        </p:column>
+                        <p:column headerText="بخش" filterBy="#{nahar.bakhsh.title}" filterMatchMode="contains">
+                            <h:outputLabel value="#{nahar.bakhsh.title}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+                <div class="footer">
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="انصراف"
+                                     actionListener="#{savabeghAmarRozaneJireBegirBean.selectedPersonelList.clear}"
+                                     update="tableNahar"
+                                     onclick="PF('dialogJire').hide()"/>
+                    <p:commandButton styleClass="btn bg-success" value="تایید"
+                                     update="formA formB tedadJire"
+                                     onclick="PF('dialogJire').hide()"/>
+                </div>
+            </p:dialog>
+        </h:form>
+        <h:form id="dilForm" prependId="false">
+            <p:dialog header="حذف" closable="true" widgetVar="dialogDel" height="100" width="500"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+                <h4></h4>
+                <div class="row">
+                    <div>آیا از حذف این اطلاعات مطمئنید؟</div>
+                </div>
+
+                <div class="footer">
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="خیر"
+                                     onsuccess="PF('dialogDel').hide()"
+                                     update="formA formB "/>
+                    <p:commandButton styleClass="btn bg-success" value="بله"
+                                     actionListener="#{savabeghAmarRozaneJireBegirBean.delete}"
+                                     onsuccess="PF('dialogDel').hide()"
+                                     update="formA formB "/>
+                </div>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="dilReportForm" prependId="false">
+            <p:dialog header="جستجو" closable="true" widgetVar="dialogRep" width="800" height="600"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+                <h:panelGrid style="width: 100%" id="pgdf" columns="4">
+                    <h:outputLabel value="تاریخ" style="width: 100%"/>
+                    <h:inputText id="date" styleClass="form-control date"
+                                 value="#{savabeghAmarRozaneJireBegirBean.tarikhSabtFilter}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel style="width: 100%"/>
+                    <h:outputLabel style="width: 100%"/>
+                    <h:outputLabel value="دایره" style="width: 100%"/>
+                    <h:selectOneMenu disabled="#{savabeghAmarRozaneJireBegirBean.disableDayere}"
+                                     value="#{savabeghAmarRozaneJireBegirBean.dayereIdFilter}" style="width: 100%">
+                        <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                        <f:selectItems value="#{savabeghAmarRozaneJireBegirBean.dayereList}" var="itemDayere"
+                                       itemLabel="#{itemDayere.title}" itemValue="#{itemDayere.id}"/>
+                        <f:ajax listener="#{savabeghAmarRozaneJireBegirBean.selectBakhsh(savabeghAmarRozaneJireBegirBean.dayereIdFilter)}"
+                                render="fBakhsh"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="بخش" style="width: 100%"/>
+                    <h:selectOneMenu id="fBakhsh" value="#{savabeghAmarRozaneJireBegirBean.bakhshIdFilter}"
+                                     style="width: 100%">
+                        <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                        <f:selectItems value="#{savabeghAmarRozaneJireBegirBean.bakhshList}" var="itemBakhsh"
+                                       itemLabel="#{itemBakhsh.title}" itemValue="#{itemBakhsh.id}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+
+                <br/>
+
+                <h3>امضاکنندگان</h3>
+                <h:panelGrid style="width: 100%" id="pgdf2" columns="6">
+                    <h:outputLabel value="سرپرست شعبه آمار کارخانجات" style="width: 100%"/>
+                    <h:inputText styleClass="form-control"
+                                 value="#{savabeghAmarRozaneJireBegirBean.sarparasteShobeAmar}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="فرمانده یگان" style="width: 100%"/>
+                    <h:inputText styleClass="form-control"
+                                 value="#{savabeghAmarRozaneJireBegirBean.farmandeYegan}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="سرپرست شعبه آمار نیروی انسانی" style="width: 100%"/>
+                    <h:inputText styleClass="form-control"
+                                 value="#{savabeghAmarRozaneJireBegirBean.sarparasteShobeAmarNiroEnsani}"
+                                 style="width: 100%;text-align: center;"/>
+
+                </h:panelGrid>
+                <br/>
+                <h3>عناوین</h3>
+                <h:panelGrid style="width: 100%" id="pgdf3" columns="4">
+                    <h:outputLabel value="ملاحظات" style="width: 100%"/>
+                    <h:inputText styleClass="form-control"
+                                 value="#{savabeghAmarRozaneJireBegirBean.molahezatNew}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel style="width: 100%"/>
+                    <h:outputLabel style="width: 100%"/>
+                </h:panelGrid>
+                <div class="footer" style="text-align: left;">
+                    <p:commandButton styleClass="btn bg-success" value="جستجو"
+                                     actionListener="#{savabeghAmarRozaneJireBegirBean.report}"
+                                     onsuccess="PF('dialogRep').hide()"
+                                     ajax="false"/>
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="انصراف"
+                                     onclick="PF('dialogRep').hide()"
+                                     update="formA formB "/>
+
+                </div>
+            </p:dialog>
+            <script type="text/javascript">
+                kamaDatepicker('date', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+            </script>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

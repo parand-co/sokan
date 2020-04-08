@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="dataBaseModel.baseTable">
+    <class name="amar.model.Personel" table="a_Personel" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="jensiyat"
+                     class="Jensiyat"/>
+        <many-to-one name="vazeyatTaahol"
+                     class="VazeyatTaahol"/>
+        <many-to-one name="noeEstekhdam"
+                     class="NoeEstekhdam"/>
+        <many-to-one name="madrak"
+                     class="Madrak"/>
+        <many-to-one name="noeTabaghe"
+                     class="Tabaghe"/>
+        <many-to-one name="dayere"
+                     class="Dayere"/>
+        <many-to-one name="bakhsh"
+                     class="Bakhsh"/>
+        <many-to-one name="semat"
+                     class="Semat"/>
+        <many-to-one name="daraje" class="Daraje"/>
+        <many-to-one name="darajeShoghl" class="Daraje"/>
+        <many-to-one name="raste"
+                     class="Raste"/>
+        <many-to-one name="hoviyat"
+                     class="Hoviyat"/>
+        <many-to-one name="yegan"
+                     class="Yegan"/>
+        <many-to-one name="farmandehiMostaghel"
+                     class="FarmandehiMostaghel"/>
+        <many-to-one name="gorohKari" class="Goroh"/>
+
+        <property name="seri"/>
+        <property name="shomarePersoneli"/>
+        <property name="shomareKart"/>
+        <property name="codeMeli"/>
+        <property name="name"/>
+        <property name="neshan"/>
+        <property name="axe"/>
+        <property name="namePedar"/>
+        <property name="shomareShenasname"/>
+        <property name="tellSabet"/>
+        <property name="tellHamrah"/>
+        <property name="address"/>
+        <property name="shomareHesabHekmat"/>
+        <property name="shomareHesabSepah"/>
+        <property name="tarikhTavalod"/>
+        <property name="tarikhEstekhdam"/>
+        <property name="tarikhEngheza"/>
+        <property name="elateGhateKar"/>
+
+        <property name="active"/>
+        <property name="saghfeMorakhasi"/>
+        <property name="tarikhEnteghal"/>
+        <property name="DakhelOrKharej"/>
+        <property name="vazeyatShoghli"/>
+        <property name="band"/>
+        <property name="satr"/>
+        <property name="onvaneShoghl"/>
+        <property name="haghShoghl"/>
+        <property name="hagheShaghel"/>
+        <property name="fogholadeModiriyat"/>
+        <property name="saghfeEzafeKar"/>
+        <property name="mahalShoghlSazmani"/>
+
+    </class>
+</hibernate-mapping>

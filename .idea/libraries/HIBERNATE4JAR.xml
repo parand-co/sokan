@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="HIBERNATE4JAR">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/HIBERNATE4JAR" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/HIBERNATE4JAR" recursive="false" />
+  </library>
+</component>

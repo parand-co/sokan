@@ -1,0 +1,533 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">سوابق استراحت پزشکی</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="searchForm" prependId="false">
+                        <div data-step="2" data-intro="جهت مشاده سوابق استراحت پزشکی پرسنل، میتوانید از طریق فیلترهای زیر اقدام نمایید.">
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="month_id" styleClass="control-label" value="نوع پرسنل:"/>
+                                        <h:selectOneMenu id="month_id" styleClass="form-control"
+                                                         value="#{esterahatPezeshkiBean.noeEstekhdamCodeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{esterahatPezeshkiBean.noeEstekhdams}" var="noeEstekhdam"
+                                                           itemValue="#{noeEstekhdam.code}"
+                                                           itemLabel="#{noeEstekhdam.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shkart" styleClass="control-label" value="شماره کارت:"/>
+                                        <h:inputText id="shkart" styleClass="form-control" value="#{esterahatPezeshkiBean.cartNumberSearch}" maxlength="4"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shpersoneli" styleClass="control-label" value="شماره پرسنلی:"/>
+                                        <h:inputText id="shpersoneli" styleClass="form-control" value="#{esterahatPezeshkiBean.shpSearch}" maxlength="9"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shcodemeli" styleClass="control-label" value="کد ملی:"/>
+                                        <h:inputText id="shcodemeli" styleClass="form-control" value="#{esterahatPezeshkiBean.codeMeliSearch}" maxlength="10"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="nameSearch" styleClass="control-label" value="نام:"/>
+                                        <h:inputText id="nameSearch" styleClass="form-control" value="#{esterahatPezeshkiBean.nameSearch}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshanSearch" styleClass="control-label" value="نشان:"/>
+                                        <h:inputText id="neshanSearch" styleClass="form-control" value="#{esterahatPezeshkiBean.familySearch}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="esAz" styleClass="control-label" value="تاریخ استراحت پزشکی از:"/>
+                                        <h:inputText value="#{esterahatPezeshkiBean.tarikhEsterahatAzSearch}" id="esAz" styleClass="form-control date" placeholder="تاریخ"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="esTa" styleClass="control-label" value="تاریخ استراحت پزشکی تا:"/>
+                                        <h:inputText value="#{esterahatPezeshkiBean.tarikhEsterahatTaSearch}" id="esTa" styleClass="form-control date" placeholder="تاریخ"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="modatSearchAz" styleClass="control-label" value="مدت استراحت از:"/>
+                                        <h:inputText id="modatSearchAz" styleClass="form-control" value="#{esterahatPezeshkiBean.modatEsterahatAzSearch}" maxlength="2"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="modatSearchTa" styleClass="control-label" value="مدت استراحت تا:"/>
+                                        <h:inputText id="modatSearchTa" styleClass="form-control" value="#{esterahatPezeshkiBean.modatEsterahatTaSearch}" maxlength="2"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="modatSearchTa" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                            <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                             style="width: 100%"
+                                                             rendered="#{esterahatPezeshkiBean.readPermission}"
+                                                             actionListener="#{esterahatPezeshkiBean.search}"
+                                                             update="searchForm mask"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-step="3" data-intro="سوابق استراحت پزشکی جستجو شده، در این قسمت نمایش داده خواهد شد.">
+                            <p:dataTable id="tableSTP" value="#{esterahatPezeshkiBean.savabegh}"
+                                         emptyMessage="داده ای وجود ندارد"
+                                         scrollable="true"
+                                         styleClass="table" var="dataTable" editable="true"
+                                         paginator="true" rows="15" style="margin-top: 20px;">
+                                <p:column headerText="نمایش" style="width: 60px;" rendered="#{esterahatPezeshkiBean.readPermission}">
+                                    <div data-step="4" data-intro="جهت ویرایش نمودن اطلاعات، بر روی این گزینه کلیک نمایید و در فرم پایین صفحه اقدام به ویرایش اطلاعات نمایید.">
+                                        <p:commandButton icon="icon-search4" actionListener="#{esterahatPezeshkiBean.dispach(dataTable)}" update="saveForm mask"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="شماره پرسنلی" style="width: 110px;">
+                                    <h:outputLabel id="shpV" value="#{dataTable.personel.shomarePersoneli}"/>
+                                </p:column>
+                                <p:column headerText="شماره کارت">
+                                    <h:outputLabel value="#{dataTable.personel.shomareKart}"/>
+                                </p:column>
+                                <p:column headerText="کد ملی">
+                                    <h:outputLabel value="#{dataTable.personel.codeMeli}"/>
+                                </p:column>
+                                <p:column headerText="نام">
+                                    <h:outputLabel value="#{dataTable.personel.name}"/>
+                                </p:column>
+                                <p:column headerText="نشان">
+                                    <h:outputLabel value="#{dataTable.personel.neshan}"/>
+                                </p:column>
+                                <p:column headerText="نام پزشک">
+                                    <h:outputLabel value="#{dataTable.namePezeshk}"/>
+                                </p:column>
+                                <p:column headerText="نشان پزشک">
+                                    <h:outputLabel value="#{dataTable.neshanPezeshk}"/>
+                                </p:column>
+                                <p:column headerText="مدت">
+                                    <h:outputLabel value="#{dataTable.modat}"/>
+                                </p:column>
+                                <p:column headerText="تاریخ شروع">
+                                    <h:outputLabel value="#{dataTable.tarikhShoro}"/>
+                                </p:column>
+                                <p:column headerText="تاریخ پایان">
+                                    <h:outputLabel value="#{dataTable.tarikhPayan}"/>
+                                </p:column>
+                                <p:column headerText="مرحله">
+                                    <h:outputLabel value="#{dataTable.marhale}"/>
+                                </p:column>
+                                <p:column headerText="وضعیت">
+                                    <h:outputLabel value="#{esterahatPezeshkiBean.checkTaeed(dataTable.taeed)}"/>
+                                </p:column>
+                                <p:column headerText="تاریخ ثبت">
+                                    <h:outputLabel value="#{dataTable.tarikhSabt}"/>
+                                </p:column>
+                                <p:column headerText="حذف" style="width: 60px;" rendered="#{esterahatPezeshkiBean.deletePermission}">
+                                    <div data-step="5" data-intro="جهت حذف سوابق، بر روی این گزینه کلیک نمایید.">
+                                        <p:commandButton icon="ui-icon-trash" styleClass="bg-danger" actionListener="#{esterahatPezeshkiBean.startDelete(dataTable)}" onclick="PF('delete_dlg').show()"/>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
+                        <script type="text/javascript">
+                            kamaDatepicker('esAz', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                            kamaDatepicker('esTa', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                        </script>
+                    </h:form>
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">ثبت استراحت پزشکی</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="saveForm" prependId="false">
+                        <div data-step="6" data-intro="جهت ثبت و ویرایش اطلاعات سوابق استراحت پزشکی، از این قسمت اقدام نمایید.">
+                            <div class="row">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-2" data-step="7" data-intro="جهت جستجوی پرسنل با شماره پرسنلی از این قسمت اقدام نمایید.">
+                                        <div class="form-group">
+                                            <h:outputLabel for="shp" styleClass="control-label" value="شماره پرسنلی:"/>
+                                            <h:inputText id="shp" styleClass="form-control" value="#{esterahatPezeshkiBean.shp}" maxlength="9"
+                                                         disabled="#{esterahatPezeshkiBean.edited}"
+                                                         onkeyup="kavosh(this.value.length, 1);"
+                                                         onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                            <h:commandButton id="kep" style="display: none">
+                                                <f:ajax execute="saveForm" listener="#{esterahatPezeshkiBean.findPersonel}"
+                                                        render="saveForm mask"/>
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2" data-step="8" data-intro="جهت جستجوی پرسنل با کدملی از این قسمت اقدام نمایید.">
+                                        <div class="form-group">
+                                            <h:outputLabel for="cm" styleClass="control-label" value="کدملی:"/>
+                                            <h:inputText id="cm" styleClass="form-control" value="#{esterahatPezeshkiBean.cm}" maxlength="10"
+                                                         disabled="#{esterahatPezeshkiBean.edited}"
+                                                         onkeyup="kavosh1(this.value.length, 1);"
+                                                         onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                            <h:commandButton id="kep1" style="display: none">
+                                                <f:ajax execute="saveForm" listener="#{esterahatPezeshkiBean.findPersonel}"
+                                                        render="saveForm mask"/>
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <br/>
+                                        <br/>
+                                        <h:outputLabel for="shp" styleClass="control-label" value="#{esterahatPezeshkiBean.moshakhasat}"/>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="shp" class="control-label"> </label>
+                                        <div class="form-group" data-step="9" data-intro="جهت ایجاد گزارش با فرمت های اکسل و PDF، بر روی این گزینه کلیک نمایید و در پنل باز شده اقدام به گزارشگیری نمایید.">
+                                        <span class="input-group-btn">
+                                            <p:commandButton styleClass="btn bg-success" style="width: 100%" type="button" value="گزارش انتخابی"  onclick="PF('report_dlg').show()" rendered="#{esterahatPezeshkiBean.readPermission}"/>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" data-step="10" data-intro="اطلاعات سوابق استراحت پزشکی را میتوانید در فیلدهای زیر وارد یا ویرایش نمایید.">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-1" styleClass="control-label" value="نام پزشک:"/>
+                                            <h:inputText id="field2-1" styleClass="form-control" value="#{esterahatPezeshkiBean.pezeshkName}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-2" styleClass="control-label" value="نشان پزشک:"/>
+                                            <h:inputText id="field2-2" styleClass="form-control" value="#{esterahatPezeshkiBean.pezeshkFamily}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-3" styleClass="control-label" value="علت:"/>
+                                            <h:inputText value="#{esterahatPezeshkiBean.elat}" id="field2-3" styleClass="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-5" styleClass="control-label date" value="تاریخ شروع:"/>
+                                            <h:inputText value="#{esterahatPezeshkiBean.tarikhShoro}" id="field2-5" styleClass="form-control date" placeholder="تاریخ"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-4" styleClass="control-label" value="مدت استراحت:"/>
+                                            <h:inputText id="field2-4" styleClass="form-control" value="#{esterahatPezeshkiBean.modat}" maxlength="2"
+                                                         onfocus="tarihkPayan('field2-5', 'field2-4', 'field2-6')"
+                                                         onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-6" styleClass="control-label date" value="تاریخ پایان:"/>
+                                            <h:inputText value="#{esterahatPezeshkiBean.tarikhPayan}" id="field2-6" styleClass="form-control date" placeholder="تاریخ"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-7" styleClass="control-label" value="مرحله:"/>
+                                            <h:inputText id="field2-7" styleClass="form-control" value="#{esterahatPezeshkiBean.marhale}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-8" styleClass="control-label" value="تایید شده:"/>
+                                            <h:selectBooleanCheckbox id="field2-8" styleClass="form-control" value="#{esterahatPezeshkiBean.taed}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="modatSearchTa" class="control-label"> </label>
+                                            <span class="input-group-btn">
+                                        <p:commandButton value="ذخیره" styleClass="btn bg-success"
+                                                         style="width: 100%"
+                                                         rendered="#{!esterahatPezeshkiBean.edited}"
+                                                         actionListener="#{esterahatPezeshkiBean.save}"
+                                                         disabled="#{!esterahatPezeshkiBean.createPermission}"
+                                                         update="saveForm searchForm mask"/>
+                                    </span>
+
+                                            <span class="input-group-btn">
+                                        <p:commandButton value="ویرایش" styleClass="btn bg-success"
+                                                         rendered="#{esterahatPezeshkiBean.edited}"
+                                                         actionListener="#{esterahatPezeshkiBean.edit}"
+                                                         disabled="#{!esterahatPezeshkiBean.updatePermission}"
+                                                         update="saveForm searchForm mask"/>
+                                        <p:commandButton value="انصراف" styleClass="btn bg-danger"
+                                                         rendered="#{esterahatPezeshkiBean.edited}"
+                                                         actionListener="#{esterahatPezeshkiBean.nuller}"
+                                                         update="saveForm searchForm mask"/>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+                            kamaDatepicker('field2-5', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                            kamaDatepicker('field2-6', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                        </script>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+        <p:dialog header="حذف" widgetVar="delete_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از حذف اطلاعات اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{esterahatPezeshkiBean.delete}" update="searchForm mask" oncomplete="PF('delete_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{esterahatPezeshkiBean.cancelDelete}" oncomplete="PF('delete_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+        <p:dialog header="گزارش" widgetVar="report_dlg" modal="true" dir="rtl" resizable="false">
+
+            <h:form prependId="false" id="report">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="rshp" styleClass="control-label" value="شماره پرسنلی:"/>
+                            <h:inputText id="rshp" styleClass="form-control" value="#{esterahatPezeshkiBean.rshp}" maxlength="9"
+                                         onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="rcm" styleClass="control-label" value="کدملی:"/>
+                            <h:inputText id="rcm" styleClass="form-control" value="#{esterahatPezeshkiBean.rcodeMeli}" maxlength="10"
+                                         onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="rcart" styleClass="control-label" value="شماره کارت:"/>
+                            <h:inputText id="rcart" styleClass="form-control" value="#{esterahatPezeshkiBean.rshomareKart}" maxlength="8"
+                                         onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="rname" styleClass="control-label" value="نام:"/>
+                            <h:inputText id="rname" styleClass="form-control" value="#{esterahatPezeshkiBean.rname}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="rfamily" styleClass="control-label" value="نشان:"/>
+                            <h:inputText id="rfamily" styleClass="form-control" value="#{esterahatPezeshkiBean.rfamily}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="rdaraje" styleClass="control-label" value="درجه:"/>
+                            <h:selectOneMenu id="rdaraje" styleClass="form-control"
+                                             value="#{esterahatPezeshkiBean.rdarajeCode}">
+                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                <f:selectItems value="#{esterahatPezeshkiBean.darajes}" var="daraje"
+                                               itemValue="#{daraje.code}"
+                                               itemLabel="#{daraje.title}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="rshoroaz" styleClass="control-label" value="تاریخ شروع استراحت پزشکی از:"/>
+                            <h:inputText id="rshoroaz" styleClass="form-control date" value="#{esterahatPezeshkiBean.rshoroAz}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="rshorota" styleClass="control-label" value="تاریخ شروع استراحت پزشکی تا:"/>
+                            <h:inputText id="rshorota" styleClass="form-control date" value="#{esterahatPezeshkiBean.rshoroTa}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="rpayanaz" styleClass="control-label" value="تاریخ پایان استراحت پزشکی از:"/>
+                            <h:inputText id="rpayanaz" styleClass="form-control date" value="#{esterahatPezeshkiBean.rpayanAz}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="rpayanta" styleClass="control-label" value="تاریخ پایان استراحت پزشکی تا:"/>
+                            <h:inputText id="rpayanta" styleClass="form-control date" value="#{esterahatPezeshkiBean.rpayanTa}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <h:outputLabel for="rtaeed" styleClass="control-label" value="وضعیت:"/>
+                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                <p:selectOneRadio id="rtaeed" value="#{esterahatPezeshkiBean.rtaeed}">
+                                    <f:selectItem itemLabel="تایید شده" itemValue="1" />
+                                    <f:selectItem itemLabel="تایید نشده" itemValue="2" />
+                                    <f:selectItem itemLabel="هردو" itemValue="3" />
+                                </p:selectOneRadio>
+                            </h:panelGrid>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <div class="row" style="direction: ltr">
+                    <div class="col-md-3">
+                        <p:commandButton value="PDF" styleClass="bg-success" style="width: 100%" actionListener="#{esterahatPezeshkiBean.pdfReport}" oncomplete="PF('report_dlg').hide()" ajax="false"/>
+                    </div>
+                    <div class="col-md-3">
+                        <p:commandButton value="EXCEL" styleClass="bg-danger" style="width: 100%" actionListener="#{esterahatPezeshkiBean.excelReport}" oncomplete="PF('report_dlg').hide()" ajax="false">
+                            <p:fileDownload value="#{esterahatPezeshkiBean.exelFile}"/>
+                        </p:commandButton>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    kamaDatepicker('rshoroaz', {
+                        markToday: true,
+                        markHolidays: true,
+                        highlightSelectedDay: true,
+                        gotoToday: true
+                    });
+                    kamaDatepicker('rshorota', {
+                        markToday: true,
+                        markHolidays: true,
+                        highlightSelectedDay: true,
+                        gotoToday: true
+                    });
+                    kamaDatepicker('rpayanaz', {
+                        markToday: true,
+                        markHolidays: true,
+                        highlightSelectedDay: true,
+                        gotoToday: true
+                    });
+                    kamaDatepicker('rpayanta', {
+                        markToday: true,
+                        markHolidays: true,
+                        highlightSelectedDay: true,
+                        gotoToday: true
+                    });
+                </script>
+
+            </h:form>
+
+        </p:dialog>
+
+        <h:form prependId="false" id="mask">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.date').mask('9999/99/99');
+                });
+
+                $(document).ready(function () {
+                    $('.currency').mask('999,999,999');
+                });
+
+                $(document).ready(function () {
+                    $('.time').mask('99:99');
+                });
+            </script>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

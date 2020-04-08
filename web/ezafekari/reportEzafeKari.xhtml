@@ -1,0 +1,200 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <style type="text/css">
+            .bd-main {
+                margin-top: 25px;
+            }
+
+            .ui-dialog {
+                width: 500px;
+            }
+        </style>
+        <h:form prependId="false">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">گزارش اضافه کاری</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p:panel header="مشخص کردن تاریخ">
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p:outputLabel value=" ماه"/>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <h:selectOneMenu value="#{reportEzafeKariBean.selectedMount}" tabindex="1"
+                                                                         styleClass="form-control form-control-sm">
+                                                            <f:selectItem itemValue="00" itemLabel="انتخاب کنید..."/>
+                                                            <f:selectItem itemValue="01" itemLabel="فروردین"/>
+                                                            <f:selectItem itemValue="02" itemLabel="اردیبهشت"/>
+                                                            <f:selectItem itemValue="03" itemLabel="خرداد"/>
+                                                            <f:selectItem itemValue="04" itemLabel="تیر"/>
+                                                            <f:selectItem itemValue="05" itemLabel="مرداد"/>
+                                                            <f:selectItem itemValue="06" itemLabel="شهریور"/>
+                                                            <f:selectItem itemValue="07" itemLabel="مهر"/>
+                                                            <f:selectItem itemValue="08" itemLabel="آبان"/>
+                                                            <f:selectItem itemValue="09" itemLabel="آذر"/>
+                                                            <f:selectItem itemValue="10" itemLabel="دی"/>
+                                                            <f:selectItem itemValue="11" itemLabel="بهمن"/>
+                                                            <f:selectItem itemValue="12" itemLabel="اسفند"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p:outputLabel value=" سال"/>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <h:selectOneMenu value="#{reportEzafeKariBean.emsal}"
+                                                                         styleClass="form-control form-control-sm">
+                                                            <f:selectItems value="#{reportEzafeKariBean.sal}" var="s"
+                                                                           itemValue="#{s}" itemLabel="#{s}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p:panel>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p:panel header="مشخص کردن پرسنل">
+                                            <div class="row">
+                                                <br/>
+                                                <div class="row">
+
+                                                    <div class="col-sm-3">
+                                                        <p:outputLabel value="مشخصات پرسنل" id="persCount"/>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <p:outputLabel value="#{reportEzafeKariBean.moshakhasat}"
+                                                                       id="personelCount"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <br/>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p:outputLabel style="font-size: smaller"
+                                                                           value="شماره پرسنلی"/>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <h:inputText id="shp" styleClass="form-control form-control-sm" value="#{reportEzafeKariBean.shomarePersoneliSearched2}" maxlength="9"
+                                                                             onkeyup="kavosh(this.value.length, 1);"
+                                                                             onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                                                <h:commandButton id="kep" style="display: none">
+                                                                    <f:ajax execute="@form" listener="#{reportEzafeKariBean.loadPersonelsByPersNumExactly}"
+                                                                            render="personelCount"/>
+                                                                </h:commandButton>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <br/>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p:outputLabel style="font-size: smaller"
+                                                                           value="کدملی"/>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <h:inputText id="cm" styleClass="form-control form-control-sm" value="#{reportEzafeKariBean.shomareMeliSearched}" maxlength="9"
+                                                                             onkeyup="kavosh1(this.value.length, 1);"
+                                                                             onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                                                <h:commandButton id="kep1" style="display: none">
+                                                                    <f:ajax execute="@form" listener="#{reportEzafeKariBean.loadPersonelsByPersMeliExactly}"
+                                                                            render="personelCount"/>
+                                                                </h:commandButton>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p:panel>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:panel header=" ">
+                                            <br/>
+                                            <div class="row">
+                                                <br/>
+                                                <br/>
+                                                <div class="col-md-6">
+                                                    <p:commandButton value="نمایش" style="width: 100%"
+                                                                     rendered="#{reportEzafeKariBean.readPermission}"
+                                                                     actionListener="#{reportEzafeKariBean.showResults}"
+                                                                     update="tbl"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p:commandButton value="چاپ" styleClass="bg-success" style="width: 100%"
+                                                                     rendered="#{reportEzafeKariBean.readPermission}"
+                                                                     actionListener="#{reportEzafeKariBean.pdfPrint}" ajax="false"/>
+                                                </div>
+                                            </div>
+                                        </p:panel>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p:dataTable value="#{reportEzafeKariBean.result}" paginator="true" rows="31"
+                                                 rowIndexVar="i" var="item" id="tbl">
+                                        <p:column headerText="ردیف" style="width: 60px">
+                                            <p:outputLabel value="#{i+1}"/>
+                                        </p:column>
+                                        <p:column headerText="تاریخ">
+                                            <p:outputLabel value="#{item.tarikh}"/>
+                                        </p:column>
+                                        <p:column headerText="روز">
+                                            <p:outputLabel value="#{item.roz}"/>
+                                        </p:column>
+                                        <p:column headerText="وضعیت">
+                                            <p:outputLabel value="#{item.vaziyat}"/>
+                                        </p:column>
+                                        <p:column headerText="ورود">
+                                            <p:outputLabel value="#{item.vorod}"/>
+                                        </p:column>
+                                        <p:column headerText="خروج">
+                                            <p:outputLabel value="#{item.khoroj}"/>
+                                        </p:column>
+                                        <p:column headerText="وضعیت تردد">
+                                            <p:outputLabel value="#{item.taradod}"/>
+                                        </p:column>
+                                        <p:column headerText="اضافه کاری">
+                                            <p:outputLabel value="#{item.ezafeKari}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

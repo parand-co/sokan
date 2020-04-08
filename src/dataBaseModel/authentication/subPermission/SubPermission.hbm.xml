@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping  >
+    <class name="dataBaseModel.authentication.subPermission.SubPermission" table="_subpermission" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="permission" class="dataBaseModel.authentication.permission.Permission"/>
+        <many-to-one name="noePersonel" class="dataBaseModel.baseTable.NoeEstekhdam"/>
+        <many-to-one name="dayere" class="dataBaseModel.baseTable.Dayere"/>
+        <many-to-one name="bakhsh" class="dataBaseModel.baseTable.Bakhsh"/>
+    </class>
+</hibernate-mapping>

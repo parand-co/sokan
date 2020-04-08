@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="dataBaseModel.baseTable">
+    <class name="omorkoliAndgharardadi.model.SavabeghMamoriyatRozane" table="a_SavabeghMamoriyatRozane"
+           lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="personel"
+                     class="amar.model.Personel"/>
+        <property name="tarikhShoro"/>
+        <property name="tarikhPayan"/>
+        <many-to-one name="noeMamoriyat"
+                     class="MojavezRozane"/>
+        <property name="tarikhSabt"/>
+        <property name="mahaleMamoriyat"/>
+        <many-to-one name="dayere"
+                     class="Dayere"/>
+        <many-to-one name="bakhsh"
+                     class="Bakhsh"/>
+        <property name="modat"/>
+        <property name="saatShoro"/>
+        <property name="saatEnd"/>
+        <property name="tamdid"/>
+        <property name="modatHours"/>
+        <property name="modatMinutes"/>
+
+
+    </class>
+</hibernate-mapping>

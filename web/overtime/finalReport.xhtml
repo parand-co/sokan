@@ -1,0 +1,139 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:form prependId="false">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">گزارش سند نهایی</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p:outputLabel value="سند اضافه کاری"/>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h:selectOneMenu value="#{finalReportBean.sanadId}"
+                                                         styleClass="form-control form-control-sm" id="sanadSelector">
+                                            <f:selectItems value="#{finalReportBean.sanadList}" var="s"
+                                                           itemLabel="#{s.sal} #{s.mah}" itemValue="#{s.id}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p:commandButton value="بارگذاری و نمایش"
+                                                         styleClass="btn btn-sm btn-outline-primary"
+                                                         actionListener="#{finalReportBean.loadOvertimes}"
+                                                         update="tbl"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">اطلاعات سند</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p:dataTable value="#{finalReportBean.ezafeKariListDto}" widgetVar="tblEzf"
+                                                     rowIndexVar="i" var="item" id="tbl"
+                                                     filteredValue="#{finalReportBean.filteredEzfDto}"
+                                                     paginator="true" rows="20">
+
+                                            <f:facet name="header">
+                                                لیست اضافه کاری های سند انتخاب شده
+                                                <div style="text-align: left">
+                                                    <p:commandLink ajax="false" actionListener="#{finalReportBean.reportPDF()}">
+                                                        <i class="icon icon-file-pdf red"/>
+                                                    </p:commandLink>
+                                                    <p:commandLink ajax="false" actionListener="#{finalReportBean.reportExcel()}">
+                                                        <i class="icon icon-file-excel green"/>
+                                                    </p:commandLink>
+                                                </div>
+                                            </f:facet>
+
+                                            <p:column headerText="ردیف" style="width: 60px">
+                                                <p:outputLabel value="#{i+1}"/>
+                                            </p:column>
+
+                                            <p:column headerText="شماره پرسنلی"
+                                                      filterBy="#{item.personel.shomarePersoneli}"
+                                                      filterMatchMode="contains">
+                                                <p:outputLabel value="#{item.personel.shomarePersoneli}"/>
+                                            </p:column>
+
+                                            <p:column headerText="نام و نشان">
+                                                <p:outputLabel value="#{item.personel.name} #{item.personel.neshan}"/>
+                                            </p:column>
+
+                                            <p:column headerText="دایره / بخش" style="width: 250px">
+                                                <p:outputLabel
+                                                        value="#{item.personel.dayere.title} / #{item.personel.bakhsh.title}"/>
+                                            </p:column>
+
+                                            <p:column headerText="مدت" style="width: 70px;">
+                                                <p:outputLabel value="#{item.modat}"/>
+                                            </p:column>
+
+                                            <p:column headerText="ماخذ">
+                                                <p:outputLabel value="#{item.makhaz} ریال"/>
+                                            </p:column>
+
+                                            <p:column headerText="مبلغ اضافه کار">
+                                                <p:outputLabel value="#{item.mablagh} ریال"/>
+                                            </p:column>
+
+                                            <p:column headerText="مبلغ پرداختی">
+                                                <p:outputLabel value="#{item.totalMablagh} ریال"
+                                                               styleClass="tag-success tag"/>
+                                            </p:column>
+
+
+                                            <f:facet name="footer">
+                                                <p:outputLabel value="جمع کل: "/>
+                                                <p:outputLabel value="#{pishSanadBean.totalMablagh} ریال" id="total"/>
+                                            </f:facet>
+
+                                        </p:dataTable>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

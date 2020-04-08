@@ -1,0 +1,476 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">ثبت کاربر</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="saveForm" prependId="false">
+                        <div class="row">
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group" data-step="2" data-intro="جهت جستجوی پرسنل با شماره پرسنلی از این قسمت اقدام نمایید.">
+                                        <h:outputLabel for="shp" styleClass="control-label" value="شماره پرسنلی:"/>
+                                        <h:inputText id="shp" styleClass="form-control" value="#{createUserBean.shp}" maxlength="9"
+                                                     disabled="#{createUserBean.edited}"
+                                                     onkeyup="kavosh(this.value.length, 1);"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        <h:commandButton id="kep" style="display: none">
+                                            <f:ajax execute="saveForm" listener="#{createUserBean.findPersonel}"
+                                                    render="saveForm"/>
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group" data-step="3" data-intro="جهت جستجوی پرسنل با کدملی از این قسمت اقدام نمایید.">
+                                        <h:outputLabel for="cm" styleClass="control-label" value="کدملی:"/>
+                                        <h:inputText id="cm" styleClass="form-control" value="#{createUserBean.cm}" maxlength="10"
+                                                     disabled="#{createUserBean.edited}"
+                                                     onkeyup="kavosh1(this.value.length, 1);"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        <h:commandButton id="kep1" style="display: none">
+                                            <f:ajax execute="saveForm" listener="#{createUserBean.findPersonelByCodeMeli}"
+                                                    render="saveForm"/>
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <br/>
+                                    <br/>
+                                    <h:outputLabel for="shp" styleClass="control-label" value="#{createUserBean.moshakhasat}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" data-step="4" data-intro="پس از تعیین نام کاربری و نقش کاربر در سامانه، آن را ذخیره نمایید و در صفحه باز شده، سطح دسترسی آن را تعیین نمایید.">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-1" styleClass="control-label" value="نام کاربری:"/>
+                                    <h:inputText id="field2-1" styleClass="form-control" value="#{createUserBean.userName}" disabled="#{createUserBean.edited}"/>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:outputLabel for="role_ids" styleClass="control-label" value="نقش کاربری:"/>
+                                    <h:selectOneMenu id="role_ids" styleClass="form-control"
+                                                     value="#{createUserBean.roleCode}">
+                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                        <f:selectItems value="#{createUserBean.roles}" var="role"
+                                                       itemValue="#{role.code}"
+                                                       itemLabel="#{role.title}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="role_ids" class="control-label"> </label>
+                                    <span class="input-group-btn">
+                                        <p:commandButton value="ذخیره" styleClass="btn bg-success"
+                                                         style="width: 100%"
+                                                         rendered="#{!createUserBean.edited}"
+                                                         actionListener="#{createUserBean.save}"
+                                                         update="saveForm searchForm"/>
+                                    </span>
+
+                                    <span class="input-group-btn">
+                                        <p:commandButton value="ویرایش" styleClass="btn bg-success"
+                                                         rendered="#{createUserBean.edited}"
+                                                         actionListener="#{createUserBean.edit}"
+                                                         update="saveForm searchForm"/>
+                                        <p:commandButton value="انصراف" styleClass="btn bg-danger"
+                                                         rendered="#{createUserBean.edited}"
+                                                         actionListener="#{createUserBean.nuller}"
+                                                         update="saveForm searchForm"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">جستجوی کاربران</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="searchForm" prependId="false">
+                        <div data-step="5" data-intro="جهت جستجوی کاربر از این بخش استفاده نمایید.">
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="month_id" styleClass="control-label" value="نوع پرسنل:"/>
+                                        <h:selectOneMenu id="month_id" styleClass="form-control"
+                                                         value="#{createUserBean.noePersonelCodeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{createUserBean.noePersonels}" var="noeEstekhdam"
+                                                           itemValue="#{noeEstekhdam.code}"
+                                                           itemLabel="#{noeEstekhdam.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="role_id" styleClass="control-label" value="نقش کاربری:"/>
+                                        <h:selectOneMenu id="role_id" styleClass="form-control"
+                                                         value="#{createUserBean.roleCodeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{createUserBean.roles}" var="roleSearch"
+                                                           itemValue="#{roleSearch.code}"
+                                                           itemLabel="#{roleSearch.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="dayere_id" styleClass="control-label" value="دایره:"/>
+                                        <h:selectOneMenu id="dayere_id" styleClass="form-control"
+                                                         value="#{createUserBean.dayereCodeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{createUserBean.dayeres}" var="dayereSearch"
+                                                           itemValue="#{dayereSearch.code}"
+                                                           itemLabel="#{dayereSearch.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shpersoneli" styleClass="control-label" value="شماره پرسنلی:"/>
+                                        <h:inputText id="shpersoneli" styleClass="form-control" value="#{createUserBean.shpSearch}" maxlength="9"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shcodemeli" styleClass="control-label" value="کد ملی:"/>
+                                        <h:inputText id="shcodemeli" styleClass="form-control" value="#{createUserBean.codeMeliSearch}" maxlength="10"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="nameSearch" styleClass="control-label" value="نام کاربری:"/>
+                                        <h:inputText id="nameSearch" styleClass="form-control" value="#{createUserBean.usernameSearch}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="nameSearch" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                            <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                             style="width: 100%"
+                                                             actionListener="#{createUserBean.search}"
+                                                             update="searchForm"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-step="6" data-intro="کاربران جستجو شده، در این قسمت نمایش داده خواهد شد.">
+                            <p:dataTable id="tableSTP" value="#{createUserBean.savabegh}"
+                                         emptyMessage="داده ای وجود ندارد"
+                                         scrollable="true"
+                                         styleClass="table" var="dataTable" editable="true"
+                                         paginator="true" rows="15" style="margin-top: 20px;">
+                                <p:column headerText="نمایش" style="width: 60px;">
+                                    <div data-step="7" data-intro="جهت ویرایش نمودن اطلاعات، بر روی این گزینه کلیک نمایید و در قسمت بالایی اقدام به ویرایش اطلاعات نمایید.">
+                                        <p:commandButton icon="ui-icon-eye" actionListener="#{createUserBean.dispach(dataTable)}" update="saveForm"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="شماره پرسنلی">
+                                    <h:outputLabel id="shpV" value="#{dataTable.personel.shomarePersoneli}"/>
+                                </p:column>
+                                <p:column headerText="شماره کارت">
+                                    <h:outputLabel value="#{dataTable.personel.shomareKart}"/>
+                                </p:column>
+                                <p:column headerText="کد ملی">
+                                    <h:outputLabel value="#{dataTable.personel.codeMeli}"/>
+                                </p:column>
+                                <p:column headerText="نام">
+                                    <h:outputLabel value="#{dataTable.personel.name}"/>
+                                </p:column>
+                                <p:column headerText="نشان">
+                                    <h:outputLabel value="#{dataTable.personel.neshan}"/>
+                                </p:column>
+                                <p:column headerText="نام کاربری">
+                                    <h:outputLabel value="#{dataTable.userName}"/>
+                                </p:column>
+                                <p:column headerText="نقش کاربر">
+                                    <h:outputLabel value="#{dataTable.role.title}"/>
+                                </p:column>
+                                <p:column headerText="وضعیت">
+                                    <h:outputLabel value="#{createUserBean.status(dataTable.active)}"/>
+                                </p:column>
+                                <p:column headerText="تغییر وضعیت">
+                                    <div data-step="8" data-intro="جهت فعال یا غیرفعال نمودن کاربر از این قسمت استفاده نمایید.">
+                                        <p:commandButton icon="ui-icon-eye" styleClass="bg-orange" actionListener="#{createUserBean.setUser(dataTable)}" onclick="PF('change_dlg').show()"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="لغو انتظار">
+                                    <div data-step="9" data-intro="جهت لغو مدت زمان انتظار اعلامی به کاربر توسط سامانه کاربر از این قسمت استفاده نمایید.">
+                                        <p:commandButton icon="ui-icon-eye" styleClass="bg-orange" actionListener="#{createUserBean.setUser(dataTable)}" onclick="PF('laghv_dlg').show()"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="تعیین سطح دسترسی">
+                                    <div data-step="10" data-intro="جهت تعیین یا ویرایش سطح دسترسی کاربر از این قسمت استفاده نمایید.">
+                                        <p:commandButton icon="ui-icon-eye" styleClass="bg-orange" actionListener="#{createUserBean.setUser(dataTable)}" onclick="PF('create_access_dlg').show()"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="مشاهده سطح دسترسی">
+                                    <div data-step="11" data-intro="جهت مشاهده سطح دسترسی کاربر از این قسمت استفاده نمایید.">
+                                        <p:commandButton icon="ui-icon-eye" styleClass="bg-orange" actionListener="#{createUserBean.fillAccessLevel(dataTable)}" update="access" onclick="PF('access_dlg').show()"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="حذف تمامی دسترسی ها" style="width: 60px;">
+                                    <p:commandButton icon="ui-icon-trash" styleClass="bg-danger" actionListener="#{createUserBean.startDeleteAllPermission(dataTable)}" onclick="PF('deleteAll_dlg').show()"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
+                    </h:form>
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                </div>
+            </div>
+
+        </div>
+
+        <p:dialog header="تغییر وضعیت" widgetVar="change_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از تغییر وضعیت کاربر اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{createUserBean.changeActivity(createUserBean.selectMode)}" update="tableSTP" oncomplete="PF('change_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{createUserBean.clearUser}" oncomplete="PF('change_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+        <p:dialog header="تغییر وضعیت" widgetVar="laghv_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از لغو زمان انتظار کاربر اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{createUserBean.laghv(createUserBean.selectMode)}" update="tableSTP" oncomplete="PF('laghv_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{createUserBean.clearUser}" oncomplete="PF('laghv_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+        <p:dialog header="تعیین سطح دسترسی" widgetVar="create_access_dlg" modal="true" dir="rtl" width="1000" resizable="false">
+
+            <h:form prependId="false" id="report">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="fieldm2-1" class="control-label">فرم ها:</label>
+                            <h:selectManyMenu value="#{createUserBean.formCodes}"
+                                              styleClass="selectpicker form-control" id="fieldm2-1">
+                                <f:passThroughAttribute name="multiple" value="multiple"/>
+                                <f:selectItems value="#{createUserBean.forms}" var="form"
+                                               itemValue="#{form.code}"
+                                               itemLabel="#{form.title}"/>
+                            </h:selectManyMenu>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="fieldm2-2" class="control-label">نوع پرسنل:</label>
+                            <h:selectManyMenu value="#{createUserBean.noePersonelCodes}"
+                                              styleClass="selectpicker form-control" id="fieldm2-2">
+                                <f:passThroughAttribute name="data-live-search" value="true"/>
+                                <f:passThroughAttribute name="multiple" value="multiple"/>
+                                <f:selectItems value="#{createUserBean.noePersonels}" var="noePersonel"
+                                               itemValue="#{noePersonel.code}"
+                                               itemLabel="#{noePersonel.title}"/>
+                            </h:selectManyMenu>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="fieldm2-3" class="control-label">دایره ها:</label>
+                            <h:selectManyMenu value="#{createUserBean.dayereCodes}"
+                                              styleClass="selectpicker form-control" id="fieldm2-3">
+                                <f:passThroughAttribute name="data-live-search" value="true"/>
+                                <f:passThroughAttribute name="multiple" value="multiple"/>
+                                <f:selectItems value="#{createUserBean.dayeres}" var="dayere"
+                                               itemValue="#{dayere.code}"
+                                               itemLabel="#{dayere.title}"/>
+                            </h:selectManyMenu>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="fieldm2-4" class="control-label">بخش ها:</label>
+                            <h:selectManyMenu value="#{createUserBean.bakhshCodes}"
+                                              styleClass="selectpicker form-control" id="fieldm2-4">
+                                <f:passThroughAttribute name="data-live-search" value="true"/>
+                                <f:passThroughAttribute name="multiple" value="multiple"/>
+                                <f:selectItems value="#{createUserBean.bakhshes}" var="bakhsh"
+                                               itemValue="#{bakhsh.code}"
+                                               itemLabel="#{bakhsh.title}"/>
+                            </h:selectManyMenu>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                <br/>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="field2-5" styleClass="control-label" value="دسترسی ایجاد:"/>
+                            <h:selectBooleanCheckbox id="field2-5" styleClass="form-control" value="#{createUserBean.create}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="field2-6" styleClass="control-label" value="دسترسی مشاهده:"/>
+                            <h:selectBooleanCheckbox id="field2-6" styleClass="form-control" value="#{createUserBean.read}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="field2-7" styleClass="control-label" value="دسترسی ویرایش:"/>
+                            <h:selectBooleanCheckbox id="field2-7" styleClass="form-control" value="#{createUserBean.virayesh}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="field2-8" styleClass="control-label" value="دسترسی حذف:"/>
+                            <h:selectBooleanCheckbox id="field2-8" styleClass="form-control" value="#{createUserBean.delete}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <div class="row" style="direction: ltr">
+                    <p:commandButton value="ذخیره" styleClass="bg-success" actionListener="#{createUserBean.createPermission(createUserBean.selectMode)}" update="report selector" oncomplete="PF('create_access_dlg').hide()"/>
+                    <p:commandButton value="انصراف" styleClass="bg-danger" actionListener="#{createUserBean.clearUser}" oncomplete="PF('create_access_dlg').hide()"/>
+                </div>
+
+            </h:form>
+
+            <h:form id="selector">
+                <script type="text/javascript">
+                    $('.selectpicker').selectpicker({
+                        size: tedadList
+                    });
+                </script>
+            </h:form>
+
+        </p:dialog>
+
+        <p:dialog header="سطح دسترسی" widgetVar="access_dlg" modal="true" dir="rtl" width="1500" resizable="false">
+
+            <h:form prependId="false" id="access">
+                <div class="row">
+                    <p:dataTable value="#{createUserBean.permissionModels}"
+                                 emptyMessage="داده ای وجود ندارد"
+                                 scrollable="true"
+                                 styleClass="table" var="dtl" editable="true"
+                                 paginator="true" rows="10">
+                        <p:column headerText="نوع پرسنل">
+                            <h:outputLabel value="#{dtl.noePersonel.title}"/>
+                        </p:column>
+                        <p:column headerText="دایره">
+                            <h:outputLabel value="#{dtl.dayere.title}"/>
+                        </p:column>
+                        <p:column headerText="بخش">
+                            <h:outputLabel value="#{dtl.bakhsh.title}"/>
+                        </p:column>
+                        <p:column headerText="فرم">
+                            <h:outputLabel value="#{dtl.form.title}"/>
+                        </p:column>
+                        <p:column headerText="قابلیت ایجاد">
+                            <h:outputLabel value="#{createUserBean.access(dtl.creat)}"/>
+                        </p:column>
+                        <p:column headerText="قابلیت خواندن">
+                            <h:outputLabel value="#{createUserBean.access(dtl.reaad)}"/>
+                        </p:column>
+                        <p:column headerText="قابلیت ویرایش">
+                            <h:outputLabel value="#{createUserBean.access(dtl.updat)}"/>
+                        </p:column>
+                        <p:column headerText="قابلیت حذف">
+                            <h:outputLabel value="#{createUserBean.access(dtl.delet)}"/>
+                        </p:column>
+                        <p:column headerText="حذف" style="width: 60px;">
+                            <p:commandButton icon="ui-icon-trash" styleClass="bg-danger" actionListener="#{createUserBean.startDeletePermission(dtl)}" onclick="PF('delete_dlg').show()"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+
+        </p:dialog>
+
+        <p:dialog header="حذف دسترسی" widgetVar="delete_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از حذف دسترسی کاربر اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{createUserBean.deletePermission(createUserBean.permissionModel)}" update="access" oncomplete="PF('delete_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{createUserBean.cancelDeletePermission}" oncomplete="PF('delete_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+        <p:dialog header="حذف دسترسی" widgetVar="deleteAll_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از حذف دسترسی کاربر اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{createUserBean.deleteAllPermission(createUserBean.userModel)}" update="access" oncomplete="PF('deleteAll_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{createUserBean.cancelDeleteAllPermission}" oncomplete="PF('deleteAll_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>

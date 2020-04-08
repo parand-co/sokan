@@ -1,0 +1,207 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">ثبت اطلاعیه</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="saveForm" prependId="false">
+                        <div data-step="2" data-intro="جهت ثبت اطلاعیه جدید از این قسمت استفاده نمایید.">
+                            <div class="row">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="role_ids" styleClass="control-label" value="دسته:"/>
+                                            <h:selectOneMenu id="role_ids" styleClass="form-control"
+                                                             value="#{createNewsBean.moduleCode}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{createNewsBean.modules}" var="module"
+                                                               itemValue="#{module.code}"
+                                                               itemLabel="#{module.title}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-1" styleClass="control-label" value="عنوان اطلاعیه:"/>
+                                            <h:inputText id="field2-1" styleClass="form-control" value="#{createNewsBean.title}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field2-2" styleClass="control-label" value="چکیده اطلاعیه:"/>
+                                        <h:inputText id="field2-2" styleClass="form-control" value="#{createNewsBean.kholase}"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field2-3" styleClass="control-label" value="متن اطلاعیه:"/>
+                                        <h:inputTextarea id="field2-3" styleClass="form-control" value="#{createNewsBean.matn}"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="role_ids" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                        <p:commandButton value="ذخیره" styleClass="btn bg-success"
+                                                         style="width: 100%"
+                                                         rendered="#{!createNewsBean.edited}"
+                                                         disabled="#{!createNewsBean.createPermission}"
+                                                         actionListener="#{createNewsBean.save}"
+                                                         update="saveForm searchForm"/>
+                                    </span>
+
+                                        <span class="input-group-btn">
+                                        <p:commandButton value="ویرایش" styleClass="btn bg-success"
+                                                         rendered="#{createNewsBean.edited}"
+                                                         disabled="#{!createNewsBean.updatePermission}"
+                                                         actionListener="#{createNewsBean.edit}"
+                                                         update="saveForm searchForm"/>
+                                        <p:commandButton value="انصراف" styleClass="btn bg-danger"
+                                                         rendered="#{createNewsBean.edited}"
+                                                         actionListener="#{createNewsBean.nuller}"
+                                                         update="saveForm searchForm"/>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">جستجوی اطلاعیه ها</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="searchForm" prependId="false">
+                        <div data-step="3" data-intro="جهت مشاده سوابق اطلاعیه ها، میتوانید از طریق فیلترهای زیر اقدام نمایید.">
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="month_id" styleClass="control-label" value="دسته:"/>
+                                        <h:selectOneMenu id="month_id" styleClass="form-control"
+                                                         value="#{createNewsBean.moduleCodeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{createNewsBean.modules}" var="modules"
+                                                           itemValue="#{modules.code}"
+                                                           itemLabel="#{modules.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shpersoneli" styleClass="control-label" value="عنوان اطلاعیه:"/>
+                                        <h:inputText id="shpersoneli" styleClass="form-control" value="#{createNewsBean.titleSearch}"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shcodemeli" styleClass="control-label" value="متن اطلاعیه:"/>
+                                        <h:inputText id="shcodemeli" styleClass="form-control" value="#{createNewsBean.matnSearch}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="shcodemeli" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                            <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                             style="width: 100%"
+                                                             actionListener="#{createNewsBean.search}"
+                                                             update="searchForm"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-step="4" data-intro="سوابق اطلاعیه های جستجو شده، در این قسمت نمایش داده خواهد شد.">
+                            <p:dataTable id="tableSTP" value="#{createNewsBean.savabegh}"
+                                         emptyMessage="داده ای وجود ندارد"
+                                         scrollable="true"
+                                         styleClass="table" var="dataTable" editable="true"
+                                         paginator="true" rows="15" style="margin-top: 20px;">
+                                <p:column headerText="نمایش" style="width: 60px;" rendered="#{createNewsBean.readPermission}">
+                                    <div data-step="5" data-intro="جهت ویرایش نمودن اطلاعات، بر روی این گزینه کلیک نمایید و در فرم بالای صفحه اقدام به ویرایش اطلاعات نمایید.">
+                                        <p:commandButton icon="ui-icon-eye" actionListener="#{createNewsBean.dispach(dataTable)}" update="saveForm"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="دسته">
+                                    <h:outputLabel id="shpV" value="#{dataTable.module.title}"/>
+                                </p:column>
+                                <p:column headerText="عنوان">
+                                    <h:outputLabel value="#{dataTable.title}"/>
+                                </p:column>
+                                <p:column headerText="متن">
+                                    <h:outputLabel value="#{dataTable.matn}"/>
+                                </p:column>
+                                <p:column headerText="حذف" style="width: 60px;" rendered="#{createNewsBean.deletePermission}">
+                                    <div data-step="6" data-intro="جهت حذف سوابق، بر روی این گزینه کلیک نمایید.">
+                                        <p:commandButton icon="ui-icon-trash" styleClass="bg-danger" actionListener="#{createNewsBean.startDelete(dataTable)}" onclick="PF('delete_dlg').show()"/>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
+                    </h:form>
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                </div>
+            </div>
+
+        </div>
+
+        <p:dialog header="حذف اطلاعیه" widgetVar="delete_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از حذف اطلاعیه اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{createNewsBean.delete(createNewsBean.selectMode)}" update="searchForm" oncomplete="PF('delete_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{createNewsBean.cancelDelete}" oncomplete="PF('delete_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>

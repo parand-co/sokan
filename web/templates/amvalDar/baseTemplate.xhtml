@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <f:event type="preRenderView" listener="#{indexBean.checkLogin}"/>
+
+<h:head>
+
+    <link rel="icon" type="image/x-icon" href="../resources/images/favicon.png"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"/>
+    <title>سامانه سکان</title>
+    <link href="#{resource['/images/logo/sokan_logo_small.png']}" rel="icon" type="image/png"/>
+    <f:metadata charset="UTF-8"/>
+
+    <h:outputStylesheet library="css" name="bootstrap.css"/>
+    <h:outputStylesheet library="css" name="flag-icon.min.css"/>
+    <h:outputStylesheet library="css" name="pace.css"/>
+    <h:outputStylesheet library="css" name="bootstrap-extended.css"/>
+    <h:outputStylesheet library="css" name="app.css"/>
+    <h:outputStylesheet library="css" name="colors.css"/>
+    <h:outputStylesheet library="css" name="custom-rtl.css"/>
+    <h:outputStylesheet library="css" name="vertical-menu.css"/>
+    <h:outputStylesheet library="css" name="vertical-overlay-menu.css"/>
+    <h:outputStylesheet library="css" name="palette-gradient.css"/>
+    <h:outputStylesheet library="css" name="fontAwesome.min.css"/>
+    <h:outputStylesheet library="css" name="bootstrap-select.min.css"/>
+    <h:outputStylesheet library="css" name="kamadatepicker.css"/>
+    <h:outputStylesheet library="fonts" name="icomoon.css"/>
+    <h:outputStylesheet library="css" name="main.css"/>
+    <h:outputStylesheet library="css" name="fullcalendar.css"/>
+    <h:outputStylesheet library="css" name="Chart.css"/>
+    <h:outputStylesheet library="css" name="introjs.css"/>
+    <h:outputStylesheet library="css" name="introjs-rtl.css"/>
+    <h:outputScript library="js" name="intro.js"/>
+    <h:outputScript library="js" name="Chart.bundle.js"/>
+    <h:outputScript library="js" name="Chart.js"/>
+    <h:outputScript library="js" name="fullcalendar.min.js"/>
+    <h:outputScript library="js" name="kamadatepicker.js"/>
+    <h:outputScript library="js" name="mask.js"/>
+    <h:outputScript library="js" name="bootstrap-select.min.js"/>
+    <h:outputScript library="js" name="bootstrap_multiselect.js"/>
+    <!--<link rel="stylesheet" href="../resources/css/kamadatepicker.css"/>-->
+
+
+    <ui:insert name="head"/>
+    <style type="text/css">
+        body {
+            position: relative;
+        }
+
+        .ui-widget {
+            font-family: IranSans-Regular;
+        }
+
+        .ui-growl {
+            margin-top: 85vh;
+        }
+
+        .ui-fieldset-legend {
+            font-size: smaller;
+        }
+
+        .ui-paginator-top {
+            display: none;
+        }
+
+        .ui-paginator {
+            font-size: 12px;
+        }
+
+        #selectProductDialog {
+            width: 500px !important;
+        }
+
+        #printPanel{
+            width: 600px !important;
+        }
+
+
+
+        #selectItemDialog{
+            width: 700px !important;
+        }
+
+        .card-header {
+            height: 50px;
+        }
+        .ui-clock{
+            background: transparent;
+            /*font-size: 15px;*/
+            border: 0;
+            font-weight: 100;
+            color: #37BC9B;
+        }
+        .ui-fieldset-legend{
+            width: 45%;
+        }
+
+        .ui-selectmanycheckbox.ui-widget td, .ui-selectoneradio.ui-widget td {
+            padding: 0px 0px 0px 40px;
+        }
+        .loader_anim {
+            position: absolute;
+            -webkit-animation: spin 4s linear infinite;
+            -moz-animation: spin 4s linear infinite;
+            -o-animation: spin 4s linear infinite;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        var lengh = 0;
+        function kavosh(i, shp) {
+            if (i === 0) {
+                if (shp === 1)
+                    document.getElementById('kep').onclick();
+            } else if (i &lt; 9) {
+                lengh = 0;
+            } else if (i === 9 &amp;&amp; shp === 1) {
+                if (lengh &lt; i) {
+                    if (shp === 1)
+                        document.getElementById('kep').onclick();
+                    lengh = 11;
+                }
+            }
+        }
+        function kavosh1(i, shp) {
+            if (i === 0) {
+                if (shp === 1)
+                    document.getElementById('kep1').onclick();
+            } else if (i &lt; 10) {
+                lengh = 0;
+            } else if (i === 10 &amp;&amp; shp === 1) {
+                if (lengh &lt; i) {
+                    if (shp === 1)
+                        document.getElementById('kep1').onclick();
+                    lengh = 11;
+                }
+            }
+        }
+    </script>
+
+    <f:metadata>
+        <!--<f:event type="preRenderView" listener="#{uIManager.manageUserUI}" />-->
+    </f:metadata>
+
+</h:head>
+<h:body data-open="click" data-menu="vertical-menu" data-col="2-columns" class="vertical-layout vertical-menu 2-columns fixed-navbar"
+        style="padding-top: 6.8rem; background: url(../resources/images/dashboard/sprites.png) repeat top right #6f5f43; overflow: auto;">
+
+
+    <ui:insert name="header">
+        <ui:include src="/sections/header/navbar.xhtml"/>
+    </ui:insert>
+
+    <ui:insert name="menu">
+        <ui:include src="/sections/menu/menu.xhtml"/>
+    </ui:insert>
+
+
+    <div class="app-content  content container-fluid">
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <ui:insert name="content"/>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--<ui:insert name="viewExpire">-->
+        <!--<ui:include src="../../error/viewExpired.xhtml"/>-->
+    <!--</ui:insert>-->
+
+    <ui:insert name="footer">
+        <ui:include src="/sections/footer/footer.xhtml"/>
+    </ui:insert>
+
+    <p:growl showSummary="true" showDetail="true" sticky="false" autoUpdate="true"/>
+
+
+    <p:ajaxStatus onstart="PF('loader_animation').show()" oncomplete="PF('loader_animation').hide()"/>
+    <p:dialog draggable="false" resizable="false" position="center, center"
+              style="background-color: transparent !important; box-shadow: none !important; border: none !important;"
+              showHeader="false" widgetVar="loader_animation" modal="true">
+        <div style="width: 210px; height: 400px">
+            <div class="loader_anim"
+                 style="background-image: url('../resources/images/loader/wheel.png'); width: 201px; height: 201px"/>
+        </div>
+    </p:dialog>
+
+    <!--<h:outputScript library="js" name="jquery.min.js"/>-->
+    <h:outputScript library="js" name="jquery.matchHeight-min.js"/>
+    <h:outputScript library="js" name="tether.min.js"/>
+    <h:outputScript library="js" name="bootstrap.min.js"/>
+    <h:outputScript library="js" name="perfect-scrollbar.jquery.min.js"/>
+    <h:outputScript library="js" name="unison.min.js"/>
+    <h:outputScript library="js" name="blockUI.min.js"/>
+    <h:outputScript library="js" name="screenfull.min.js"/>
+    <h:outputScript library="js" name="pace.min.js"/>
+    <h:outputScript library="js" name="chart.min.js"/>
+    <h:outputScript library="js" name="app-menu.js"/>
+    <h:outputScript library="js" name="app.js"/>
+    <h:outputScript library="js" name="sweetalert.min.js"/>
+    <!--<h:outputScript library="js" name="dashboard-2.js"/>-->
+    <h:outputScript library="js" name="personal.js"/>
+
+
+
+</h:body>
+</html>

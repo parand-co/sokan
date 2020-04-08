@@ -1,0 +1,398 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">سوابق حکم اولیه کار</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="searchForm" prependId="false">
+                        <div data-step="2" data-intro="جهت مشاده سوابق حکم اولیه کار، میتوانید از طریق فیلترهای زیر اقدام نمایید.">
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field1-1" styleClass="control-label" value="ارجعیت حکم کار:"/>
+                                        <h:selectOneMenu id="field1-1" styleClass="form-control"
+                                                         value="#{sabtHokmeKarBean.searchArjaiyatHokmeKar}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{sabtHokmeKarBean.arjaiyatHokmeKars}" var="searchArjaiyatHokmeKar"
+                                                           itemValue="#{searchArjaiyatHokmeKar.id}"
+                                                           itemLabel="#{searchArjaiyatHokmeKar.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field1-2" styleClass="control-label" value="وضعیت انجام کار:"/>
+                                        <h:selectOneMenu id="field1-2" styleClass="form-control"
+                                                         value="#{sabtHokmeKarBean.searchVaziyatAnjamHokmeKar}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{sabtHokmeKarBean.vaziyatAnjamHokmeKars}" var="searchVaziyatAnjamHokmeKar"
+                                                           itemValue="#{searchVaziyatAnjamHokmeKar.id}"
+                                                           itemLabel="#{searchVaziyatAnjamHokmeKar.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field1-3" styleClass="control-label" value="انجام دهنده:"/>
+                                        <h:selectOneMenu id="field1-3" styleClass="form-control"
+                                                         value="#{sabtHokmeKarBean.searchAnjamDahandeHokmeKar}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{sabtHokmeKarBean.anjamDahandeHokmeKars}" var="searchAnjamDahandeHokmeKar"
+                                                           itemValue="#{searchAnjamDahandeHokmeKar.id}"
+                                                           itemLabel="#{searchAnjamDahandeHokmeKar.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field1-4" styleClass="control-label" value="یگان متقاضی:"/>
+                                        <h:selectOneMenu id="field1-4" styleClass="form-control"
+                                                         value="#{sabtHokmeKarBean.searchYegan}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{sabtHokmeKarBean.yegans}" var="searchYegan"
+                                                           itemValue="#{searchYegan.id}"
+                                                           itemLabel="#{searchYegan.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field1-5" styleClass="control-label" value="کد شناور:"/>
+                                        <h:inputText id="field1-5" styleClass="form-control" value="#{sabtHokmeKarBean.searchCodeShenavar}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field1-6" styleClass="control-label date" value="تاریخ درخواست:"/>
+                                        <h:inputText value="#{sabtHokmeKarBean.searchTarikhDarkhast}" id="field1-6" styleClass="form-control date" placeholder="تاریخ"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="field1-6" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                            <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                             style="width: 100%"
+                                                             rendered="#{sabtHokmeKarBean.readPermission}"
+                                                             actionListener="#{sabtHokmeKarBean.search}"
+                                                             update="searchForm mask"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-step="3" data-intro="سوابق حکم اولیه کار جستجو شده، در این قسمت نمایش داده خواهد شد.">
+                            <p:dataTable id="tableSTP" value="#{sabtHokmeKarBean.savabegh}"
+                                         emptyMessage="داده ای وجود ندارد"
+                                         scrollable="true"
+                                         styleClass="table" var="dataTable" editable="true"
+                                         paginator="true" rows="15" style="margin-top: 20px;">
+                                <p:column headerText="نمایش" style="width: 60px;" rendered="#{sabtHokmeKarBean.readPermission}">
+                                    <div data-step="5" data-intro="جهت ویرایش نمودن اطلاعات، بر روی این گزینه کلیک نمایید و در فرم پایین صفحه اقدام به ویرایش اطلاعات نمایید.">
+                                        <p:commandButton icon="icon-search4" actionListener="#{sabtHokmeKarBean.dispach(dataTable)}" update="saveForm mask"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="نوع حکم کار" style="width: 110px;">
+                                    <h:outputLabel id="shpV" value="#{dataTable.noeHokmeKar.title}"/>
+                                </p:column>
+                                <p:column headerText="شماره درخواست یگان">
+                                    <h:outputLabel value="#{dataTable.shomareDarkhast}"/>
+                                </p:column>
+                                <p:column headerText="یگان متقاضی">
+                                    <h:outputLabel value="#{dataTable.yegan.title}"/>
+                                </p:column>
+                                <p:column headerText="حوزه کاری">
+                                    <h:outputLabel value="#{dataTable.hozeKari}"/>
+                                </p:column>
+                                <p:column headerText="کد شناور">
+                                    <h:outputLabel value="#{dataTable.codeShenavar}"/>
+                                </p:column>
+                                <p:column headerText="ارجعیت حکم کار">
+                                    <h:outputLabel value="#{dataTable.arjaiyatHokmeKar.title}"/>
+                                </p:column>
+                                <p:column headerText="وضعیت انجام کار">
+                                    <h:outputLabel value="#{dataTable.vaziyatAnjamHokmeKar.title}"/>
+                                </p:column>
+                                <p:column headerText="انجام دهنده">
+                                    <h:outputLabel value="#{dataTable.anjamDahandeHokmeKar.title}"/>
+                                </p:column>
+                                <p:column headerText="نوع کار حکم کار">
+                                    <h:outputLabel value="#{dataTable.noeKareHokmeKar.title}"/>
+                                </p:column>
+                                <p:column headerText="طرح امام رضا(ع)">
+                                    <h:outputLabel value="#{sabtHokmeKarBean.textEmamReza(dataTable.emamReza)}"/>
+                                </p:column>
+                                <p:column headerText="تاریخ ثبت">
+                                    <h:outputLabel value="#{dataTable.tarikhSabt}"/>
+                                </p:column>
+                                <p:column headerText="تاریخ درخواست">
+                                    <h:outputLabel value="#{dataTable.tarikhDarkhast}"/>
+                                </p:column>
+                                <p:column headerText="شرح درخواست">
+                                    <h:outputLabel value="#{dataTable.sharh}"/>
+                                </p:column>
+                                <p:column headerText="حذف" style="width: 60px;" rendered="#{sabtHokmeKarBean.deletePermission}">
+                                    <div data-step="6" data-intro="جهت حذف سوابق، بر روی این گزینه کلیک نمایید.">
+                                        <p:commandButton icon="ui-icon-trash" styleClass="bg-danger" actionListener="#{sabtHokmeKarBean.startDelete(dataTable)}" onclick="PF('delete_dlg').show()"/>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
+                        <script type="text/javascript">
+                            kamaDatepicker('field1-6', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                        </script>
+                    </h:form>
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">ثبت اولیه حکم کار</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="saveForm" prependId="false">
+                        <div data-step="4" data-intro="جهت ثبت و ویرایش اطلاعات سوابق حکم اولیه کار، از این قسمت اقدام نمایید.">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-1" styleClass="control-label" value="نوع حکم کار:"/>
+                                            <h:selectOneMenu id="field2-1" styleClass="form-control"
+                                                             value="#{sabtHokmeKarBean.noeHokmeKar}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{sabtHokmeKarBean.noeHokmeKars}" var="noeHokmeKar"
+                                                               itemValue="#{noeHokmeKar.id}"
+                                                               itemLabel="#{noeHokmeKar.title}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-2" styleClass="control-label" value="شماره درخواست یگان:"/>
+                                            <h:inputText id="field2-2" styleClass="form-control" value="#{sabtHokmeKarBean.shomareDarkhast}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-3" styleClass="control-label" value="یگان متقاضی:"/>
+                                            <h:selectOneMenu id="field2-3" styleClass="form-control"
+                                                             value="#{sabtHokmeKarBean.yegan}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{sabtHokmeKarBean.yegans}" var="yegan"
+                                                               itemValue="#{yegan.id}"
+                                                               itemLabel="#{yegan.title}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-4" styleClass="control-label" value="حوزه کاری:"/>
+                                            <h:inputText value="#{sabtHokmeKarBean.hozeKari}" id="field2-4" styleClass="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-5" styleClass="control-label" value="کد شناور:"/>
+                                            <h:inputText value="#{sabtHokmeKarBean.codeShenavar}" id="field2-5" styleClass="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-6" styleClass="control-label" value="ارجعیت حکم کار:"/>
+                                            <h:selectOneMenu id="field2-6" styleClass="form-control"
+                                                             value="#{sabtHokmeKarBean.arjaiyatHokmeKar}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{sabtHokmeKarBean.arjaiyatHokmeKars}" var="arjaiyatHokmeKar"
+                                                               itemValue="#{arjaiyatHokmeKar.id}"
+                                                               itemLabel="#{arjaiyatHokmeKar.title}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-7" styleClass="control-label" value="وضعیت انجام کار:"/>
+                                            <h:selectOneMenu id="field2-7" styleClass="form-control"
+                                                             value="#{sabtHokmeKarBean.vaziyatAnjamHokmeKar}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{sabtHokmeKarBean.vaziyatAnjamHokmeKars}" var="vaziyatAnjamHokmeKar"
+                                                               itemValue="#{vaziyatAnjamHokmeKar.id}"
+                                                               itemLabel="#{vaziyatAnjamHokmeKar.title}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-8" styleClass="control-label" value="انجام دهنده:"/>
+                                            <h:selectOneMenu id="field2-8" styleClass="form-control"
+                                                             value="#{sabtHokmeKarBean.anjamDahandeHokmeKar}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{sabtHokmeKarBean.anjamDahandeHokmeKars}" var="anjamDahandeHokmeKar"
+                                                               itemValue="#{anjamDahandeHokmeKar.id}"
+                                                               itemLabel="#{anjamDahandeHokmeKar.title}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-9" styleClass="control-label" value="نوع کار حکم کار:"/>
+                                            <h:selectOneMenu id="field2-9" styleClass="form-control"
+                                                             value="#{sabtHokmeKarBean.noeKareHokmeKar}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{sabtHokmeKarBean.noeKareHokmeKars}" var="noeKareHokmeKar"
+                                                               itemValue="#{noeKareHokmeKar.id}"
+                                                               itemLabel="#{noeKareHokmeKar.title}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-10" styleClass="control-label" value="طرح امام رضا(ع):"/>
+                                            <h:selectBooleanCheckbox id="field2-10" styleClass="form-control" value="#{sabtHokmeKarBean.emamReza}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-11" styleClass="control-label date" value="تاریخ ثبت:"/>
+                                            <h:inputText value="#{sabtHokmeKarBean.tarikhSabt}" id="field2-11" disabled="true" styleClass="form-control date" placeholder="تاریخ"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-12" styleClass="control-label date" value="تاریخ درخواست:"/>
+                                            <h:inputText value="#{sabtHokmeKarBean.tarikhDarkhast}" id="field2-12" styleClass="form-control date" placeholder="تاریخ"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <h:outputLabel for="field2-13" styleClass="control-label" value="شرح درخواست:"/>
+                                            <h:inputText value="#{sabtHokmeKarBean.sharh}" id="field2-13" styleClass="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="field2-13" class="control-label"> </label>
+                                            <span class="input-group-btn">
+                                        <p:commandButton value="ذخیره" styleClass="btn bg-success"
+                                                         style="width: 100%"
+                                                         rendered="#{!sabtHokmeKarBean.edited}"
+                                                         actionListener="#{sabtHokmeKarBean.save}"
+                                                         disabled="#{!sabtHokmeKarBean.createPermission}"
+                                                         update="saveForm searchForm mask"/>
+                                    </span>
+
+                                            <span class="input-group-btn">
+                                        <p:commandButton value="ویرایش" styleClass="btn bg-success"
+                                                         rendered="#{sabtHokmeKarBean.edited}"
+                                                         actionListener="#{sabtHokmeKarBean.edit}"
+                                                         disabled="#{!sabtHokmeKarBean.updatePermission}"
+                                                         update="saveForm searchForm mask"/>
+                                        <p:commandButton value="انصراف" styleClass="btn bg-danger"
+                                                         rendered="#{sabtHokmeKarBean.edited}"
+                                                         actionListener="#{sabtHokmeKarBean.nuller}"
+                                                         update="saveForm searchForm mask"/>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+                            kamaDatepicker('field2-11', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                            kamaDatepicker('field2-12', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                        </script>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+        <p:dialog header="حذف" widgetVar="delete_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از حذف اطلاعات اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{sabtHokmeKarBean.delete}" update="searchForm mask" oncomplete="PF('delete_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{sabtHokmeKarBean.cancelDelete}" oncomplete="PF('delete_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+        <h:form prependId="false" id="mask">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.date').mask('9999/99/99');
+                });
+
+                $(document).ready(function () {
+                    $('.currency').mask('999,999,999');
+                });
+
+                $(document).ready(function () {
+                    $('.time').mask('99:99');
+                });
+            </script>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

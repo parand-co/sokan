@@ -1,0 +1,181 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <style type="text/css">
+            .bd-main {
+                margin-top: 25px;
+            }
+
+            .ui-dialog {
+                width: 500px;
+            }
+        </style>
+        <h:form prependId="false">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">گزارش گواهی حسن انجام کار</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-sm-9" data-step="2" data-intro="جهت فیلتر نمودن گزارش از این قسمت اقدام نمایید.">
+                                        <p:panel header="">
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="field2-5" styleClass="control-label" value="تاریخ:"/>
+                                                        <h:inputText value="#{hosnAnjamKarBean.tarikh}" id="field2-5" styleClass="form-control date" placeholder="تاریخ"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="dayere_id" styleClass="control-label" value="دایره:"/>
+                                                        <h:selectOneMenu id="dayere_id" styleClass="form-control"
+                                                                         value="#{hosnAnjamKarBean.dayereCode}">
+                                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                            <f:selectItems value="#{hosnAnjamKarBean.dayeres}" var="dayere"
+                                                                           itemValue="#{dayere.code}"
+                                                                           itemLabel="#{dayere.title}"/>
+                                                            <f:ajax listener="#{hosnAnjamKarBean.fillBakhsh(hosnAnjamKarBean.dayereCode)}"
+                                                                    render="bakhsh_id"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="bakhsh_id" styleClass="control-label" value="بخش:"/>
+                                                        <h:selectOneMenu id="bakhsh_id" styleClass="form-control"
+                                                                         value="#{hosnAnjamKarBean.bakhshCode}">
+                                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                            <f:selectItems value="#{hosnAnjamKarBean.bakhshes}" var="bakhsh"
+                                                                           itemValue="#{bakhsh.code}"
+                                                                           itemLabel="#{bakhsh.title}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="shp" styleClass="control-label" value="شماره پرسنلی:"/>
+                                                        <h:inputText id="shp" styleClass="form-control" value="#{hosnAnjamKarBean.shp}" maxlength="9"
+                                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="name" styleClass="control-label" value="نام:"/>
+                                                        <h:inputText id="name" styleClass="form-control" value="#{hosnAnjamKarBean.name}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="neshan" styleClass="control-label" value="نشان:"/>
+                                                        <h:inputText id="neshan" styleClass="form-control" value="#{hosnAnjamKarBean.family}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="project" styleClass="control-label" value="عنوان پروژه:"/>
+                                                        <h:inputText id="project" styleClass="form-control" value="#{hosnAnjamKarBean.project}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="startTime" styleClass="control-label" value="ساعت شروع اضافه کار:"/>
+                                                        <h:inputText id="startTime" styleClass="form-control time" value="#{hosnAnjamKarBean.startTime}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="startDastgah" styleClass="control-label" value="شماره دستگاه ساعت شروع:"/>
+                                                        <h:inputText id="startDastgah" styleClass="form-control" value="#{hosnAnjamKarBean.startDastgah}"
+                                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="endTime" styleClass="control-label" value="ساعت پایان اضافه کار:"/>
+                                                        <h:inputText id="endTime" styleClass="form-control time" value="#{hosnAnjamKarBean.endTime}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="endDastgah" styleClass="control-label" value="شماره دستگاه ساعت پایان:"/>
+                                                        <h:inputText id="endDastgah" styleClass="form-control" value="#{hosnAnjamKarBean.endDastgah}"
+                                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="modat" styleClass="control-label" value="مدت اضافه کار:"/>
+                                                        <h:inputText id="modat" styleClass="form-control time" value="#{hosnAnjamKarBean.modat}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p:panel>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:panel header=" ">
+                                            <div class="row">
+                                                <br/>
+                                                <br/>
+                                                <div class="col-md-12" data-step="3" data-intro="درصورت تمایل به دریافت گزارش در قالب فایل اکسل بر روی این گزینه کلیک نمایید.">
+                                                    <p:commandButton value="خروجی اکسل" style="width: 100%" ajax="false"
+                                                                     rendered="#{hosnAnjamKarBean.readPermission}"
+                                                                     actionListener="#{hosnAnjamKarBean.reportExcel}">
+                                                        <p:fileDownload value="#{hosnAnjamKarBean.exelFile}"/>
+                                                    </p:commandButton>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <br/>
+                                                <br/>
+                                                <div class="col-md-12" data-step="4" data-intro="درصورت تمایل به دریافت گزارش در قالب فایل PDF بر روی این گزینه کلیک نمایید.">
+                                                    <p:commandButton value="خروجی pdf" styleClass="bg-success" style="width: 100%"
+                                                                     rendered="#{hosnAnjamKarBean.readPermission}"
+                                                                     actionListener="#{hosnAnjamKarBean.pdfPrint}" ajax="false"/>
+                                                </div>
+                                            </div>
+                                        </p:panel>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                kamaDatepicker('field2-5', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+            </script>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

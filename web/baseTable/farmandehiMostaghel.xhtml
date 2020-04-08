@@ -1,0 +1,160 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">فرماندهی مستقل</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="searchForm" prependId="false">
+                        <div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="code" styleClass="control-label" value="کد:"/>
+                                        <h:inputText id="code" styleClass="form-control" value="#{farmandehiMostaghelBaseTableBean.codeSearch}"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shkart" styleClass="control-label" value="عنوان:"/>
+                                        <h:inputText id="shkart" styleClass="form-control" value="#{farmandehiMostaghelBaseTableBean.titleSearch}"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="shkart" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                            <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                             rendered="#{farmandehiMostaghelBaseTableBean.readPermission}"
+                                                             actionListener="#{farmandehiMostaghelBaseTableBean.search}"
+                                                             update="searchForm"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p:dataTable id="tableSTP" value="#{farmandehiMostaghelBaseTableBean.savabegh}"
+                                     emptyMessage="داده ای وجود ندارد"
+                                     scrollable="true"
+                                     styleClass="table" var="dataTable" editable="true"
+                                     paginator="true" rows="15" style="margin-top: 20px;">
+                            <p:column headerText="نمایش" style="width: 60px;" rendered="#{farmandehiMostaghelBaseTableBean.readPermission}">
+                                <p:commandButton icon="icon-search4" actionListener="#{farmandehiMostaghelBaseTableBean.dispach(dataTable)}" update="saveForm"/>
+                            </p:column>
+                            <p:column headerText="کد" style="width: 110px;">
+                                <h:outputLabel value="#{dataTable.code}"/>
+                            </p:column>
+                            <p:column headerText="عنوان">
+                                <h:outputLabel value="#{dataTable.title}"/>
+                            </p:column>
+                            <p:column headerText="حذف" style="width: 60px;" rendered="#{farmandehiMostaghelBaseTableBean.deletePermission}">
+                                <p:commandButton icon="ui-icon-trash" styleClass="bg-danger" actionListener="#{farmandehiMostaghelBaseTableBean.startDelete(dataTable)}" onclick="PF('delete_dlg').show()"/>
+                            </p:column>
+                        </p:dataTable>
+
+                    </h:form>
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">ثبت فرماندهی مستقل</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="saveForm" prependId="false">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-1" styleClass="control-label" value="کد:"/>
+                                    <h:inputText id="field2-1" styleClass="form-control" value="#{farmandehiMostaghelBaseTableBean.code}"
+                                                 onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-2" styleClass="control-label" value="عنوان:"/>
+                                    <h:inputText id="field2-2" styleClass="form-control" value="#{farmandehiMostaghelBaseTableBean.title}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="field2-2" class="control-label"> </label>
+                                    <span class="input-group-btn">
+                                        <p:commandButton value="ذخیره" styleClass="btn bg-success"
+                                                         rendered="#{!farmandehiMostaghelBaseTableBean.edited}"
+                                                         actionListener="#{farmandehiMostaghelBaseTableBean.save}"
+                                                         disabled="#{!farmandehiMostaghelBaseTableBean.createPermission}"
+                                                         update="saveForm searchForm"/>
+                                    </span>
+
+                                    <span class="input-group-btn">
+                                        <p:commandButton value="ویرایش" styleClass="btn bg-success"
+                                                         rendered="#{farmandehiMostaghelBaseTableBean.edited}"
+                                                         actionListener="#{farmandehiMostaghelBaseTableBean.edit}"
+                                                         disabled="#{!farmandehiMostaghelBaseTableBean.updatePermission}"
+                                                         update="saveForm searchForm"/>
+                                        <p:commandButton value="انصراف" styleClass="btn bg-danger"
+                                                         rendered="#{farmandehiMostaghelBaseTableBean.edited}"
+                                                         actionListener="#{farmandehiMostaghelBaseTableBean.nuller}"
+                                                         update="saveForm searchForm"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+        <p:dialog header="حذف" widgetVar="delete_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از حذف اطلاعات اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{farmandehiMostaghelBaseTableBean.delete}" update="searchForm" oncomplete="PF('delete_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{farmandehiMostaghelBaseTableBean.cancelDelete}" oncomplete="PF('delete_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+
+    </ui:define>
+
+</ui:composition>

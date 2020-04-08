@@ -1,0 +1,339 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">سوابق مجوزهای ساعتی</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="searchForm" prependId="false">
+                        <div data-step="2" data-intro="جهت مشاده سوابق مجوزهای ساعتی، میتوانید از طریق فیلترهای زیر اقدام نمایید.">
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shkart" styleClass="control-label" value="شماره کارت:"/>
+                                        <h:inputText id="shkart" styleClass="form-control" value="#{mojavezhayeSaatiBean.cartNumberSearch}" maxlength="4"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shpersoneli" styleClass="control-label" value="شماره پرسنلی:"/>
+                                        <h:inputText id="shpersoneli" styleClass="form-control" value="#{mojavezhayeSaatiBean.shpSearch}" maxlength="9"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shcodemeli" styleClass="control-label" value="کد ملی:"/>
+                                        <h:inputText id="shcodemeli" styleClass="form-control" value="#{mojavezhayeSaatiBean.codeMeliSearch}" maxlength="10"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="nameSearch" styleClass="control-label" value="نام:"/>
+                                        <h:inputText id="nameSearch" styleClass="form-control" value="#{mojavezhayeSaatiBean.nameSearch}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshanSearch" styleClass="control-label" value="نشان:"/>
+                                        <h:inputText id="neshanSearch" styleClass="form-control" value="#{mojavezhayeSaatiBean.familySearch}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="dayere_id" styleClass="control-label" value="دایره:"/>
+                                        <h:selectOneMenu id="dayere_id" styleClass="form-control"
+                                                         value="#{mojavezhayeSaatiBean.dayereCodeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{mojavezhayeSaatiBean.dayeres}" var="dayere"
+                                                           itemValue="#{dayere.code}"
+                                                           itemLabel="#{dayere.title}"/>
+                                            <f:ajax listener="#{mojavezhayeSaatiBean.fillBakhsh(mojavezhayeSaatiBean.dayereCodeSearch)}"
+                                                    render="bakhsh_id"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="bakhsh_id" styleClass="control-label" value="بخش:"/>
+                                        <h:selectOneMenu id="bakhsh_id" styleClass="form-control"
+                                                         value="#{mojavezhayeSaatiBean.bakhshCodeSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{mojavezhayeSaatiBean.bakhshes}" var="bakhsh"
+                                                           itemValue="#{bakhsh.code}"
+                                                           itemLabel="#{bakhsh.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="sal_id" styleClass="control-label" value="سال:"/>
+                                        <h:selectOneMenu id="sal_id" styleClass="form-control"
+                                                         value="#{mojavezhayeSaatiBean.salSearch}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{mojavezhayeSaatiBean.sals}" var="sal"
+                                                           itemValue="#{sal}"
+                                                           itemLabel="#{sal}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="mah_id" styleClass="control-label" value="ماه:"/>
+                                        <h:selectOneMenu id="mah_id" styleClass="form-control"
+                                                         value="#{mojavezhayeSaatiBean.mahSearch}">
+                                            <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید..."/>
+                                            <f:selectItem itemValue="01" itemLabel="فروردین"/>
+                                            <f:selectItem itemValue="02" itemLabel="اردیبهشت"/>
+                                            <f:selectItem itemValue="03" itemLabel="خرداد"/>
+                                            <f:selectItem itemValue="04" itemLabel="تیر"/>
+                                            <f:selectItem itemValue="05" itemLabel="مرداد"/>
+                                            <f:selectItem itemValue="06" itemLabel="شهریور"/>
+                                            <f:selectItem itemValue="07" itemLabel="مهر"/>
+                                            <f:selectItem itemValue="08" itemLabel="آبان"/>
+                                            <f:selectItem itemValue="09" itemLabel="آذر"/>
+                                            <f:selectItem itemValue="10" itemLabel="دی"/>
+                                            <f:selectItem itemValue="11" itemLabel="بهمن"/>
+                                            <f:selectItem itemValue="12" itemLabel="اسفند"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="mah_id" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                            <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                             style="width: 100%"
+                                                             rendered="#{mojavezhayeSaatiBean.readPermission}"
+                                                             actionListener="#{mojavezhayeSaatiBean.search}"
+                                                             update="searchForm"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-step="3" data-intro="سوابق مجوزهای ساعتی جستجو شده، در این قسمت نمایش داده خواهد شد.">
+                            <p:dataTable id="tableSTP" value="#{mojavezhayeSaatiBean.savabegh}"
+                                         emptyMessage="داده ای وجود ندارد"
+                                         scrollable="true"
+                                         styleClass="table" var="dataTable" editable="true"
+                                         paginator="true" rows="15" style="margin-top: 20px;">
+                                <p:column headerText="نمایش" style="width: 60px;" rendered="#{mojavezhayeSaatiBean.readPermission}">
+                                    <div data-step="4" data-intro="جهت ویرایش نمودن اطلاعات، بر روی این گزینه کلیک نمایید و در فرم پایین صفحه اقدام به ویرایش اطلاعات نمایید.">
+                                        <p:commandButton icon="ui-icon-eye" actionListener="#{mojavezhayeSaatiBean.dispach(dataTable)}" update="saveForm mask"/>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="شماره پرسنلی" style="width: 110px;">
+                                    <h:outputLabel id="shpV" value="#{dataTable.personel.shomarePersoneli}"/>
+                                </p:column>
+                                <p:column headerText="شماره کارت">
+                                    <h:outputLabel value="#{dataTable.personel.shomareKart}"/>
+                                </p:column>
+                                <p:column headerText="کد ملی">
+                                    <h:outputLabel value="#{dataTable.personel.codeMeli}"/>
+                                </p:column>
+                                <p:column headerText="نام">
+                                    <h:outputLabel value="#{dataTable.personel.name}"/>
+                                </p:column>
+                                <p:column headerText="نشان">
+                                    <h:outputLabel value="#{dataTable.personel.neshan}"/>
+                                </p:column>
+                                <p:column headerText="تاریخ">
+                                    <h:outputLabel value="#{dataTable.tarikh}"/>
+                                </p:column>
+                                <p:column headerText="نوع مجوز">
+                                    <h:outputLabel value="#{dataTable.mojavezSaati.title}"/>
+                                </p:column>
+                                <p:column headerText="زمان">
+                                    <h:outputLabel value="#{dataTable.zaman}"/>
+                                </p:column>
+                                <p:column headerText="حذف" style="width: 60px;" rendered="#{mojavezhayeSaatiBean.deletePermission}">
+                                    <div data-step="5" data-intro="جهت حذف سوابق، بر روی این گزینه کلیک نمایید.">
+                                        <p:commandButton icon="ui-icon-trash" styleClass="bg-danger" actionListener="#{mojavezhayeSaatiBean.startDelete(dataTable)}" onclick="PF('delete_dlg').show()"/>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </h:form>
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">ثبت مجوز ساعتی</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="saveForm" prependId="false">
+                        <div data-step="6" data-intro="جهت ثبت و ویرایش اطلاعات سوابق مجوزهای ساعتی، از این قسمت اقدام نمایید.">
+                            <div class="row">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-2" data-step="7" data-intro="جهت جستجوی پرسنل با شماره پرسنلی از این قسمت اقدام نمایید.">
+                                        <div class="form-group">
+                                            <h:outputLabel for="shp" styleClass="control-label" value="شماره پرسنلی:"/>
+                                            <h:inputText id="shp" styleClass="form-control" value="#{mojavezhayeSaatiBean.shp}" maxlength="9"
+                                                         disabled="#{mojavezhayeSaatiBean.edited}"
+                                                         onkeyup="kavosh(this.value.length, 1);"
+                                                         onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                            <h:commandButton id="kep" style="display: none">
+                                                <f:ajax execute="saveForm" listener="#{mojavezhayeSaatiBean.findPersonel}"
+                                                        render="saveForm mask"/>
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2" data-step="8" data-intro="جهت جستجوی پرسنل با کدملی از این قسمت اقدام نمایید.">
+                                        <div class="form-group">
+                                            <h:outputLabel for="cm" styleClass="control-label" value="کدملی:"/>
+                                            <h:inputText id="cm" styleClass="form-control" value="#{mojavezhayeSaatiBean.shp}" maxlength="10"
+                                                         disabled="#{mojavezhayeSaatiBean.edited}"
+                                                         onkeyup="kavosh1(this.value.length, 1);"
+                                                         onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                            <h:commandButton id="kep1" style="display: none">
+                                                <f:ajax execute="saveForm" listener="#{mojavezhayeSaatiBean.findPersonel}"
+                                                        render="saveForm mask"/>
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <br/>
+                                        <br/>
+                                        <h:outputLabel for="shp" styleClass="control-label" value="#{mojavezhayeSaatiBean.moshakhasat}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" data-step="9" data-intro="اطلاعات سوابق مجوزهای ساعتی را میتوانید در فیلدهای زیر وارد یا ویرایش نمایید.">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field2-5" styleClass="control-label date" value="تاریخ:"/>
+                                        <h:inputText value="#{mojavezhayeSaatiBean.tarikh}" id="field2-5" styleClass="form-control date" placeholder="تاریخ"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="field2-6" styleClass="control-label time" value="زمان:"/>
+                                        <h:inputText value="#{mojavezhayeSaatiBean.zaman}" id="field2-6" maxlength="5" styleClass="form-control time" placeholder="زمان"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="mojavez_id" styleClass="control-label" value="مجوز ساعتی:"/>
+                                        <h:selectOneMenu id="mojavez_id" styleClass="form-control"
+                                                         value="#{mojavezhayeSaatiBean.mojavezCode}">
+                                            <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                            <f:selectItems value="#{mojavezhayeSaatiBean.mojavezSaatis}" var="mojavez"
+                                                           itemValue="#{mojavez.code}"
+                                                           itemLabel="#{mojavez.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="mojavez_id" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                        <p:commandButton value="ذخیره" styleClass="btn bg-success"
+                                                         style="width: 100%"
+                                                         rendered="#{!mojavezhayeSaatiBean.edited}"
+                                                         actionListener="#{mojavezhayeSaatiBean.save}"
+                                                         disabled="#{!mojavezhayeSaatiBean.createPermission}"
+                                                         update="saveForm searchForm mask"/>
+                                    </span>
+
+                                        <span class="input-group-btn">
+                                        <p:commandButton value="ویرایش" styleClass="btn bg-success"
+                                                         rendered="#{mojavezhayeSaatiBean.edited}"
+                                                         actionListener="#{mojavezhayeSaatiBean.edit}"
+                                                         disabled="#{!mojavezhayeSaatiBean.updatePermission}"
+                                                         update="saveForm searchForm mask"/>
+                                        <p:commandButton value="انصراف" styleClass="btn bg-danger"
+                                                         rendered="#{mojavezhayeSaatiBean.edited}"
+                                                         actionListener="#{mojavezhayeSaatiBean.nuller}"
+                                                         update="saveForm searchForm mask"/>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            kamaDatepicker('field2-5', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                        </script>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+        <p:dialog header="حذف" widgetVar="delete_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از حذف اطلاعات اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{mojavezhayeSaatiBean.delete}" update="searchForm mask" oncomplete="PF('delete_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{mojavezhayeSaatiBean.cancelDelete}" oncomplete="PF('delete_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+        <h:form prependId="false" id="mask">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.date').mask('9999/99/99');
+                });
+
+                $(document).ready(function () {
+                    $('.currency').mask('999,999,999');
+                });
+
+                $(document).ready(function () {
+                    $('.time').mask('99:99');
+                });
+            </script>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

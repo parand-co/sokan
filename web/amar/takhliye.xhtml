@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:form prependId="false">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">تخلیه آنلاین ساعات</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <p:outputLabel value="تاریخ روز مورد نظر"/>
+                                    </div>
+                                    <div class="col-sm-2" data-step="2" data-intro="هت تخلیه دستگاه انگشت زنی، تاریخ مورد نظر را وارد نمایید.">
+                                        <p:inputText  value="#{takhliyeBean.date}" id="date11" styleClass="form-control date">
+                                            <p:ajax  listener="#{takhliyeBean.loadRooz}" update="a1 a2"/>
+                                        </p:inputText>
+                                    </div>
+
+                                    <div class="col-sm-2" data-step="3" data-intro="کلیک نمایید تا تخلیه انجام گردد.">
+                                        <p:commandButton value="تخلیه" styleClass="btn btn-block btn-outline-success" actionListener="#{takhliyeBean.load()}"
+                                                         onclick="PF('loader_animation').show()"
+                                                         oncomplete="PF('loader_animation').hide()"
+                                                         onerror="PF('loader_animation').hide()"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h:outputLabel value="#{takhliyeBean.rooz}" id="a1" styleClass="tag tag-success"/>
+                                    <h:outputLabel value="#{takhliyeBean.noeRooz}" id="a2" styleClass="tag tag-danger"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                kamaDatepicker('date11', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+            </script>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,36 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="sokan:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/sokan_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="sokan" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="a111" />
+          <element id="library" level="project" name="access" />
+          <element id="library" level="project" name="gson-2.8.0" />
+          <element id="library" level="project" name="HIBERNATE4JAR" />
+          <element id="library" level="project" name="icu4j-58_2" />
+          <element id="library" level="project" name="jasper-commons" />
+          <element id="library" level="project" name="jasperreports-6.4.0" />
+          <element id="library" level="project" name="javax.faces-2.2.8" />
+          <element id="library" level="project" name="jbcrypt-0.4" />
+          <element id="library" level="project" name="jcaptcha" />
+          <element id="library" level="project" name="jsf-api-2.2.15" />
+          <element id="library" level="project" name="jsf-impl-2.2.15" />
+          <element id="library" level="project" name="jsf_2" />
+          <element id="library" level="project" name="mysql-connector-java-5.1.9-bin" />
+          <element id="library" level="project" name="poi" />
+          <element id="library" level="project" name="primefaces-6.1" />
+          <element id="library" level="project" name="sqljdbc4" />
+          <element id="library" level="project" name="taglibs-standard-compat-1.2.5" />
+          <element id="library" level="project" name="taglibs-standard-impl-1.2.5" />
+          <element id="library" level="project" name="taglibs-standard-jstlel-1.2.5" />
+          <element id="library" level="project" name="taglibs-standard-spec-1.2.5" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="sokan/web/Web" />
+    </root>
+  </artifact>
+</component>

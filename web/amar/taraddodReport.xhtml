@@ -1,0 +1,363 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <style type="text/css">
+            .bd-main {
+                margin-top: 25px;
+            }
+
+            .ui-dialog {
+                width: 500px;
+            }
+        </style>
+        <h:form prependId="false">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">گزارش تردد روزانه پرسنل</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row" data-step="2" data-intro="جهت فیلتر نمودن گزارش از این قسمت اقدام نمایید.">
+                                    <div class="col-sm-4" data-step="3" data-intro="جهت دریافت گزارش پر نمودن ماه یا تاریخ اجباری می باشد.">
+                                        <p:panel header="مشخص کردن تاریخ">
+                                            <br/>
+                                            <div class="row">
+                                            <div class="col-sm-4">
+                                                <p:outputLabel value="سال"/>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <h:selectOneMenu value="#{taraddodReportBean.sal}" styleClass="form-control form-control-sm">
+                                                    <f:selectItem itemLabel="1398" itemValue="1398"/>
+                                                    <f:selectItem itemLabel="1399" itemValue="1399"/>
+                                                    <f:selectItem itemLabel="1400" itemValue="1400"/>
+                                                    <f:selectItem itemLabel="1401" itemValue="1401"/>
+                                                    <f:selectItem itemLabel="1402" itemValue="1402"/>
+                                                    <f:selectItem itemLabel="1403" itemValue="1403"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                            </div>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <p:outputLabel value="براساس ماه"/>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group">
+                                                        <h:selectOneMenu value="#{taraddodReportBean.selectedMount}"
+                                                                         onchange="if ($('#in1').val() > 0)
+                                                                            {$('#in2').prop('disabled',true);}
+                                                                            else
+                                                                            {$('#in2').prop('disabled',false);
+                                                                             $('#in2').val('')}"
+                                                                         id="in1"
+                                                                         styleClass="form-control form-control-sm">
+                                                            <f:selectItem itemValue="0" itemLabel="انتخاب کنید..."/>
+                                                            <f:selectItem itemValue="1" itemLabel="فروردین"/>
+                                                            <f:selectItem itemValue="2" itemLabel="اردیبهشت"/>
+                                                            <f:selectItem itemValue="3" itemLabel="خرداد"/>
+                                                            <f:selectItem itemValue="4" itemLabel="تیر"/>
+                                                            <f:selectItem itemValue="5" itemLabel="مرداد"/>
+                                                            <f:selectItem itemValue="6" itemLabel="شهریور"/>
+                                                            <f:selectItem itemValue="7" itemLabel="مهر"/>
+                                                            <f:selectItem itemValue="8" itemLabel="آبان"/>
+                                                            <f:selectItem itemValue="9" itemLabel="آذر"/>
+                                                            <f:selectItem itemValue="10" itemLabel="دی"/>
+                                                            <f:selectItem itemValue="11" itemLabel="بهمن"/>
+                                                            <f:selectItem itemValue="12" itemLabel="اسفند"/>
+                                                        </h:selectOneMenu>
+                                                        <div class="input-group-btn">
+                                                            <button class="btn btn-danger btn-sm" type="button"
+                                                                    onclick="$('#in1').val(0);$('#in2').prop('disabled',false);
+                                                                             $('#in2').val('')"
+                                                                    style="padding: 2.2px 6px">
+                                                                <i class="icon-times"/>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <p:outputLabel value="براساس تاریخ"/>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group">
+                                                        <h:inputText value="#{taraddodReportBean.selectedDate}"
+                                                                     onblur="if ($('#in2').val().length>0){$('#in1').prop('disabled',true);}"
+                                                                     id="in2" styleClass="form-control form-control-sm"
+                                                                     placeholder="تاریخ"/>
+                                                        <div class="input-group-btn">
+                                                            <button class="btn btn-danger btn-sm" type="button"
+                                                                    onclick="$('#in2').val('');
+                                                                    $('#in1').prop('disabled',false);
+                                                                           $('#in1').val(0)"
+                                                                    style="padding: 1.7px 6px">
+                                                                <i class="icon-times"/>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p:panel>
+                                    </div>
+                                    <div class="col-sm-4" data-step="4" data-intro="جهت انتخاب یک یا چند پرسنل، از این قسمت استفاده نمایید.">
+                                        <p:panel header="مشخص کردن پرسنل">
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <p:outputLabel value="تعداد پرسنل انتخاب شده" id="persCount"/>
+                                                </div>
+                                                <div class="col-sm-3" data-step="5" data-intro="تعداد پرسنل انتخاب شده در این قسمت نمایش داده خواهد شد.">
+                                                    <p:outputLabel value="#{taraddodReportBean.selectedPersonelCount} نفر"
+                                                                   id="personelCount"
+                                                                   style="color: #{taraddodReportBean.selectedPersonelCount > 0 ? 'green':'red'}"/>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p:outputLabel style="font-size: smaller"
+                                                                   value="شماره پرسنلی یا جستجو"/>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p:commandLink value="جستجوی پرسنل" styleClass="btn btn-sm btn-outline-primary"  onclick="$('#df').modal('show');"/>
+                                                </div>
+                                            </div>
+                                        </p:panel>
+                                    </div>
+                                    <div class="col-sm-4" data-step="8" data-intro="جهت مشاهده گزارش یا ردریافت فایل PDF از این بخش استفاده نمایید.">
+                                        <p:commandLink value="نمایش" styleClass="btn btn-sm btn-outline-primary"
+                                                         actionListener="#{taraddodReportBean.showResults()}" update="tbl">
+                                        </p:commandLink>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12" data-step="9" data-intro="گزارش تولیدی در این قسمت نمایش داده خواهد شد.">
+                                    <p:dataTable value="#{taraddodReportBean.taraddodDtoList}" paginator="true" rows="31"
+                                                 rowIndexVar="i" var="item" id="tbl">
+                                        <f:facet name="header">
+                                            <div style="text-align: left">
+                                                <p:commandLink ajax="false" actionListener="#{taraddodReportBean.reportPDF()}" >
+                                                    <i class="icon icon-file-pdf red"/>
+                                                </p:commandLink>
+
+                                            </div>
+                                        </f:facet>
+                                        <p:column headerText="ردیف" style="width: 60px">
+                                            <p:outputLabel value="#{i+1}"/>
+                                        </p:column>
+                                        <p:column headerText="نام و نشان">
+                                            <p:outputLabel value="#{item.personel.name} #{item.personel.neshan}"/>
+                                        </p:column>
+                                        <p:column headerText="تاریخ">
+                                            <p:outputLabel value="#{item.date}"/>
+                                        </p:column>
+                                        <p:column headerText="روز">
+                                            <p:outputLabel value="#{item.rooz}"/>
+                                        </p:column>
+                                        <p:column headerText="ساعت 1">
+                                            <p:outputLabel value="#{item.saat1}"/>
+                                        </p:column>
+                                        <p:column headerText="ساعت 2">
+                                            <p:outputLabel value="#{item.saat2}"/>
+                                        </p:column>
+                                        <p:column headerText="ساعت 3">
+                                            <p:outputLabel value="#{item.saat3}"/>
+                                        </p:column>
+                                        <p:column headerText="ساعت 4">
+                                            <p:outputLabel value="#{item.saat4}"/>
+                                        </p:column>
+                                        <p:column headerText="ساعت 5">
+                                            <p:outputLabel value="#{item.saat5}"/>
+                                        </p:column>
+                                        <p:column headerText="ساعت 6">
+                                            <p:outputLabel value="#{item.saat6}"/>
+                                        </p:column>
+                                        <p:column headerText="وضعیت">
+                                            <p:outputLabel value="#{item.vaziat}"
+                                                           styleClass="#{item.vaziat eq 'حاضر' ? 'tag tag-info' : item.vaziat eq 'ورود با تاخیر' ?
+                                                           'tag tag-warning' : item.vaziat eq 'نهست' ? 'tag tag-danger':'tag tag-success'}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                kamaDatepicker('in2', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+            </script>
+
+
+            <div class="modal fade text-xs-left" id="df" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <h4 class="modal-title" id="persName">جستجوی پرسنل</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p:outputLabel value="شماره کارت"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <h:inputText value="#{taraddodReportBean.shomareKartSearched}"
+                                                     placeholder="شماره کارت"
+                                                     styleClass="form-control form-control-sm">
+                                            <p:ajax listener="#{taraddodReportBean.loadPersonelsByCardNum}" update="tbl2"
+                                                    event="keyup"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <p:outputLabel value="شماره پرسنلی"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <h:inputText value="#{taraddodReportBean.shomarePersoneliSearched}"
+                                                     placeholder="شماره پرسنلی"
+                                                     styleClass="form-control form-control-sm">
+                                            <p:ajax listener="#{taraddodReportBean.loadPersonelsByPersNum}" update="tbl2"
+                                                    event="keyup"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <p:outputLabel value="جستجو براساس نام و نشان"/>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <h:inputText value="#{taraddodReportBean.neshanSearched}" placeholder="نام و نشان"
+                                                     styleClass="form-control form-control-sm">
+                                            <p:ajax listener="#{taraddodReportBean.loadPersonelsByNeshan}" update="tbl2"
+                                                    event="keyup"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br/>
+
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <p:outputLabel value="دایره"/>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h:selectOneMenu value="#{taraddodReportBean.selectedDayere}"
+                                                     styleClass="form-control form-control-sm">
+                                        <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                        <f:selectItems value="#{taraddodReportBean.dayereList}" var="d"
+                                                       itemValue="#{d.id}" itemLabel="#{d.title}"/>
+                                        <p:ajax listener="#{taraddodReportBean.changeDayere()}" update="ghesmat tbl2"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p:outputLabel value="بخش"/>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h:selectOneMenu value="#{taraddodReportBean.selectedBakhsh}" id="ghesmat"
+                                                     styleClass="form-control form-control-sm">
+                                        <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                        <f:selectItems value="#{taraddodReportBean.bakhshList}" var="d"
+                                                       itemValue="#{d.id}" itemLabel="#{d.title}"/>
+                                        <p:ajax listener="#{taraddodReportBean.changeGhesmat()}" update="tbl2"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+
+                            <p:separator/>
+                            <p:dataTable value="#{taraddodReportBean.searchedPersonels}" var="pers"
+                                         selection="#{taraddodReportBean.selectedPersonels}" style="height: 300px;position:relative;overflow: auto"
+                                         rowIndexVar="i" id="tbl2" rowKey="#{pers.id}">
+                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+                                <p:column headerText="ردیف" style="width: 60px">
+                                    <p:outputLabel value="#{i+1}"/>
+                                </p:column>
+
+                                <p:column headerText="ش کارت">
+                                    <p:outputLabel value="#{pers.shomareKart}"/>
+                                </p:column>
+
+                                <p:column headerText="ش پ">
+                                    <p:outputLabel value="#{pers.shomarePersoneli}"/>
+                                </p:column>
+
+                                <p:column headerText="نام و نشان">
+                                    <p:outputLabel value="#{pers.name} #{pers.neshan}"/>
+                                </p:column>
+
+                                <p:column headerText="درجه">
+                                    <p:outputLabel value="#{pers.daraje.title}"/>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" onclick="$('#df').modal('hide')"/>
+                            <p:commandButton value="تایید" actionListener="#{taraddodReportBean.selectDonePersonel}"
+                                             oncomplete="$('#df').modal('hide')" update="personelCount"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

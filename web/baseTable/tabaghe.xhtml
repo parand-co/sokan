@@ -1,0 +1,285 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">طبقه</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="searchForm" prependId="false">
+                        <div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="code" styleClass="control-label" value="کد:"/>
+                                        <h:inputText id="code" styleClass="form-control" value="#{tabagheBaseTableBean.codeSearch}"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <h:outputLabel for="shkart" styleClass="control-label" value="عنوان:"/>
+                                        <h:inputText id="shkart" styleClass="form-control" value="#{tabagheBaseTableBean.titleSearch}"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="shkart" class="control-label"> </label>
+                                        <span class="input-group-btn">
+                                            <p:commandButton value="جستجو" styleClass="btn bg-success"
+                                                             rendered="#{tabagheBaseTableBean.readPermission}"
+                                                             actionListener="#{tabagheBaseTableBean.search}"
+                                                             update="searchForm"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p:dataTable id="tableSTP" value="#{tabagheBaseTableBean.savabegh}"
+                                     emptyMessage="داده ای وجود ندارد"
+                                     scrollable="true"
+                                     styleClass="table" var="dataTable" editable="true"
+                                     paginator="true" rows="15" style="margin-top: 20px;">
+                            <p:column headerText="نمایش" style="width: 60px;" rendered="#{tabagheBaseTableBean.readPermission}">
+                                <p:commandButton icon="icon-search4" actionListener="#{tabagheBaseTableBean.dispach(dataTable)}" update="saveForm clock"/>
+                            </p:column>
+                            <p:column headerText="کد" style="width: 110px;">
+                                <h:outputLabel value="#{dataTable.code}"/>
+                            </p:column>
+                            <p:column headerText="عنوان">
+                                <h:outputLabel value="#{dataTable.title}"/>
+                            </p:column>
+
+                            <p:column headerText="ساعت شروع کار در روز عادی">
+                                <h:outputLabel value="#{dataTable.saatShoroKarAddi}"/>
+                            </p:column>
+                            <p:column headerText="ساعت پایان کار در روز عادی">
+                                <h:outputLabel value="#{dataTable.saatPayanKarAddi}"/>
+                            </p:column>
+                            <p:column headerText="ساعت شروع اضافه کاری در روز عادی">
+                                <h:outputLabel value="#{dataTable.saatShoroEzfAddi}"/>
+                            </p:column>
+                            <p:column headerText="ساعت پایان اضافه کاری در روز عادی">
+                                <h:outputLabel value="#{dataTable.saatPayanEzfAddi}"/>
+                            </p:column>
+                            <p:column headerText="ساعت شروع کار در روز تعطیل">
+                                <h:outputLabel value="#{dataTable.saatShoroKarTatil}"/>
+                            </p:column>
+                            <p:column headerText="ساعت پایان کار در روز تعطیل">
+                                <h:outputLabel value="#{dataTable.saatPayanKarTatil}"/>
+                            </p:column>
+                            <p:column headerText="ساعت شروع اضافه کاری در روز تعطیل">
+                                <h:outputLabel value="#{dataTable.saatShoroEzfTatil}"/>
+                            </p:column>
+                            <p:column headerText="ساعت پایان اضافه کاری در روز تعطیل">
+                                <h:outputLabel value="#{dataTable.saatPayanEzfTatil}"/>
+                            </p:column>
+                            <p:column headerText="ساعت شروع کار در روز نیمه تعطیل">
+                                <h:outputLabel value="#{dataTable.saatShoroKarNimTatil}"/>
+                            </p:column>
+                            <p:column headerText="ساعت پایان کار در روز نیمه تعطیل">
+                                <h:outputLabel value="#{dataTable.saatPayanKarNimTatil}"/>
+                            </p:column>
+                            <p:column headerText="ساعت شروع اضافه کاری در روز نیمه تعطیل">
+                                <h:outputLabel value="#{dataTable.saatShoroEzfNimTatil}"/>
+                            </p:column>
+                            <p:column headerText="ساعت پایان اضافه کاری در روز نیمه تعطیل">
+                                <h:outputLabel value="#{dataTable.saatPayanEzfNimTatil}"/>
+                            </p:column>
+
+                            <p:column headerText="حذف" style="width: 60px;" rendered="#{tabagheBaseTableBean.deletePermission}">
+                                <p:commandButton icon="ui-icon-trash" styleClass="bg-danger" actionListener="#{tabagheBaseTableBean.startDelete(dataTable)}" onclick="PF('delete_dlg').show()"/>
+                            </p:column>
+                        </p:dataTable>
+
+                    </h:form>
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">ثبت طبقه</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="saveForm" prependId="false">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-1" styleClass="control-label" value="کد:"/>
+                                    <h:inputText id="field2-1" styleClass="form-control" value="#{tabagheBaseTableBean.code}"
+                                                 onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-2" styleClass="control-label" value="عنوان:"/>
+                                    <h:inputText id="field2-2" styleClass="form-control" value="#{tabagheBaseTableBean.title}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-3" styleClass="control-label" value="ساعت شروع کار در روز عادی:"/>
+                                    <h:inputText id="field2-3" styleClass="form-control time" value="#{tabagheBaseTableBean.saatShoroKarAddi}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-4" styleClass="control-label" value="ساعت پایان کار در روز عادی:"/>
+                                    <h:inputText id="field2-4" styleClass="form-control time" value="#{tabagheBaseTableBean.saatPayanKarAddi}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-5" styleClass="control-label" value="ساعت شروع اضافه کاری در روز عادی:"/>
+                                    <h:inputText id="field2-5" styleClass="form-control time" value="#{tabagheBaseTableBean.saatShoroEzfAddi}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-6" styleClass="control-label" value="ساعت پایان اضافه کاری در روز عادی:"/>
+                                    <h:inputText id="field2-6" styleClass="form-control time" value="#{tabagheBaseTableBean.saatPayanEzfAddi}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-7" styleClass="control-label" value="ساعت شروع کار در روز تعطیل:"/>
+                                    <h:inputText id="field2-7" styleClass="form-control time" value="#{tabagheBaseTableBean.saatShoroKarTatil}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-8" styleClass="control-label" value="ساعت پایان کار در روز تعطیل:"/>
+                                    <h:inputText id="field2-8" styleClass="form-control time" value="#{tabagheBaseTableBean.saatPayanKarTatil}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-9" styleClass="control-label" value="ساعت شروع اضافه کاری در روز تعطیل:"/>
+                                    <h:inputText id="field2-9" styleClass="form-control time" value="#{tabagheBaseTableBean.saatShoroEzfTatil}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-10" styleClass="control-label" value="ساعت پایان اضافه کاری در روز تعطیل:"/>
+                                    <h:inputText id="field2-10" styleClass="form-control time" value="#{tabagheBaseTableBean.saatPayanEzfTatil}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-11" styleClass="control-label" value="ساعت شروع کار در روز نیمه تعطیل:"/>
+                                    <h:inputText id="field2-11" styleClass="form-control time" value="#{tabagheBaseTableBean.saatShoroKarNimTatil}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-12" styleClass="control-label" value="ساعت پایان کار در روز نیمه تعطیل:"/>
+                                    <h:inputText id="field2-12" styleClass="form-control time" value="#{tabagheBaseTableBean.saatPayanKarNimTatil}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-13" styleClass="control-label" value="ساعت شروع اضافه کاری در روز نیمه تعطیل:"/>
+                                    <h:inputText id="field2-13" styleClass="form-control time" value="#{tabagheBaseTableBean.saatShoroEzfNimTatil}" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <h:outputLabel for="field2-14" styleClass="control-label" value="ساعت پایان اضافه کاری در روز نیمه تعطیل:"/>
+                                    <h:inputText id="field2-14" styleClass="form-control time" value="#{tabagheBaseTableBean.saatPayanEzfNimTatil}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="field2-2" class="control-label"> </label>
+                                    <span class="input-group-btn">
+                                        <p:commandButton value="ذخیره" styleClass="btn bg-success"
+                                                         rendered="#{!tabagheBaseTableBean.edited}"
+                                                         actionListener="#{tabagheBaseTableBean.save}"
+                                                         disabled="#{!tabagheBaseTableBean.createPermission}"
+                                                         update="saveForm searchForm clock"/>
+                                    </span>
+
+                                    <span class="input-group-btn">
+                                        <p:commandButton value="ویرایش" styleClass="btn bg-success"
+                                                         rendered="#{tabagheBaseTableBean.edited}"
+                                                         actionListener="#{tabagheBaseTableBean.edit}"
+                                                         disabled="#{!tabagheBaseTableBean.updatePermission}"
+                                                         update="saveForm searchForm clock"/>
+                                        <p:commandButton value="انصراف" styleClass="btn bg-danger"
+                                                         rendered="#{tabagheBaseTableBean.edited}"
+                                                         actionListener="#{tabagheBaseTableBean.nuller}"
+                                                         update="saveForm searchForm clock"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+        <p:dialog header="حذف" widgetVar="delete_dlg" modal="true" dir="rtl" width="400" resizable="false">
+
+            <div class="row">
+                <h:outputText value="آیا از حذف اطلاعات اطمینان دارید؟" />
+            </div>
+
+            <div class="row">
+                <p:commandButton value="بله" styleClass="bg-success" actionListener="#{tabagheBaseTableBean.delete}" update="searchForm clock" oncomplete="PF('delete_dlg').hide()"/>
+                <p:commandButton value="خیر" styleClass="bg-danger" actionListener="#{tabagheBaseTableBean.cancelDelete}" oncomplete="PF('delete_dlg').hide()"/>
+            </div>
+
+        </p:dialog>
+
+        <h:form prependId="false" id="clock">
+            <h:outputScript>
+                $('.time').mask('99:99');
+            </h:outputScript>
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

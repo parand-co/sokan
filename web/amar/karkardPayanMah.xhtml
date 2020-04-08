@@ -1,0 +1,334 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <style type="text/css">
+            .bd-main {
+                margin-top: 25px;
+            }
+
+            .ui-dialog {
+                width: 500px;
+            }
+        </style>
+        <h:form prependId="false">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">گزارش کارکرد پایان ماه</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row" data-step="2" data-intro="جهت فیلتر نمودن گزارش از این قسمت اقدام نمایید.">
+                                    <div class="col-sm-5" data-step="3" data-intro="جهت دریافت گزارش پر نمودن ماه و سال اجباری می باشد.">
+                                        <p:panel header="مشخص کردن تاریخ">
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p:outputLabel value="براساس ماه"/>
+                                                </div>
+                                                <div class="col-sm-8" data-step="4" data-intro="جهت انتخاب ماه، از این قسمت استفاده نمایید. ">
+                                                    <div class="input-group">
+                                                        <h:selectOneMenu value="#{karkardPayanMahBean.selectedMount}" tabindex="1"
+                                                                         styleClass="form-control form-control-sm">
+                                                            <f:selectItem itemValue="00" itemLabel="انتخاب کنید..."/>
+                                                            <f:selectItem itemValue="01" itemLabel="فروردین"/>
+                                                            <f:selectItem itemValue="02" itemLabel="اردیبهشت"/>
+                                                            <f:selectItem itemValue="03" itemLabel="خرداد"/>
+                                                            <f:selectItem itemValue="04" itemLabel="تیر"/>
+                                                            <f:selectItem itemValue="05" itemLabel="مرداد"/>
+                                                            <f:selectItem itemValue="06" itemLabel="شهریور"/>
+                                                            <f:selectItem itemValue="07" itemLabel="مهر"/>
+                                                            <f:selectItem itemValue="08" itemLabel="آبان"/>
+                                                            <f:selectItem itemValue="09" itemLabel="آذر"/>
+                                                            <f:selectItem itemValue="10" itemLabel="دی"/>
+                                                            <f:selectItem itemValue="11" itemLabel="بهمن"/>
+                                                            <f:selectItem itemValue="12" itemLabel="اسفند"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p:outputLabel value="بر اساس سال"/>
+                                                </div>
+                                                <div class="col-sm-8" data-step="5" data-intro="جهت انتخاب سال، از این قسمت استفاده نمایید.">
+                                                    <div class="input-group">
+                                                        <h:selectOneMenu value="#{karkardPayanMahBean.emsal}"
+                                                                         styleClass="form-control form-control-sm">
+                                                            <f:selectItems value="#{karkardPayanMahBean.sal}" var="s"
+                                                                           itemValue="#{s}" itemLabel="#{s}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p:panel>
+                                    </div>
+                                    <div class="col-sm-4" data-step="6" data-intro="جهت انتخاب یک یا چند پرسنل، از این قسمت استفاده نمایید.">
+                                        <p:panel header="مشخص کردن پرسنل">
+                                            <br/>
+                                            <div class="row">
+
+                                                <div class="col-sm-9">
+                                                    <p:outputLabel value="تعداد پرسنل انتخاب شده" id="persCount"/>
+                                                </div>
+                                                <div class="col-sm-3" data-step="6" data-intro="تعداد پرسنل انتخاب شده در این قسمت نمایش داده خواهد شد.">
+                                                    <p:outputLabel value="#{karkardPayanMahBean.selectedPersonelCount}"
+                                                                   id="personelCount"
+                                                                   style="color: #{karkardPayanMahBean.selectedPersonelCount > 0 ? 'green':'red'}"/>
+                                                </div>
+                                            </div>
+
+                                            <br/>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p:outputLabel style="font-size: smaller"
+                                                                   value="شماره پرسنلی یا جستجو"/>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="input-group" data-step="7" data-intro="جهت جستجوی یک پرسنل خاص با شماره پرسنلی از این قسمت استفاده نمایید.">
+                                                        <h:inputText value="#{karkardPayanMahBean.shomarePersoneliSearched2}" tabindex="4"
+                                                                     placeholder="شماره پرسنلی"
+                                                                     styleClass="form-control form-control-sm">
+                                                            <p:ajax listener="#{karkardPayanMahBean.loadPersonelsByPersNumExactly}" update="personelCount"
+                                                                    event="keyup"/>
+                                                        </h:inputText>
+                                                        <div class="input-group-btn" data-step="8" data-intro="جهت جستجوی پرسنل با فیلترهای بیشتر بر روی این گزینه کلیک نمایید و در صفحه باز شده، پس از جستجوی پرسنل آنها را انتخاب و تایید نمایید.">
+                                                            <button class="btn btn-info btn-sm" type="button"
+                                                                    onclick="$('#df').modal('show');"
+                                                                    style="padding: 2px 6px">
+                                                                <i class="icon-search"/>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p:panel>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:panel header=" ">
+                                            <div class="row">
+                                                <div class="col-md-3"></div>
+                                                <div class="col-md-6" data-step="9" data-intro="جهت مشاهده گزارش بر روی این گزینه کلیک نمایید.">
+                                                    <p:commandButton value="نمایش" style="width: 100%"
+                                                                     rendered="#{karkardPayanMahBean.readPermission}"
+                                                                     actionListener="#{karkardPayanMahBean.showResults}"
+                                                                     update="tbl"/>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-md-3"></div>
+                                                <div class="col-md-6" data-step="10" data-intro="درصورت تمایل به دریافت گزارش در قالب PDF بر روی این گزینه کلیک نمایید.">
+                                                    <p:commandButton value="چاپ" styleClass="bg-success" style="width: 100%"
+                                                                     rendered="#{karkardPayanMahBean.readPermission}"
+                                                                     actionListener="#{karkardPayanMahBean.pdfPrint}" ajax="false"/>
+                                                </div>
+                                            </div>
+                                        </p:panel>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12" data-step="11" data-intro="گزارش تولیدی در این قسمت نمایش داده خواهد شد.">
+                                    <p:dataTable value="#{karkardPayanMahBean.result}" paginator="true" rows="31"
+                                                 rowIndexVar="i" var="item" id="tbl">
+                                        <p:column headerText="ردیف" style="width: 60px">
+                                            <p:outputLabel value="#{i+1}"/>
+                                        </p:column>
+                                        <p:column headerText="شماره پرسنلی">
+                                            <p:outputLabel value="#{item.shp}"/>
+                                        </p:column>
+                                        <p:column headerText="شماره کارت">
+                                            <p:outputLabel value="#{item.shomareKart}"/>
+                                        </p:column>
+                                        <p:column headerText="نام و نشان">
+                                            <p:outputLabel value="#{item.name} #{item.neshan}"/>
+                                        </p:column>
+                                        <p:column headerText="یگان/قسمت">
+                                            <p:outputLabel value="#{item.ghesmat}"/>
+                                        </p:column>
+                                        <p:column headerText="روز کاری">
+                                            <p:outputLabel value="#{item.rozKari}"/>
+                                        </p:column>
+                                        <p:column headerText="فاقدآمار">
+                                            <p:outputLabel value="#{item.faghedAmar}"/>
+                                        </p:column>
+                                        <p:column headerText="مرخصی">
+                                            <p:outputLabel value="#{item.morakhasi}"/>
+                                        </p:column>
+                                        <p:column headerText="نهست">
+                                            <p:outputLabel value="#{item.nahast}"/>
+                                        </p:column>
+                                        <p:column headerText="ج.س.خدمت">
+                                            <p:outputLabel value="#{item.sumSaatKhedmat}"/>
+                                        </p:column>
+                                        <p:column headerText="س.عدم حضور">
+                                            <p:outputLabel value="#{item.sumAdameHozor}"/>
+                                        </p:column>
+                                        <p:column headerText="ج.تاخیر">
+                                            <p:outputLabel value="#{item.sumTakhir}"/>
+                                        </p:column>
+                                        <p:column headerText="ت.تاخیر">
+                                            <p:outputLabel value="#{item.sumTedadTakhir}"/>
+                                        </p:column>
+                                        <p:column headerText="ت.تردد ناقص">
+                                            <p:outputLabel value="#{item.sumTedadTaradodNaghes}"/>
+                                        </p:column>
+                                        <p:column headerText="ت.خروج ز">
+                                            <p:outputLabel value="#{item.sumTedadTajil}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+        <div class="modal fade text-xs-left" id="df" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+             aria-hidden="true">
+            <div class="modal-dialog modal-full" role="document">
+                <div class="modal-content width-800">
+                    <div class="modal-header bg-success">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="icon icon-remove small"/>
+                        </button>
+                        <h4 class="modal-title" id="persName">جستجوی پرسنل</h4>
+                    </div>
+                    <h:form prependId="false" id="report">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="meliCode" styleClass="control-label" value="شماره ملی"/>
+                                        <h:inputText value="#{karkardPayanMahBean.shomareMeliSearched}"
+                                                     id="meliCode"
+                                                     styleClass="form-control form-control-sm">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="name" styleClass="control-label" value="نام"/>
+                                        <h:inputText value="#{karkardPayanMahBean.nameSearched}"
+                                                     id="name"
+                                                     styleClass="form-control form-control-sm">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshan" styleClass="control-label" value="نشان"/>
+                                        <h:inputText value="#{karkardPayanMahBean.neshanSearched}"
+                                                     id="neshan"
+                                                     styleClass="form-control form-control-sm">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshan" styleClass="control-label" value="دایره"/>
+                                        <h:selectOneMenu value="#{karkardPayanMahBean.selectedDayere}"
+                                                         styleClass="form-control form-control-sm">
+                                            <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                            <f:selectItems value="#{karkardPayanMahBean.dayereList}" var="d"
+                                                           itemValue="#{d.id}" itemLabel="#{d.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshan" styleClass="control-label" value="یگان"/>
+                                        <h:selectOneMenu value="#{karkardPayanMahBean.selectedYegan}" id="yegan"
+                                                         styleClass="form-control form-control-sm">
+                                            <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                            <f:selectItems value="#{karkardPayanMahBean.yegans}" var="y"
+                                                           itemValue="#{y.id}" itemLabel="#{y.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshan" styleClass="control-label" value="نوع پرسنل"/>
+                                        <h:selectOneMenu value="#{karkardPayanMahBean.selectedNoeEstekhdam}" id="noeEstekhdam"
+                                                         styleClass="form-control form-control-sm">
+                                            <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                            <f:selectItems value="#{karkardPayanMahBean.noeEstekhdams}" var="noeEstekhdam"
+                                                           itemValue="#{noeEstekhdam.id}" itemLabel="#{noeEstekhdam.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="yegan" class="control-label"> </label>
+                                    <div class="form-group">
+                                        <span class="input-group-btn">
+                                            <h:commandButton styleClass="btn bg-warning" type="button"
+                                                             value="جستجو">
+                                                <f:ajax execute="report" listener="#{karkardPayanMahBean.searchPersonel}" render="report"/>
+                                            </h:commandButton>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p:separator/>
+                            <p:dataTable value="#{karkardPayanMahBean.searchedPersonels}" var="pers"
+                                         selection="#{karkardPayanMahBean.selectedPersonels}" style="height: 300px;position:relative;overflow: auto"
+                                         rowIndexVar="i" id="tbl2" rowKey="#{pers.id}">
+                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+                                <p:column headerText="ردیف" style="width: 60px">
+                                    <p:outputLabel value="#{i+1}"/>
+                                </p:column>
+
+                                <p:column headerText="ش کارت">
+                                    <p:outputLabel value="#{pers.shomareKart}"/>
+                                </p:column>
+
+                                <p:column headerText="ش پ">
+                                    <p:outputLabel value="#{pers.shomarePersoneli}"/>
+                                </p:column>
+
+                                <p:column headerText="نام و نشان">
+                                    <p:outputLabel value="#{pers.name} #{pers.neshan}"/>
+                                </p:column>
+
+                                <p:column headerText="درجه">
+                                    <p:outputLabel value="#{pers.daraje.title}"/>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" onclick="$('#df').modal('hide')"/>
+                            <p:commandButton value="تایید" actionListener="#{karkardPayanMahBean.selectDonePersonel}"
+                                             oncomplete="$('#df').modal('hide')" update="personelCount"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

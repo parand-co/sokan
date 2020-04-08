@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <div data-scroll-to-active="true" style="background: #33240b;top: 5.2rem;" class="main-menu menu-fixed menu-dark menu-accordion menu-shadow">
+        <!-- main menu header-->
+        <div class="main-menu-header" style="padding-bottom: 0">
+            <div class="row">
+                <div style="float: right">
+                    <p:graphicImage
+                            alt="avatar"
+                            value="#{pic.dycriptPicture(indexBean.user.personel.axe)}"
+                            stream="false" cache="false" style="width: 110px; border-radius: 10px; margin-right: 40px;"/>
+                </div>
+            </div>
+
+            <div class="row" style=" margin-top: 1rem;">
+                <i class="icon-wifi3 col-sm-2"/>
+                <p:outputLabel value="127.0.0.1" styleClass="col-sm-10 success" />
+            </div>
+            <div class="row">
+                <i class="icon-location22 col-sm-2"  style="color: red;"/>
+                <p:outputLabel value="#{indexBean.user.personel.bakhsh.title}" styleClass="col-sm-10 success" />
+            </div>
+
+        </div>
+        <hr style="background-color: white"/>
+        <!-- / main menu header-->
+        <!-- main menu content-->
+        <div class="main-menu-content ps-container ps-theme-light ps-active-y">
+            <ul id="main-menu-navigation" style="background: #33240b;"  class="navigation navigation-main">
+                <li class="nav-item"><a href="../index/index.xhtml"><i class="icon-home"/><span class="menu-title">صفحه اصلی</span></a></li>
+
+                <c:forEach items="#{indexBean.menu}" var="menu">
+
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="#{menu.icon}"></i>
+                            <span class="menu-title">#{menu.title}</span>
+                        </a>
+                        <ul class="menu-content">
+                            <c:forEach items="#{menu.forms}" var="form">
+                                <li>
+                                    <a href="#{form.path}" class="menu-item" >
+                                        #{form.title}
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </li>
+
+                </c:forEach>
+
+            </ul>
+
+        </div>
+        <!-- /main menu content-->
+        <!-- main menu footer-->
+        <!-- include includes/menu-footer-->
+        <!-- main menu footer-->
+    </div>
+
+
+
+</ui:composition>

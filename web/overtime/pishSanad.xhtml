@@ -1,0 +1,886 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:form prependId="false">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">پیش سند اضافه کاری</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p:outputLabel value="سند اضافه کاری"/>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h:selectOneMenu value="#{pishSanadBean.sanadId}"
+                                                         styleClass="form-control form-control-sm" id="sanadSelector">
+                                            <f:selectItems value="#{pishSanadBean.sanadList}" var="s"
+                                                           itemLabel="#{s.sal} #{s.mah}" itemValue="#{s.id}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p:commandButton value="بارگذاری و نمایش"
+                                                         styleClass="btn btn-sm btn-outline-primary"
+                                                         actionListener="#{pishSanadBean.loadOvertimes}"
+                                                         onclick="PF('loader_animation').show()"
+                                                         oncomplete="PF('loader_animation').hide();" update="tbl"
+                                                         onerror="PF('loader_animation').hide()"/>
+                                    </div>
+                                </div>
+                                <p:separator/>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p:commandLink styleClass="btn btn-sm btn-outline-success"
+                                                       onclick="$('#df').modal('show');" value="اضافه کردن پرسنل"/>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p:commandLink styleClass="btn btn-sm btn-outline-success"
+                                                       actionListener="#{pishSanadBean.openAddExPers()}" update="m7"
+                                                       value="اضافه کردن پرسنل خارجی"/>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <p:commandLink styleClass="btn btn-sm btn-outline-success"
+                                                       actionListener="#{pishSanadBean.openSanadOption()}" update="pnl_option"
+                                                       value="مقادیر ثابت سند"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p:outputLabel value="نمایش پرسنلی که بیش از "/>
+                                        <p:inputText value="#{pishSanadBean.hourFilter}" style="width: 100px;" type="number"/>
+                                        <p:outputLabel value="ساعت اضافه کاری دارند."/>
+                                        <p:commandLink styleClass="btn btn-sm btn-outline-primary" value="اعمال" actionListener="#{pishSanadBean.doFilter}" update="tbl"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">اضافه کاری پرسنل</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p:dataTable value="#{pishSanadBean.ezafeKariListDto}" widgetVar="tblEzf"
+                                                     rowIndexVar="i" var="item" id="tbl"
+                                                     filteredValue="#{pishSanadBean.filteredEzfDto}"
+                                                     paginator="true" rows="20">
+
+                                            <f:facet name="header">
+                                                لیست اضافه کاری های سند انتخاب شده
+                                                <div style="text-align: left">
+                                                <p:commandLink ajax="false" actionListener="#{pishSanadBean.reportPDF()}">
+                                                    <i class="icon icon-file-pdf red"/>
+                                                </p:commandLink>
+                                                <p:commandLink ajax="false" actionListener="#{pishSanadBean.reportExcel()}">
+                                                    <i class="icon icon-file-excel green"/>
+                                                </p:commandLink>
+                                                </div>
+                                            </f:facet>
+
+                                            <p:column headerText="ردیف" style="width: 60px">
+                                                <p:outputLabel value="#{i+1}"/>
+                                            </p:column>
+
+                                            <p:column headerText="شماره پرسنلی"
+                                                      filterBy="#{item.personel.shomarePersoneli}"
+                                                      filterMatchMode="contains">
+                                                <p:outputLabel value="#{item.personel.shomarePersoneli}"/>
+                                            </p:column>
+
+                                            <p:column headerText="نام و نشان">
+                                                <p:outputLabel value="#{item.personel.name} #{item.personel.neshan}"/>
+                                            </p:column>
+
+                                            <p:column headerText="دایره / بخش" style="width: 250px">
+                                                <p:outputLabel
+                                                        value="#{item.personel.dayere.title} / #{item.personel.bakhsh.title}"/>
+                                            </p:column>
+
+                                            <p:column headerText="مدت" style="width: 70px;">
+                                                <p:outputLabel value="#{item.modat}"/>
+                                            </p:column>
+
+                                            <p:column headerText="ماخذ">
+                                                <p:outputLabel value="#{item.makhaz} ریال"/>
+                                            </p:column>
+
+                                            <p:column headerText="مبلغ اضافه کار">
+                                                <p:outputLabel value="#{item.mablagh} ریال"/>
+                                            </p:column>
+
+                                            <p:column headerText="مبلغ پرداختی">
+                                                <p:outputLabel value="#{item.totalMablagh} ریال"
+                                                               styleClass="tag-success tag"/>
+                                            </p:column>
+
+                                            <p:column headerText="#" style="width: 50px;text-align: center">
+                                                <p:commandLink actionListener="#{pishSanadBean.loadDetails(item)}"
+                                                               update="pnl persNamea" style="color: purple">
+                                                    <i class="icon-monitor"/>
+                                                </p:commandLink>
+                                            </p:column>
+
+                                            <f:facet name="footer">
+                                                <p:outputLabel value="جمع کل: "/>
+                                                <p:outputLabel value="#{pishSanadBean.totalMablagh} ریال" id="total"/>
+                                            </f:facet>
+
+                                        </p:dataTable>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade text-xs-left" id="dm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <p:outputLabel class="modal-title" id="persNamea"
+                                           value=" #{pishSanadBean.personelDetailLoad.name} #{pishSanadBean.personelDetailLoad.neshan}"
+                                           style="color: white;font-size: 20px"/>
+                        </div>
+                        <div class="modal-body">
+                            <p:panel id="pnl">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h:outputLabel value="ماخذ:" style="font-size: 12px"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:commandLink value="#{pishSanadBean.ezafeKariLoaded.makhaz} ریال"
+                                                       actionListener="#{pishSanadBean.clickMakhaz(pishSanadBean.personelDetailLoad,1)}"
+                                                       style="color: #1DE9B6;text-decoration: underline" update="m6"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h:outputLabel value="نوع استخدام:" style="font-size: 12px"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h:outputLabel value="#{pishSanadBean.personelDetailLoad.noeEstekhdam.title}"
+                                                       styleClass="tag tag-info"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h:outputLabel value="جمع حقوق و مزایا:" style="font-size: 12px"/>
+                                        <br/>
+                                        <h:outputLabel
+                                                value="#{pishSanadBean.calcSumHoghoogh(pishSanadBean.personelDetailLoad)} ریال"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h:outputLabel value="ساعات اضافه:" style="font-size: 12px"/>
+                                        <br/>
+                                        <p:commandLink value="#{pishSanadBean.calcSaatEzafe(pishSanadBean.personelDetailLoad)} ساعت"
+                                                       actionListener="#{pishSanadBean.editSaatEzafe()}" update="pnl1"
+                                                       style="color: green;text-decoration: underline"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h:outputLabel value="ساعات کسورات:" style="font-size: 12px"/>
+                                        <br/>
+                                        <p:commandLink value="#{pishSanadBean.calcSaatKosoorat(pishSanadBean.personelDetailLoad)} ساعت"
+                                                       actionListener="#{pishSanadBean.editSaatKasr()}" update="pnl1"
+                                                       style="color: red;text-decoration: underline"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h:outputLabel value="حق شغل:" style="font-size: 12px"/>
+                                        <h:outputLabel value="#{pishSanadBean.personelDetailLoad.haghShoghl} ریال"
+                                                       style="font-size: 14px"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h:outputLabel value="حق شاغل:" style="font-size: 12px"/>
+                                        <h:outputLabel value="#{pishSanadBean.personelDetailLoad.hagheShaghel} ریال"
+                                                       style="font-size: 14px"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h:outputLabel value="فوق العاده مدیریت:" style="font-size: 12px"/>
+                                        <h:outputLabel
+                                                value="#{pishSanadBean.personelDetailLoad.fogholadeModiriyat} ریال"
+                                                style="font-size: 14px"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h:outputLabel value="مدرک:" style="font-size: 12px"/>
+                                        <br/>
+                                        <h:outputLabel
+                                                value="#{pishSanadBean.personelDetailLoad.madrak eq null ? 'ثبت نشده' : pishSanadBean.personelDetailLoad.madrak.title}"
+                                                style="font-size: 14px"
+                                                styleClass="tag tag-info"/>
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <h:outputLabel value="جمع نهایی ساعات:" style="font-size: 12px"/>
+                                        <br/>
+                                        <h:outputLabel
+                                                value="#{pishSanadBean.calcSumHours(pishSanadBean.personelDetailLoad)} ساعت"
+                                                style="font-size: 14px"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h:outputLabel value="جمع مبلغ :" style="font-size: 12px"/>
+                                        <br/>
+                                        <h:outputLabel value="#{pishSanadBean.ezafeKariLoaded.mablagh} ریال"
+                                                       style="font-size: 14px"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h:outputLabel value="سقف اضافه کار:" style="font-size: 12px"/>
+                                        <br/>
+                                        <h:outputLabel value="#{pishSanadBean.personelDetailLoad.saghfeEzafeKar} ریال"
+                                                       style="font-size: 14px"/>
+                                    </div>
+                                </div>
+
+
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <h:outputLabel value="تعداد جیره:" style="font-size: 12px"/>
+                                        <h:outputLabel
+                                                value="#{pishSanadBean.calcCountJire(pishSanadBean.personelDetailLoad)} عدد"
+                                                style="font-size: 14px;color: red;"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h:outputLabel value="مبلغ جیره:" style="font-size: 12px"/>
+                                        <h:outputLabel
+                                                value="#{pishSanadBean.calcMablaghJire(pishSanadBean.personelDetailLoad)} ریال"
+                                                style="font-size: 14px;color: red"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h:outputLabel value="کسر یگانی:" style="font-size: 12px"/>
+                                        <h:outputLabel
+                                                value="#{pishSanadBean.calcKasrYegani(pishSanadBean.personelDetailLoad)} ریال"
+                                                style="font-size: 14px;color: red"/>
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h:outputLabel value="پرداختی:" style="font-size: 12px"/>
+                                        <h:outputLabel value="#{pishSanadBean.ezafeKariLoaded.totalMablagh} ریال"
+                                                       style="font-size: 16px;" styleClass="tag tag-success"/>
+                                    </div>
+                                </div>
+
+                                <p:separator/>
+
+                                <p:dataTable value="#{pishSanadBean.ezafeKariListLoad}" var="item"
+                                             style="height: 200px;position:relative;overflow: auto"
+                                             rowIndexVar="i" id="tblr2">
+                                    <f:facet name="header">
+                                        ریز ساعات اضافه کار
+                                    </f:facet>
+                                    <p:column headerText="ردیف" style="width: 60px">
+                                        <p:outputLabel value="#{i+1}"/>
+                                    </p:column>
+
+                                    <p:column headerText="تاریخ">
+                                        <p:outputLabel value="#{item.tarikh.tarikh}"/>
+                                    </p:column>
+
+                                    <p:column headerText="ساعت شروع">
+                                        <p:outputLabel value="#{item.saatStart}"/>
+                                    </p:column>
+
+                                    <p:column headerText="ساعت پایان">
+                                        <p:outputLabel value="#{item.saatEnd}"/>
+                                    </p:column>
+
+                                    <p:column headerText="مدت">
+                                        <p:outputLabel value="#{item.modat}"/>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </p:panel>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade text-xs-left" id="df" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <h4 class="modal-title" id="persName">جستجوی پرسنل</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p:outputLabel value="شماره کارت"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <h:inputText value="#{taraddodReportBean.shomareKartSearched}"
+                                                     placeholder="شماره کارت"
+                                                     styleClass="form-control form-control-sm">
+                                            <p:ajax listener="#{taraddodReportBean.loadPersonelsByCardNum}"
+                                                    update="tbl2"
+                                                    event="keyup"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <p:outputLabel value="شماره پرسنلی"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <h:inputText value="#{taraddodReportBean.shomarePersoneliSearched}"
+                                                     placeholder="شماره پرسنلی"
+                                                     styleClass="form-control form-control-sm">
+                                            <p:ajax listener="#{taraddodReportBean.loadPersonelsByPersNum}"
+                                                    update="tbl2"
+                                                    event="keyup"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <p:outputLabel value="جستجو براساس نام و نشان"/>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <h:inputText value="#{taraddodReportBean.neshanSearched}"
+                                                     placeholder="نام و نشان"
+                                                     styleClass="form-control form-control-sm">
+                                            <p:ajax listener="#{taraddodReportBean.loadPersonelsByNeshan}" update="tbl2"
+                                                    event="keyup"/>
+                                        </h:inputText>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-danger btn-sm" type="button"
+                                                    onclick="this.parentNode.parentNode.childNodes[0].value=''"
+                                                    style="padding: 2px 6px">
+                                                <i class="icon-times"/>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <br/>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <p:outputLabel value="دایره"/>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h:selectOneMenu value="#{taraddodReportBean.selectedDayere}"
+                                                     styleClass="form-control form-control-sm">
+                                        <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                        <f:selectItems value="#{taraddodReportBean.dayereList}" var="d"
+                                                       itemValue="#{d.id}" itemLabel="#{d.title}"/>
+                                        <p:ajax listener="#{taraddodReportBean.changeDayere()}" update="ghesmat tbl2"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p:outputLabel value="بخش"/>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h:selectOneMenu value="#{taraddodReportBean.selectedBakhsh}" id="ghesmat"
+                                                     styleClass="form-control form-control-sm">
+                                        <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                        <f:selectItems value="#{taraddodReportBean.bakhshList}" var="d"
+                                                       itemValue="#{d.id}" itemLabel="#{d.title}"/>
+                                        <p:ajax listener="#{taraddodReportBean.changeGhesmat()}" update="tbl2"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+
+                            <p:separator/>
+                            <p:dataTable value="#{taraddodReportBean.searchedPersonels}" var="pers"
+                                         selection="#{pishSanadBean.selectedPersonels}"
+                                         style="height: 300px;position:relative;overflow: auto"
+                                         rowIndexVar="i" id="tbl2" rowKey="#{pers.id}">
+                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+                                <p:column headerText="ردیف" style="width: 60px">
+                                    <p:outputLabel value="#{i+1}"/>
+                                </p:column>
+
+                                <p:column headerText="ش کارت">
+                                    <p:outputLabel value="#{pers.shomareKart}"/>
+                                </p:column>
+
+                                <p:column headerText="ش پ">
+                                    <p:outputLabel value="#{pers.shomarePersoneli}"/>
+                                </p:column>
+
+                                <p:column headerText="نام و نشان">
+                                    <p:outputLabel value="#{pers.name} #{pers.neshan}"/>
+                                </p:column>
+
+                                <p:column headerText="درجه">
+                                    <p:outputLabel value="#{pers.daraje.title}"/>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" actionListener="#{pishSanadBean.cancelAdd()}"/>
+                            <p:commandButton value="اضافه کردن" actionListener="#{pishSanadBean.selectDonePersonel}"
+                                             oncomplete="$('#df').modal('hide')" update="tblr3"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade text-xs-left" id="addDetail" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <h4 class="modal-title" id="persdNamea">اطلاعات مبلغ و ساعت اضافه کار</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p:dataTable value="#{pishSanadBean.ezafeKariListTemp}" var="item"
+                                         style="height: 300px;position:relative;overflow: auto"
+                                         rowIndexVar="i" id="tblr3">
+
+                                <p:column headerText="ردیف" style="width: 60px">
+                                    <p:outputLabel value="#{i+1}"/>
+                                </p:column>
+
+                                <p:column headerText="ش پ">
+                                    <p:outputLabel value="#{item.personel.shomarePersoneli}"/>
+                                </p:column>
+
+                                <p:column headerText="نام و نشان">
+                                    <p:outputLabel value="#{item.personel.name} #{item.personel.neshan}"/>
+                                </p:column>
+
+                                <p:column headerText="ماخذ">
+                                    <p:commandLink value="#{pishSanadBean.showMakhaz(item.personel)} ریال"
+                                                   actionListener="#{pishSanadBean.clickMakhaz(item.personel,2)}"
+                                                   style="text-decoration: underline" update="m6"/>
+                                </p:column>
+
+                                <p:column headerText="مدت">
+                                    <p:inputText type="number" value="#{item.modat}"
+                                                 styleClass="form-control-sm form-control">
+                                        <p:ajax event="blur" listener="#{pishSanadBean.modifyModat(item)}"
+                                                update="tblr3"/>
+                                    </p:inputText>
+                                </p:column>
+
+                                <p:column headerText="مبلغ">
+                                    <p:outputLabel value="#{item.mablagh} ریال"/>
+                                </p:column>
+
+                            </p:dataTable>
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" onclick="$('#addDetail').modal('hide')"/>
+                            <p:commandButton value="تایید" actionListener="#{pishSanadBean.confirmAdd()}" update="tbl"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade text-xs-left" id="sanadOption" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <h4 class="modal-title" id="persdsNamea">تعیین مقادیر ثابت سند</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p:panel id="pnl_option">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h:outputLabel value="مبلغ جیره پایور"/>
+                                        <p:inputText type="number" styleClass="form-control form-control-sm"
+                                                     value="#{pishSanadBean.sanad.mablaghJirePayvar}"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h:outputLabel value="مبلغ جیره قراردادی"/>
+                                        <p:inputText type="number" styleClass="form-control form-control-sm"
+                                                     value="#{pishSanadBean.sanad.mablaghJireGharardadi}"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h:outputLabel value="کسر یگانی بازرسی"/>
+                                        <p:inputText type="number" styleClass="form-control form-control-sm"
+                                                     value="#{pishSanadBean.sanad.kasrYeganiBaz}"/>
+                                    </div>
+
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h:outputLabel value="کسر یگانی پایور"/>
+                                        <p:inputText type="number" styleClass="form-control form-control-sm"
+                                                     value="#{pishSanadBean.sanad.kasrYeganiPayvar}"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h:outputLabel value="کسر یگانی قراردادی"/>
+                                        <p:inputText type="number" styleClass="form-control form-control-sm"
+                                                     value="#{pishSanadBean.sanad.kasrYeganiGharardadi}"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h:outputLabel value="کسر یگانی پیمانی"/>
+                                        <p:inputText type="number" styleClass="form-control form-control-sm"
+                                                     value="#{pishSanadBean.sanad.kasrYeganiPeymani}"/>
+                                    </div>
+                                </div>
+                            </p:panel>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" onclick="$('#sanadOption').modal('hide')"/>
+                            <p:commandButton value="تایید" actionListener="#{pishSanadBean.saveOption()}" update="tbl"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade text-xs-left" id="ezafeKasrSaat" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <h4 class="modal-title" id="pedrsdsNamea">ویرایش اضافات کسورات</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p:panel id="pnl1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p:inputText type="number" value="#{pishSanadBean.ezafeKasrAmount}" styleClass="form-control-sm form-control"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p:outputLabel value="#{pishSanadBean.ezafeKasrLable}"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h:outputLabel value="شرح علت"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p:inputText value="#{pishSanadBean.ezafeKasrSharh}" styleClass="form-control form-control-sm"/>
+                                    </div>
+                                </div>
+                            </p:panel>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" onclick="$('#ezafeKasrSaat').modal('hide')"/>
+                            <p:commandButton value="تایید" actionListener="#{pishSanadBean.saveEzfKsr()}" update="pnl tbl">
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade text-xs-left" id="financeModal" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <h4 class="modal-title" id="persNwwame">ویرایش مشخصات حقوقی پرسنل</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p:panel id="m6">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="حق شغل"/>
+                                        <h:inputText value="#{pishSanadBean.selectedPersonel.haghShoghl}" id="m1"
+                                                     styleClass="form-control form-control-sm"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                            <f:ajax event="keyup"
+                                                    listener="#{pishSanadBean.calcMakhaz(pishSanadBean.selectedPersonel)}"
+                                                    render="makhaz"/>
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="حق شاغل"/>
+                                        <h:inputText value="#{pishSanadBean.selectedPersonel.hagheShaghel}" id="m2"
+                                                     styleClass="form-control form-control-sm"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                            <f:ajax event="keyup"
+                                                    listener="#{pishSanadBean.calcMakhaz(pishSanadBean.selectedPersonel)}"
+                                                    render="makhaz"/>
+                                        </h:inputText>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="فوق العاده مدیریت"/>
+                                        <h:inputText value="#{pishSanadBean.selectedPersonel.fogholadeModiriyat}"
+                                                     id="m3" styleClass="form-control form-control-sm"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                            <f:ajax event="keyup"
+                                                    listener="#{pishSanadBean.calcMakhaz(pishSanadBean.selectedPersonel)}"
+                                                    render="makhaz"/>
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="ماخذ"/>
+                                        <h:inputText value="#{pishSanadBean.calcMakhaz(pishSanadBean.selectedPersonel)}"
+                                                     id="makhaz" readonly="true"
+                                                     styleClass="form-control form-control-sm"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="سقف اضافه کاری"/>
+                                        <h:inputText value="#{pishSanadBean.selectedPersonel.saghfeEzafeKar}" id="saghf"
+                                                     styleClass="form-control form-control-sm"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="جایگاه سازمانی"/>
+                                        <c:if test="#{pishSanadBean.selectedPersonel.darajeShoghl == null}">
+                                            <h:selectOneMenu value="#{pishSanadBean.darajeShoghlID}"
+                                                             styleClass="form-control form-control-sm">
+                                                <f:selectItem itemValue="0" itemLabel="انتخاب کنید"/>
+                                                <f:selectItems value="#{pishSanadBean.darajeList}" var="d"
+                                                               itemValue="#{d.id}"
+                                                               itemLabel="#{d.title}"/>
+                                            </h:selectOneMenu>
+                                        </c:if>
+                                        <c:if test="#{pishSanadBean.selectedPersonel.darajeShoghl != null}">
+                                            <h:selectOneMenu value="#{pishSanadBean.selectedPersonel.darajeShoghl.id}"
+                                                             styleClass="form-control form-control-sm">
+                                                <f:selectItems value="#{pishSanadBean.darajeList}" var="d"
+                                                               itemValue="#{d.id}"
+                                                               itemLabel="#{d.title}"/>
+                                            </h:selectOneMenu>
+                                        </c:if>
+                                    </div>
+                                    <div class="col-sm-3" id="aaa">
+                                        <p:outputLabel value="مدرک"/>
+                                        <c:if test="#{pishSanadBean.selectedPersonel.madrak == null}">
+                                            <h:selectOneMenu value="#{pishSanadBean.madrakID}" id="aa"
+                                                             styleClass="form-control form-control-sm">
+                                                <f:selectItem itemValue="0" itemLabel="انتخاب کنید"/>
+                                                <f:selectItems value="#{pishSanadBean.madrakList}" var="d"
+                                                               itemLabel="#{d.title}"
+                                                               itemValue="#{d.id}"/>
+                                                <f:ajax listener="#{pishSanadBean.changeMadrak}"
+                                                        render="aaa madrakMakhaz"/>
+                                            </h:selectOneMenu>
+                                        </c:if>
+                                        <c:if test="#{pishSanadBean.selectedPersonel.madrak != null}">
+                                            <h:selectOneMenu value="#{pishSanadBean.selectedPersonel.madrak.id}" id="bb"
+                                                             styleClass="form-control form-control-sm">
+                                                <f:selectItems value="#{pishSanadBean.madrakList}" var="d"
+                                                               itemLabel="#{d.title}"
+                                                               itemValue="#{d.id}"/>
+                                                <f:ajax listener="#{pishSanadBean.changeMadrak}"
+                                                        render="aaa madrakMakhaz"/>
+                                            </h:selectOneMenu>
+                                        </c:if>
+
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="ماخذ مدرک"/>
+                                        <h:inputText value="#{pishSanadBean.selectedPersonel.madrak.makhaz}"
+                                                     id="madrakMakhaz" readonly="true"
+                                                     styleClass="form-control form-control-sm"/>
+                                    </div>
+                                </div>
+                            </p:panel>
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" onclick="$('#financeModal').modal('hide')"/>
+                            <p:commandButton value="تایید" actionListener="#{pishSanadBean.confirmFinanceChanges()}"
+                                             update="pnl tbl tblr3"
+                                             oncomplete="$('#df').modal('hide')"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade text-xs-left" id="addPers2Modal" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel2"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="icon icon-remove small"/>
+                            </button>
+                            <h4 class="modal-title" id="sme">ویرایش مشخصات حقوقی پرسنل</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p:panel id="m7">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="شماره پرسنلی"/>
+                                        <h:inputText value="#{pishSanadBean.newPersonel.shomarePersoneli}"
+                                                     styleClass="form-control form-control-sm"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;">
+                                        </h:inputText>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="نام"/>
+                                        <h:inputText value="#{pishSanadBean.newPersonel.name}"
+                                                     styleClass="form-control form-control-sm"/>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="نشان"/>
+                                        <h:inputText value="#{pishSanadBean.newPersonel.neshan}"
+                                                     styleClass="form-control form-control-sm"/>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="درجه"/>
+                                        <h:selectOneMenu value="#{pishSanadBean.newPersonel.daraje.id}"
+                                                         styleClass="form-control form-control-sm">
+                                            <f:selectItems value="#{pishSanadBean.darajeList}" var="d"
+                                                           itemValue="#{d.id}"
+                                                           itemLabel="#{d.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="پایگاه"/>
+                                        <h:selectOneMenu value="#{pishSanadBean.newPersonel.yegan.paygah.id}"
+                                                         styleClass="form-control form-control-sm">
+                                            <f:selectItems value="#{pishSanadBean.paygahList}" var="d"
+                                                           itemLabel="#{d.title}"
+                                                           itemValue="#{d.id}"/>
+                                            <f:ajax listener="#{pishSanadBean.changePaygah}" render="yegans"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="یگان"/>
+                                        <h:selectOneMenu value="#{pishSanadBean.newPersonel.yegan.id}" id="yegans"
+                                                         styleClass="form-control form-control-sm">
+                                            <f:selectItems value="#{pishSanadBean.yeganList}" var="d"
+                                                           itemLabel="#{d.title}"
+                                                           itemValue="#{d.id}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="نوع پرسنل"/>
+                                        <h:selectOneMenu value="#{pishSanadBean.newPersonel.noeEstekhdam.id}"
+                                                         styleClass="form-control form-control-sm">
+                                            <f:selectItems value="#{pishSanadBean.noeEstekhdamList}" var="d"
+                                                           itemValue="#{d.id}"
+                                                           itemLabel="#{d.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p:outputLabel value="شماره حساب حکمت"/>
+                                        <h:inputText type="number"
+                                                     value="#{pishSanadBean.newPersonel.shomareHesabHekmat}"
+                                                     styleClass="form-control-sm form-control"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+
+                                    </div>
+                                </div>
+                            </p:panel>
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" onclick="$('#addPers2Modal').modal('hide')"/>
+                            <p:commandButton value="ثبت" actionListener="#{pishSanadBean.addNewPersoenl()}"
+                                             update="m7"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

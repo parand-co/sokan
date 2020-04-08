@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:form prependId="false">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title" style="color: white">ویرایش ساعات اضافه کاری پرسنل</h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p:panel id="panelsabt" style="border: none;">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <p:inputText placeholder="مآخذ 1/176" disabled="true"/>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p:inputNumber value="#{report12.afsar}" placeholder="افسر" tabindex="1"/>
+                                    </div>
+
+                                    <div class="col-md-3" style="margin-top: 10px;">
+                                        <p:inputNumber value="#{report12.darejehDar}" placeholder="درجه دار" tabindex="2"/>
+                                    </div>
+                                    <div class="col-md-3" style="margin-top: 10px;">
+                                        <p:inputNumber value="#{report12.karMand}"
+                                                       tabindex="3"
+                                                       placeholder="کارمند"/>
+                                    </div>
+                                    <div class="col-md-3" style="margin-top: 10px;">
+                                        <p:inputNumber value="#{report12.bazNeshasteh}"
+                                                       tabindex="4"
+                                                       placeholder="بازنشسته"/>
+                                    </div>
+                                    <div class="col-md-3" style="margin-top: 10px;">
+                                        <p:inputNumber value="#{report12.roozMozd}"
+                                                       tabindex="5"
+                                                       placeholder="روزمزد"/>
+                                    </div>
+                                    <div class="col-md-3" style="margin-top: 10px;">
+                                        <p:inputText id="mahVaSal" value="#{report12.mahVaSal}"
+                                                     tabindex="6"
+                                                     placeholder="ماه و سال"/>
+                                    </div>
+
+                                    <div class="col-md-3" style="margin-top: 10px;">
+                                        <p:inputNumber value="#{report12.hesabBodjehe}"
+                                                       tabindex="7"
+                                                       placeholder="حساب بودجه ای"/>
+                                    </div>
+                                    <div class="col-md-3" style="margin-top: 10px;">
+                                        <p:inputText value="#{report12.bankName}"
+                                                     tabindex="8"
+                                                     placeholder="نام بانک"/>
+                                    </div>
+                                    <div class="col-md-3" style="margin-top: 10px;">
+                                        <p:inputText value="#{report12.shomarehMadrak}"
+                                                     tabindex="9"
+                                                     placeholder="شماره مدرک"/>
+                                    </div>
+                                    <div class="col-md-3" style="margin-top: 10px;">
+                                        <p:inputText id="tarekh" value="#{report12.tarikh}"
+                                                     tabindex="10"
+                                                     placeholder="تاریخ"/>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top: 10px; text-align: left;">
+                                        <p:commandButton value="گزارش" actionListener="#{report12.showReport}"
+                                                         style="width: 100%"
+                                                         tabindex="11"
+                                                         ajax="false"/>
+                                    </div>
+                                </div>
+                            </p:panel>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                kamaDatepicker('dateInput', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+            </script>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

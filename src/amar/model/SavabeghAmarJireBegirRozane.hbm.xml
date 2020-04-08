@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping >
+    <class name="amar.model.SavabeghAmarJireBegirRozane" table="a_SavabeghAmarJireBegirRozane" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="dayere"
+                     class="dataBaseModel.baseTable.Dayere"/>
+        <many-to-one name="bakhsh"
+                     class="dataBaseModel.baseTable.Bakhsh"/>
+
+        <many-to-one name="taghvim"
+                     class="dataBaseModel.baseTable.Taghvim"/>
+
+        <many-to-one name="amarAfsaranYekVaDo"
+                     class="amar.model.amarRozaneJireBegir.AmarAfsaranYekVaDo"/>
+        <many-to-one name="amarAfsaranSe"
+                     class="amar.model.amarRozaneJireBegir.AmarAfsaranSe"/>
+        <many-to-one name="amarDarajeDaran"
+                     class="amar.model.amarRozaneJireBegir.AmarDarajeDaran"/>
+        <many-to-one name="amarKarmandanElmi"
+                     class="amar.model.amarRozaneJireBegir.AmarKarmandanElmi"/>
+        <many-to-one name="amarKarmandanTajrobi"
+                     class="amar.model.amarRozaneJireBegir.AmarKarmandanTajrobi"/>
+        <many-to-one name="amarAfsarVazife"
+                     class="amar.model.amarRozaneJireBegir.AmarAfsarVazife"/>
+        <many-to-one name="amarDaneshjoVazife"
+                     class="amar.model.amarRozaneJireBegir.AmarDaneshjoVazife"/>
+        <many-to-one name="amarDarajeDarVazife"
+                     class="amar.model.amarRozaneJireBegir.AmarDarajeDarVazife"/>
+        <many-to-one name="amarNavi"
+                     class="amar.model.amarRozaneJireBegir.AmarNavi"/>
+        <property name="sarparasteShobeAmar"/>
+        <property name="farmandeYegan"/>
+        <property name="sarparasteShobeAmarNiroEnsani"/>
+        <property name="nAzMorakhasiPayvar"/>
+        <property name="nBeMorakhasiPayvar"/>
+        <property name="nAzNahastPayvar"/>
+        <property name="nBeNahastPayvar"/>
+        <property name="nAzBastariPayvar"/>
+        <property name="nBeBastariPayvar"/>
+        <property name="nAzMamoriyatPayvar"/>
+        <property name="nBeMamoriyatPayvar"/>
+        <property name="nKasrAzAmarPayvar"/>
+        <property name="nEzafBeAmarPayvar"/>
+        <property name="nEzafBeMamorBeEdePayvar"/>
+        <property name="nKasrAzMamorBeEdePayvar"/>
+        <property name="nBeEntezarBeKhedmatPayvar"/>
+        <property name="nAzEntezarKhedmatPayvar"/>
+        <property name="nBeBazdashtPayvar"/>
+        <property name="nAzBazdashtPayvar"/>
+        <property name="nAzMorakhasiVazife"/>
+        <property name="nBeMorakhasiVazife"/>
+        <property name="nAzNahastVazife"/>
+        <property name="nBeNahastVazife"/>
+        <property name="nAzBastariVazife"/>
+        <property name="nBeBastariVazife"/>
+        <property name="nAzMamoriyatVazife"/>
+        <property name="nBeMamoriyatVazife"/>
+        <property name="nKasrAzAmarVazife"/>
+        <property name="nEzafBeAmarVazife"/>
+        <property name="nEzafBeMamorBeEdeVazife"/>
+        <property name="nKasrAzMamorBeEdeVazife"/>
+        <property name="nBeEntezarBeKhedmatVazife"/>
+        <property name="nAzEntezarKhedmatVazife"/>
+        <property name="nBeBazdashtVazife"/>
+        <property name="nAzBazdashtVazife"/>
+
+        <property name="molahezat"/>
+        <property name="tedadJireNahar"/>
+        <property name="nModavematKari"/>
+        <property name="nEzafekari"/>
+
+        <property name="erja"/>
+
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,610 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <script type="text/javascript">
+            function findPersonel(x, y) {
+                if (x.length === 9) {
+                    document.getElementById('btnFind').click();
+                }
+                if (y.length === 10) {
+                    document.getElementById('btnFind').click();
+                }
+            }
+
+
+            function diffDate(x, y) {
+                if (x.length === 10 &amp;&amp; y.length === 10) {
+                    var start = x.substring(0, 4);
+                    var end = y.substring(0, 4);
+                    if (start !== end) {
+                        document.getElementById('dateStart').style.backgroundColor = "#ff5f58";
+                        document.getElementById('dateEnd').style.backgroundColor = "#ff5f58";
+                        document.getElementById('modat').value = '0';
+                        document.getElementById('btnSave').hidden = true;
+                        document.getElementById('btnEdit').hidden = true;
+                    } else if (y &lt; x) {
+                        document.getElementById('dateStart').style.backgroundColor = "#ff5f58";
+                        document.getElementById('dateEnd').style.backgroundColor = "#ff5f58";
+                        document.getElementById('modat').value = '0';
+                        document.getElementById('btnSave').hidden = true;
+                        document.getElementById('btnEdit').hidden = true;
+                    } else {
+                        document.getElementById('dateStart').style.backgroundColor = "#acffbf";
+                        document.getElementById('dateEnd').style.backgroundColor = "#acffbf";
+                        document.getElementById('btnDiff').click();
+                        document.getElementById('btnSave').hidden = false;
+                        document.getElementById('btnEdit').hidden = false;
+
+                    }
+                }
+            }
+
+            function checkNull(x, a, b, c, d) {
+                if (x !== '' &amp;&amp; a !== '' &amp;&amp; b !== '' &amp;&amp; c !== '' &amp;&amp; d !== '') {
+                    document.getElementById('btnSaveFinal').click();
+                } else if (x === '') {
+                    document.getElementById('shp').style.backgroundColor = "#ff8679";
+                } else if (a === '') {
+                    document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('tavTanbi').style.backgroundColor = "#ff8679";
+
+                } else if (b === '') {
+                    document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('tavTanbi').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('marhale').style.backgroundColor = "#ff8679";
+                } else if (c === '') {
+                    document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('tavTanbi').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('marhale').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('dateStart').style.backgroundColor = "#ff8679";
+                } else if (d === '') {
+                    document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('tavTanbi').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('marhale').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('dateStart').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('dateEnd').style.backgroundColor = "#ff8679";
+                }
+            }
+
+            function checkNullUpdate(a, b, c, d) {
+                if (a !== '' &amp;&amp; b !== '' &amp;&amp; c !== '' &amp;&amp; d !== '') {
+                    document.getElementById('btnEditFinal').click();
+                } else if (a === '') {
+
+                    document.getElementById('tavTanbi').style.backgroundColor = "#ff8679";
+                } else if (b === '') {
+
+                    document.getElementById('tavTanbi').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('marhale').style.backgroundColor = "#ff8679";
+                } else if (c === '') {
+
+                    document.getElementById('tavTanbi').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('marhale').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('dateStart').style.backgroundColor = "#ff8679";
+                } else if (d === '') {
+
+                    document.getElementById('tavTanbi').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('marhale').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('dateStart').style.backgroundColor = "#d7ffe1";
+                    document.getElementById('dateEnd').style.backgroundColor = "#ff8679";
+                }
+            }
+
+
+        </script>
+        <div class="row">
+            <h:form id="formA" prependId="false">
+                <div class=" col-lg-12">
+                    <div class="card">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title"
+                                style="color: white">اطلاعات پرسنل</h4>
+                            <h4 class="card-title" style="color: white"></h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="row" data-step="2"
+                                     data-intro="در این قسمت با وارد کردن شماره پرسنلی یا کدملی می توان اطلاعات پرسنل را مشاهده کرد">
+                                    <h:panelGrid columns="12" id="pga13" style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="شماره پرسنلی"/>
+                                        <h:inputText styleClass="form-control" id="shp"
+                                                     disabled="#{savabeghNahastBean.disableDispatch}"
+                                                     value="#{savabeghNahastBean.shp}" maxlength="9"
+                                                     onkeyup="findPersonel(document.getElementById('shp').value,document.getElementById('meliCode').value)"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="کدملی"/>
+                                        <h:inputText styleClass="form-control" id="meliCode"
+                                                     disabled="#{savabeghNahastBean.disableDispatch}"
+                                                     value="#{savabeghNahastBean.meliCode}" maxlength="10"
+                                                     onkeyup="findPersonel(document.getElementById('shp').value,document.getElementById('meliCode').value)"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <p:commandButton id="btnFind" style="display: none"
+                                                         actionListener="#{savabeghNahastBean.findPersonel(savabeghNahastBean.shp,savabeghNahastBean.meliCode)}"
+                                                         update="pga13"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%" value="نام"/>
+                                        <h:inputText readonly="true" styleClass="form-control"
+                                                     value="#{savabeghNahastBean.savabeghNahast.personel.name}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="نشان"/>
+                                        <h:inputText readonly="true" styleClass="form-control"
+                                                     value="#{savabeghNahastBean.savabeghNahast.personel.neshan}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="دایره"/>
+                                        <h:inputText readonly="true" styleClass="form-control"
+                                                     value="#{savabeghNahastBean.savabeghNahast.personel.dayere.title}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="بخش"/>
+                                        <h:inputText readonly="true" styleClass="form-control"
+                                                     value="#{savabeghNahastBean.savabeghNahast.personel.bakhsh.title}"
+                                                     style="width: 100%;text-align: center;"/>
+
+
+                                    </h:panelGrid>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title"
+                                style="color: white">ثبت اطلاعات</h4>
+                            <h4 class="card-title" style="color: white"></h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block" style="width: 100%" align="right">
+                                <div class="row" data-step="3"
+                                     data-intro="پس از مشاهده اطلاعات پرسنل، در این قسمت می توانید فیلدهای زیر را برای ثبت نهست شخص پر نمایید">
+                                    <h:panelGrid columns="10" id="pga2" style="width: 100%;text-align: center">
+                                        <h:outputLabel style="width: 100%" value="تاریخ شروع"/>
+                                        <h:inputText id="dateStart" styleClass="form-control date"
+                                                     value="#{savabeghNahastBean.savabeghNahast.tarikhShoro}"
+                                                     style="width: 100%;text-align: center;"
+                                                     onkeyup="diffDate(document.getElementById('dateStart').value,document.getElementById('dateEnd').value)"/>
+                                        <h:outputLabel style="width: 100%" value="تاریخ پایان"/>
+                                        <h:inputText id="dateEnd" styleClass="form-control date"
+                                                     value="#{savabeghNahastBean.savabeghNahast.tarikhPayan}"
+                                                     style="width: 100%;text-align: center;"
+                                                     onkeyup="diffDate(document.getElementById('dateStart').value,document.getElementById('dateEnd').value)"/>
+                                        <h:outputLabel style="width: 100%" value="مدت"/>
+                                        <h:inputText id="modat" styleClass="form-control"
+                                                     value="#{savabeghNahastBean.savabeghNahast.modat}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="توالی تنبیهات"/>
+                                        <h:inputTextarea id="tavTanbi" styleClass="form-control"
+                                                         value="#{savabeghNahastBean.savabeghNahast.tanbih}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="مرحله"/>
+                                        <h:inputText id="marhale" styleClass="form-control"
+                                                     value="#{savabeghNahastBean.savabeghNahast.marhale}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="ملاحظات"/>
+                                        <h:inputTextarea id="molahezat" styleClass="form-control"
+                                                         value="#{savabeghNahastBean.savabeghNahast.molahezat}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="تاریخ ثبت"/>
+                                        <h:inputText styleClass="form-control date" id="dateSabt"
+                                                     value="#{savabeghNahastBean.savabeghNahast.tarikhSabt}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <p:commandButton actionListener="#{savabeghNahastBean.diffDate}" id="btnDiff"
+                                                         style="display: none"
+                                                         update="modat formA"/>
+                                    </h:panelGrid>
+                                </div>
+                                <script type="text/javascript">
+                                    kamaDatepicker('dateStart', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                    kamaDatepicker('dateEnd', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                    kamaDatepicker('dateSabt', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2">
+                            <div class="row" data-step="4"
+                                 data-intro="این بخش قابلیت گزارشگیری از سوابق نهست پرسنل را دارد،با انتخاب این دکمه یک دیالوگ باز خواهد شد که در آن قابلیت جستجو وجود دارد">
+                                <p:commandButton id="btnRep"
+                                                 style="width: 100%;background-color: #ff4f4f;"
+                                                 value="گزارش"
+                                                 icon="ui-icon-report"
+                                                 onclick="PF('dialogRep').show()"/>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <p:commandButton id="btnSave" value="ذخیره"
+                                             type="button"
+                                             onclick="checkNull(document.getElementById('shp').value
+                                         ,document.getElementById('tavTanbi').value
+                                         ,document.getElementById('marhale').value
+                                         ,document.getElementById('dateStart').value
+                                         ,document.getElementById('dateEnd').value)"
+                                             disabled="#{!savabeghNahastBean.createPermission}"
+                                             rendered="#{!savabeghNahastBean.renderedBtnCrud}"
+                                             style="width: 100%"/>
+                        </div>
+                        <div class="col-md-2">
+                            <p:commandButton id="btnDelete"
+                                             style="width: 100%;background-color: #ff4f4f;"
+                                             rendered="#{savabeghNahastBean.renderedBtnCrud}"
+                                             disabled="#{!savabeghNahastBean.deletePermission}"
+                                             value="حذف"
+                                             icon="ui-icon-trash"
+                                             onclick="PF('dialogDel').show()"/>
+                        </div>
+                        <div class="col-md-2">
+                            <p:commandButton id="btnEdit" value="ویرایش"
+                                             type="button"
+                                             onclick="checkNullUpdate(document.getElementById('tavTanbi').value
+                                         ,document.getElementById('marhale').value
+                                         ,document.getElementById('dateStart').value
+                                         ,document.getElementById('dateEnd').value)"
+                                             rendered="#{savabeghNahastBean.renderedBtnCrud}"
+                                             style="width: 100%"/>
+                        </div>
+
+                    </div>
+
+                        <p:commandButton id="btnCancel" value="انصراف"
+                                         rendered="#{savabeghNahastBean.renderedBtnCrud}"
+                                         style="width: 100%"
+                                         actionListener="#{savabeghNahastBean.nuller}"
+                                         update="formA"/>
+
+                        <p:commandButton id="btnSaveFinal"
+                                         actionListener="#{savabeghNahastBean.save}"
+                                         style="display: none"
+                                         update="formA"/>
+
+                        <p:commandButton id="btnEditFinal"
+                                         actionListener="#{savabeghNahastBean.update}"
+                                         style="display: none"
+                                         update="formA"/>
+
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header" style="background: #bfa67c">
+                            <h4 class="card-title"
+                                style="color: white">جستجو</h4>
+                            <h4 class="card-title" style="color: white"></h4>
+                            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                    <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block" style="width: 100%" align="right">
+                                <div class="row" data-step="5"
+                                     data-intro="این بخش به منظور جستجوی سریع سوابق نهست پرسنل براساس فیلدهای زیر و مشاهده در جدول  می باشد">
+                                    <h:panelGrid columns="9" style="width: 100%">
+                                        <h:outputLabel style="width: 100%" value="شماره پرسنلی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghNahastBean.shpFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="شماره کارت"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghNahastBean.shKartFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="کدملی"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghNahastBean.meliCodeFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%;"/>
+
+                                        <h:outputLabel style="width: 100%" value="تنبیهات"/>
+                                        <h:inputText styleClass="form-control"
+                                                     value="#{savabeghNahastBean.tanbihatFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+
+
+                                        <h:outputLabel style="width: 100%" value="دایره"/>
+                                        <h:selectOneMenu id="dayere" styleClass="form-control"
+                                                         disabled="#{savabeghNahastBean.checkBakhsh}"
+                                                         value="#{savabeghNahastBean.dayereFilter}"
+                                                         style="width: 100%;text-align: center;">
+                                            <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                            <f:selectItems value="#{savabeghNahastBean.dayereList}"
+                                                           var="itemDayere"
+                                                           itemLabel="#{itemDayere.title}"
+                                                           itemValue="#{itemDayere.id}"/>
+                                            <f:ajax execute="dayere"
+                                                    listener="#{savabeghNahastBean.selectDayare(savabeghNahastBean.dayereFilter)}"
+                                                    render="bkh"/>
+                                        </h:selectOneMenu>
+                                        <h:outputLabel style="width: 100%" value="بخش"/>
+
+                                        <h:selectOneMenu id="bkh" styleClass="form-control"
+                                                         value="#{savabeghNahastBean.bakhshFilter}"
+                                                         style="width: 100%;text-align: center;">
+                                            <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                            <f:selectItems value="#{savabeghNahastBean.bakhshList}"
+                                                           var="itemBakhsh"
+                                                           itemLabel="#{itemBakhsh.title}"
+                                                           itemValue="#{itemBakhsh.id}"/>
+                                        </h:selectOneMenu>
+
+                                        <h:outputLabel style="width: 100%"/>
+                                        <h:outputLabel style="width: 100%;"/>
+                                        <h:outputLabel style="width: 100%;"/>
+
+                                        <h:outputLabel style="width: 100%" value="تاریخ شروع از"/>
+                                        <h:inputText id="dateStartAz" styleClass="form-control date"
+                                                     value="#{savabeghNahastBean.tarikhShoroAzFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="تا"/>
+                                        <h:inputText id="dateStartTa" styleClass="form-control date"
+                                                     value="#{savabeghNahastBean.tarikhShoroTaFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="تاریخ پایان از"/>
+                                        <h:inputText id="dateEndAz" styleClass="form-control date"
+                                                     value="#{savabeghNahastBean.tarikhPayanAzFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <h:outputLabel style="width: 100%" value="تا"/>
+                                        <h:inputText id="dateEndTa" styleClass="form-control date"
+                                                     value="#{savabeghNahastBean.tarikhPayanTaFilter}"
+                                                     style="width: 100%;text-align: center;"/>
+                                        <p:commandButton value="جستجو" style="width: 100%;background-color: green;"
+                                                         id="btnSerach"
+                                                         actionListener="#{savabeghNahastBean.filterTable}"
+                                                         update="aTable"/>
+
+                                    </h:panelGrid>
+                                    <script type="text/javascript">
+                                        kamaDatepicker('dateEndTa', {
+                                            markToday: true,
+                                            markHolidays: true,
+                                            highlightSelectedDay: true,
+                                            gotoToday: true
+                                        });
+                                        kamaDatepicker('dateEndAz', {
+                                            markToday: true,
+                                            markHolidays: true,
+                                            highlightSelectedDay: true,
+                                            gotoToday: true
+                                        });
+                                        kamaDatepicker('dateStartTa', {
+                                            markToday: true,
+                                            markHolidays: true,
+                                            highlightSelectedDay: true,
+                                            gotoToday: true
+                                        });
+                                        kamaDatepicker('dateStartAz', {
+                                            markToday: true,
+                                            markHolidays: true,
+                                            highlightSelectedDay: true,
+                                            gotoToday: true
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block" style="width: 100%" align="right">
+                                <div class="row" data-step="6"
+                                     data-intro="در این بخش علاوه بر مشاهده سوابق،کابر می تواند در صورت نیاز به ویرایش یا حذف اطلاعات با کلیک برروی سطر مورد نظر اطلاعات را به بالا ارسال و درصورت مشاهده دکمه حذف یا ویرایش(اگر دسترسی داشته باشد) عملیات مورد نظر خود را انجام دهد.">
+                                <p:dataTable id="aTable" value="#{savabeghNahastBean.dataTable}"
+                                             selection="true"
+                                             paginator="true"
+                                             rows="5"
+                                             rowHover="true"
+                                             var="dataTable">
+                                    <f:facet name="header">
+                                        مشاهده سوابق
+                                    </f:facet>
+
+                                    <p:column headerText="نمایش">
+                                        <p:commandButton icon="ui-icon-eye"
+                                                         actionListener="#{savabeghNahastBean.dispach(dataTable)}"
+                                                         update="formA"/>
+                                    </p:column>
+
+                                    <p:column headerText="شماره پرسنلی">
+                                        <h:outputLabel value="#{dataTable.personel.shomarePersoneli}"/>
+                                    </p:column>
+                                    <p:column headerText="نام">
+                                        <h:outputLabel value="#{dataTable.personel.name}"/>
+                                    </p:column>
+                                    <p:column headerText="نشان">
+                                        <h:outputLabel value="#{dataTable.personel.neshan}"/>
+                                    </p:column>
+                                    <p:column headerText="تاریخ شروع">
+                                        <h:outputLabel value="#{dataTable.tarikhShoro}"/>
+                                    </p:column>
+                                    <p:column headerText="تاریخ پایان">
+                                        <h:outputLabel value="#{dataTable.tarikhPayan}"/>
+                                    </p:column>
+
+                                    <p:column headerText="مدت">
+                                        <h:outputLabel value="#{dataTable.modat}"/>
+                                    </p:column>
+                                    <p:column headerText="توالی تنبیهات">
+                                        <h:outputLabel value="#{dataTable.tanbih}"/>
+                                    </p:column>
+                                    <p:column headerText="مرحله">
+                                        <h:outputLabel value="#{dataTable.marhale}"/>
+                                    </p:column>
+
+                                </p:dataTable>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </h:form>
+
+        </div>
+        <h:form id="dilReport" prependId="false">
+            <p:dialog header="گزارش" closable="true" widgetVar="dialogRep" height="50%" width="70%"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+
+                <h:panelGrid id="pgdf" columns="6">
+                    <h:outputLabel value="شماره پرسنلی" style="width: 100%"/>
+                    <h:inputText id="shpR" styleClass="form-control"
+                                 value="#{savabeghNahastBean.shpReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="شماره کارت" style="width: 100%"/>
+                    <h:inputText id="shkartR" styleClass="form-control"
+                                 value="#{savabeghNahastBean.shomareKartReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="کدملی" style="width: 100%"/>
+                    <h:inputText id="meliR" styleClass="form-control"
+                                 value="#{savabeghNahastBean.meliCodeReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="نام" style="width: 100%"/>
+                    <h:inputText id="nameR" styleClass="form-control"
+                                 value="#{savabeghNahastBean.nameReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="نشان" style="width: 100%"/>
+                    <h:inputText id="neshR" styleClass="form-control"
+                                 value="#{savabeghNahastBean.neshanReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel style="width: 100%"/>
+                    <h:outputLabel style="width: 100%"/>
+
+                    <h:outputLabel value="تاریخ شروع نهست از" style="width: 100%"/>
+                    <h:inputText id="starR" styleClass="form-control date"
+                                 value="#{savabeghNahastBean.tarikhShoroReportAz}"
+                                 style="width: 100%;text-align: center;"/>
+
+                    <h:outputLabel value="تا" style="width: 100%"/>
+                    <h:inputText id="satarTR" styleClass="form-control date"
+                                 value="#{savabeghNahastBean.tarikhShoroReportTa}"
+                                 style="width: 100%;text-align: center;"/>
+
+                    <h:outputLabel style="width: 100%"/><h:outputLabel style="width: 100%"/>
+                    <h:outputLabel value="تاریخ پایان نهست از" style="width: 100%"/>
+                    <h:inputText id="endR" styleClass="form-control date"
+                                 value="#{savabeghNahastBean.tarikhPayanReportAz}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="تا" style="width: 100%"/>
+                    <h:inputText id="endTR" styleClass="form-control date"
+                                 value="#{savabeghNahastBean.tarikhPayanReportTa}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel style="width: 100%"/><h:outputLabel style="width: 100%"/>
+
+                </h:panelGrid>
+
+                <div class="footer" align="center">
+                    <p:commandButton styleClass="btn bg-success" value="چاپ"
+                                     id="btnPdf"
+                                     actionListener="#{savabeghNahastBean.reportSavabegh(1)}"
+                                     onsuccess="PF('dialogRep').hide()"
+                                     ajax="false"/>
+
+                    <h:commandButton styleClass="btn bg-success" value="اکسل"
+                                     id="btnExcel"
+                                     actionListener="#{savabeghNahastBean.reportSavabegh(2)}"
+                                     onsuccess="PF('dialogRep').hide()">
+                        <p:fileDownload value="#{savabeghNahastBean.exelFile}"/>
+                    </h:commandButton>
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="انصراف"
+                                     onclick="PF('dialogRep').hide()"/>
+
+                </div>
+            </p:dialog>
+            <script type="text/javascript">
+                kamaDatepicker('endTR', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+                kamaDatepicker('endR', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+                kamaDatepicker('satarTR', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+                kamaDatepicker('starR', {
+                    markToday: true,
+                    markHolidays: true,
+                    highlightSelectedDay: true,
+                    gotoToday: true
+                });
+            </script>
+        </h:form>
+        <h:form id="dilForm" prependId="false">
+            <p:dialog header="حذف" closable="true" widgetVar="dialogDel" height="100" width="500"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+                <h4></h4>
+                <div class="row">
+                    <div>آیا از حذف این اطلاعات مطمئنید؟</div>
+                </div>
+
+                <div class="footer">
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="خیر"
+                                     onsuccess="PF('dialogDel').hide()"
+                                     update="formA"/>
+                    <p:commandButton styleClass="btn bg-success" value="بله"
+                                     actionListener="#{savabeghNahastBean.delete}"
+                                     onsuccess="PF('dialogDel').hide()"
+                                     update="formA"/>
+                </div>
+            </p:dialog>
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

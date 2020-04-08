@@ -1,0 +1,167 @@
+
+
+
+
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+
+@font-face {
+  font-family: IranSans-Regular;
+  src: url('../resources/fonts/iransans/IRANSansWeb(FaNum).ttf');
+}
+
+@font-face {
+  font-family: IranSans-Medium;
+  src: url('../resources/fonts/iransans/IRANSansWeb(FaNum)_Medium.ttf');
+}
+
+@font-face {
+  font-family: IranSans-Bold;
+  src: url('../resources/fonts/iransans/IRANSansWeb(FaNum)_Bold.ttf');
+}
+
+@font-face {
+  font-family: IranSans-Light;
+  src: url('../resources/fonts/iransans/IRANSansWeb(FaNum)_Light.ttf');
+}
+
+
+
+
+/*//////////////////////////////////////////////////////////////////
+[ RESTYLE TAG ]*/
+*{
+  font-family: IranSans-Regular;
+}
+
+i{
+  font-family: IranSans-Regular;
+}
+
+body, html, label, i, button {
+	font-family: IranSans-Regular, sans-serif;
+}
+
+table{
+  font-family: IranSans-Regular;
+  font-size: smaller;
+}
+/*---------------------------------------------*/
+
+.menu-item{
+  font-size: small;
+}
+
+
+/*---------------------------------------------*/
+
+.error-shake{
+  position: relative;
+  animation: shake .1s linear;
+  animation-iteration-count: 3;
+}
+@keyframes shake {
+  0% {left: -5px;}
+  100% {
+    right: -5px;}
+}
+
+.selected{
+  background-color: #0275d8;
+}
+/*---------------------------------------------*/
+
+
+
+/*------------------------------------------------------------------
+[ Input ]*/
+.nav-tabs .nav-link.active, .nav-tabs .nav-link.active:focus, .nav-tabs .nav-item.open .nav-link, .nav-tabs .nav-item.open .nav-link:focus {
+  /*color: #2B957A;*/
+  color: #7652D1;
+  background-color: #F1F1F1;
+  border-color: #DDDDDD #DDDDDD transparent;
+}
+
+.successColor {
+  color: #2B957A;
+}
+
+.smallFont {
+  font-size: small;
+}
+
+.pagination{
+  font-size: small;
+}
+
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+#loader{
+  width: 100%;
+  background-image: url("../images/loader/app_loading.gif");
+}
+
+#lll{
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  padding-top: 25vh;
+  position: fixed;
+  background-color: rgba(32,32,32,0.8);
+  top: 0;
+  z-index: 2500;
+  display: none;
+  font-size: 50px;
+  color: whitesmoke;
+}
+
+.bootstrap-select > .dropdown-toggle{
+  border: 1px solid #D4D4D4 !important;
+  color: #5A5A5A !important;
+  background-color: #FFFFFF !important;
+}
+
+.ui-clock{
+  color: #FFFFFF !important;
+}

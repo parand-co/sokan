@@ -1,0 +1,590 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <p:growl id="grw" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <div class="row">
+            <div class=" col-lg-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white"> سوابق اصلاح تردد پرسنل سال#{savabeghTaradodBean.sal}</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h:form id="formsearch" prependId="false">
+                        <p:panel header="">
+                            <div data-step="2" data-intro="جهت مشاهده سوابق تردد پرسنل مورد نظر با پرنمودن یکی یا بیشتر از فیلدهای شماره کارت، شماره پرسنلی و یا کدملی و انتخاب ماه مورد نظر، با کلیک بر روی دکمه نمایش، کلیک نمایید تا اطلاعات در جدول زیر نمایش داده شود.">
+                                <h:panelGrid columns="10" width="80%" styleClass="ui-noborder"
+                                             style="margin-top: 10px;margin-right: 2%;">
+                                    <h:outputLabel value="ماه:"/>
+                                    <h:selectOneMenu id="month_id" value="#{savabeghTaradodBean.month}">
+                                        <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                        <f:selectItems value="#{savabeghTaradodBean.monthList}" var="monthlist"
+                                                       itemValue="#{monthlist.code}"
+                                                       itemLabel="#{monthlist.title}"/>
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="شماره کارت:"/>
+                                    <h:inputText id="shkart" value="#{savabeghTaradodBean.shKartF}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    <h:outputLabel value="شماره پرسنلی:"/>
+                                    <h:inputText id="shpersoneli" value="#{savabeghTaradodBean.shPF}" maxlength="9" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    <h:outputLabel value="کد ملی:"/>
+                                    <h:inputText id="shcodemeli" value="#{savabeghTaradodBean.codeMeliF}" maxlength="10" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                    <h:outputLabel/>
+                                    <p:commandButton value="نمایش" styleClass="button" icon="icon-search4"
+                                                     rendered="#{savabeghTaradodBean.readPermission}"
+                                                     actionListener="#{savabeghTaradodBean.search}"
+                                                     update="formsearch fSavabegh"></p:commandButton>
+
+                                </h:panelGrid>
+                            </div>
+
+                            <div data-step="3" data-intro="اطلاعات کلی پرسنل مورد جستجو در این قسمت نمایش داده خواهد شد.">
+                                <h:panelGrid columns="8" width="55%" styleClass="ui-noborder"
+                                             style="margin-top: 20px;margin-right: 2%;text-align: right;">
+                                    <h:outputLabel value="نام:"/>
+                                    <h:outputLabel id="name" value="#{savabeghTaradodBean.personel.name}"/>
+                                    <h:outputLabel value="نشان:"/>
+                                    <h:outputLabel value="#{savabeghTaradodBean.personel.neshan}"/>
+                                    <h:outputLabel value="دایره خدمتی:"/>
+                                    <h:outputLabel value="#{savabeghTaradodBean.dayere}"/>
+                                    <h:outputLabel value="بخش:"/>
+                                    <h:outputLabel value="#{savabeghTaradodBean.bakhsh}"/>
+
+
+                                </h:panelGrid>
+                            </div>
+                        </p:panel>
+                    </h:form>
+                    <h:form id="fSavabegh" prependId="false">
+
+                        <div class="row" data-step="4" data-intro="اطلاعات تردد پرسنل مورد نظر در ماه مشخص شده در این جدول نمایش داده خواهد شد.">
+                            <p:dataTable id="tableSTP" value="#{savabeghTaradodBean.STlList}"
+                                         emptyMessage="داده ای وجود ندارد"
+                                         styleClass="table" var="dataTable" editable="true"
+                                         paginator="true" rows="15" style="margin-top: 20px;">
+                                <p:ajax event="rowEdit" listener="#{savabeghTaradodBean.taradodEdit}"
+                                        update="tableSTP"/>
+                                <p:column headerText="ویرایش" width="70" rendered="#{savabeghTaradodBean.updatePermission}">
+                                    <div data-step="5" data-intro="با کلیک کردن بر روی این گزینه میتوانید ساعات تردد و وضعیت ورود و خروج را ویرایش نموده و ذخیره نمایید.">
+
+                                    </div>
+                                    <p:rowEditor/>
+                                </p:column>
+                                <p:column id="shpC" headerText="شماره پرسنلی" style="width: 110px;">
+                                    <h:outputLabel id="shpV" value="#{dataTable.personel.shomarePersoneli}"/>
+                                </p:column>
+                                <p:column headerText="تاریخ">
+                                    <h:outputLabel value="#{dataTable.taghvim.tarikh}"/>
+                                </p:column>
+                                <p:column headerText="ساعت 1">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat1}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat1)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat1}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 2">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat2}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat2)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat2}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 3">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat3}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat3)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat3}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 4">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat4}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat4)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat4}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 5">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat5}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat5)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat5}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 6">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat6}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat6)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat6}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 7">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat7}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat7)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat7}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 8">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat8}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat8)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat8}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 9">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat9}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat9)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat9}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 10">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat10}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat10)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat10}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 11">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat11}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat11)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat11}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="ساعت 12">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.saat12}" style="color: #{savabeghTaradodBean.colorClock(dataTable.saat12)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:inputText value="#{dataTable.saat12}" maxlength="4" onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="وضعیت ورود" style="width: 110px;">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.vazeyatTaraddod.title}" style="color: #{savabeghTaradodBean.colorRows(dataTable.vazeyatTaraddod)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:selectOneMenu id="vorod_id" value="#{savabeghTaradodBean.vorod}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{savabeghTaradodBean.mojavezRozanes}" var="mojavezVorod"
+                                                               itemValue="#{mojavezVorod.code}"
+                                                               itemLabel="#{mojavezVorod.title} (#{mojavezVorod.roozaneSaatiTitle})" />
+                                            </h:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="وضعیت خروج" style="width: 110px;">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputLabel value="#{dataTable.vazeyatKhoroj.title}" style="color: #{savabeghTaradodBean.colorRows(dataTable.vazeyatKhoroj)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <h:selectOneMenu id="khoroj_id" value="#{savabeghTaradodBean.khoroj}">
+                                                <f:selectItem itemLabel="انتخاب کنید" itemValue="#{null}"/>
+                                                <f:selectItems value="#{savabeghTaradodBean.mojavezRozanes}" var="mojavezKhoroj"
+                                                               itemValue="#{mojavezKhoroj.code}"
+                                                               itemLabel="#{mojavezKhoroj.title} (#{mojavezKhoroj.roozaneSaatiTitle})" />
+                                            </h:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="شماره دستگاه" style="width: 110px;">
+                                    <h:outputLabel value="#{dataTable.shomareDastgah}"/>
+                                </p:column>
+                                <p:column headerText="گروه">
+                                    <h:outputLabel value="#{dataTable.goroh.title}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3" data-step="6" data-intro="جهت جابجایی گروه پرسنل مورد نظر در بازه زمانی مشخص و مشاهده سوابق جابجایی بر روی این دکمه کلیک نمایید و در پنل باز شده فعالیت مورد نظر خود را انجام دهید.">
+                                <p:commandButton id="btnDig" value="جابجایی" onclick="PF('dialogSJ').show()"
+                                                 style="width: 100%"
+                                                 disabled="#{savabeghTaradodBean.disableChangeGroup}"
+                                                 actionListener="#{savabeghTaradodBean.searchsavabeghjabejaee()}"
+                                                 update="tableSJ">
+                                </p:commandButton>
+                            </div>
+                        </div>
+
+                    </h:form>
+                    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                    <h:form id="dform" prependId="false">
+                        <p:growl id="grwl" autoUpdate="true" showSummary="true" showDetail="true"/>
+                        <p:dialog header="سوابق تردد" closable="true" widgetVar="dialogSJ" height="500" width="1000"
+                                  style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+
+                            <div>
+                                <h:panelGrid columns="8" width="80%" styleClass="ui-noborder"
+                                             style="margin-top: 10px;margin-right: 5px;">
+                                    <h:outputLabel value="از تاریخ:"/>
+                                    <h:inputText value="#{savabeghTaradodBean.beginDate}" id="in1" styleClass="form-control form-control-sm date" placeholder="تاریخ"/>
+                                    <h:outputLabel value="تا تاریخ:"/>
+                                    <h:inputText value="#{savabeghTaradodBean.endDate}" id="in2" styleClass="form-control form-control-sm date" placeholder="تاریخ"/>
+                                    <h:outputLabel value="گروه:"/>
+                                    <h:selectOneMenu id="gorohID" value="#{savabeghTaradodBean.goroh}">
+                                        <f:selectItems value="#{savabeghTaradodBean.gorohList}" var="gorohList"
+                                                       itemValue="#{gorohList.code}"
+                                                       itemLabel="#{gorohList.title}"/>
+                                    </h:selectOneMenu>
+                                    <p:commandButton value="ثبت" actionListener="#{savabeghTaradodBean.saveJabejaee}"
+                                                     styleClass="button" update="tableSTP tableSJ"/>
+                                </h:panelGrid>
+                            </div>
+
+                            <div>
+                                <p:dataTable id="tableSJ" value="#{savabeghTaradodBean.SJlist}"
+                                             emptyMessage=""
+                                             styleClass="table" var="dataTableSJ"
+                                             rowIndexVar="index"
+                                             paginator="true" rows="8" style="margin-top: 10px;">
+                                    <p:column headerText="ردیف">
+                                        <h:outputLabel value="#{index+1}"/>
+                                    </p:column>
+                                    <p:column headerText="گروه قبلی">
+                                        <h:outputLabel value="#{dataTableSJ.gorohGhabli.title}"/>
+                                    </p:column>
+                                    <p:column headerText="گروه جدید">
+                                        <h:outputLabel value="#{dataTableSJ.gorohJadid.title}"/>
+                                    </p:column>
+                                    <p:column headerText="تاریخ شروع">
+                                        <h:outputLabel value="#{dataTableSJ.tarikhShoro}"/>
+                                    </p:column>
+                                    <p:column headerText="تاریخ پایان ">
+                                        <h:outputLabel value="#{dataTableSJ.tarikhPayan}"/>
+                                    </p:column>
+                                    <p:column headerText=" مدت">
+                                        <h:outputLabel value="#{dataTableSJ.modat}"/>
+                                    </p:column>
+                                    <p:column headerText="تاریخ ثبت">
+                                        <h:outputLabel value="#{dataTableSJ.tarikhSabt}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </p:dialog>
+                        <script type="text/javascript">
+                            kamaDatepicker('in1', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                            kamaDatepicker('in2', {
+                                markToday: true,
+                                markHolidays: true,
+                                highlightSelectedDay: true,
+                                gotoToday: true
+                            });
+                        </script>
+                    </h:form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class=" col-lg-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">گزارش کارکرد ماه به ماه</h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h:form id="reportForm" prependId="false">
+                        <div class="row">
+                            <p:panel header="">
+                                <div class="row" data-step="7" data-intro="جهت دریافت گزارش کارکرد ماه به ماه یک یا چند پرسنل از این بخش استفاده نمایید.">
+                                    <div class="col-md-4" data-step="8" data-intro="ماه و سال مورد نظر را انتخاب نمایید.">
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <p:outputLabel value="براساس ماه"/>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{karkardPayanMahBean.selectedMount}" tabindex="1"
+                                                                     styleClass="form-control form-control-sm">
+                                                        <f:selectItem itemValue="00" itemLabel="انتخاب کنید..."/>
+                                                        <f:selectItem itemValue="01" itemLabel="فروردین"/>
+                                                        <f:selectItem itemValue="02" itemLabel="اردیبهشت"/>
+                                                        <f:selectItem itemValue="03" itemLabel="خرداد"/>
+                                                        <f:selectItem itemValue="04" itemLabel="تیر"/>
+                                                        <f:selectItem itemValue="05" itemLabel="مرداد"/>
+                                                        <f:selectItem itemValue="06" itemLabel="شهریور"/>
+                                                        <f:selectItem itemValue="07" itemLabel="مهر"/>
+                                                        <f:selectItem itemValue="08" itemLabel="آبان"/>
+                                                        <f:selectItem itemValue="09" itemLabel="آذر"/>
+                                                        <f:selectItem itemValue="10" itemLabel="دی"/>
+                                                        <f:selectItem itemValue="11" itemLabel="بهمن"/>
+                                                        <f:selectItem itemValue="12" itemLabel="اسفند"/>
+                                                    </h:selectOneMenu>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <p:outputLabel value="بر اساس سال"/>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{karkardPayanMahBean.emsal}"
+                                                                     styleClass="form-control form-control-sm">
+                                                        <f:selectItems value="#{karkardPayanMahBean.sal}" var="s"
+                                                                       itemValue="#{s}" itemLabel="#{s}"/>
+                                                    </h:selectOneMenu>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" data-step="9" data-intro="در این قسمت میتوانید پرسنل مورد نظر را جستجو نمایید.">
+                                        <br/>
+                                        <div class="row">
+
+                                            <div class="col-sm-9">
+                                                <p:outputLabel value="تعداد پرسنل انتخاب شده" id="persCount"/>
+                                            </div>
+                                            <div class="col-sm-3" data-step="10" data-intro="تعداد پرسنل انتخاب شده جهت گزارش را میتوانید در این قسمت مشاهده نمایید.">
+                                                <p:outputLabel value="#{karkardPayanMahBean.selectedPersonelCount}"
+                                                               id="personelCount"
+                                                               style="color: #{karkardPayanMahBean.selectedPersonelCount > 0 ? 'green':'red'}"/>
+                                            </div>
+                                        </div>
+
+                                        <br/>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <p:outputLabel style="font-size: smaller"
+                                                               value="شماره پرسنلی یا جستجو"/>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="input-group" data-step="11" data-intro="جهت جستجوی یک پرسنل خاص شماره پرسنلی شخص را در کادر زیر وارد نمایید.">
+                                                    <h:inputText value="#{karkardPayanMahBean.shomarePersoneliSearched2}" tabindex="4"
+                                                                 placeholder="شماره پرسنلی"
+                                                                 styleClass="form-control form-control-sm">
+                                                        <p:ajax listener="#{karkardPayanMahBean.loadPersonelsByPersNumExactly}" update="personelCount"
+                                                                event="keyup"/>
+                                                    </h:inputText>
+                                                    <div class="input-group-btn" data-step="12" data-intro="جهت جستجوی چند پرسنل بر روی این دکمه کلیک نمایید و در پنل باز شده، فیلدهای مورد نیاز خود را پر نمایید و برروی گزینه جستجو کلیک نمایید. سپس در لیست کاربران جستجو شده، آنهایی که برای گزارش مد نظر هست را انتخاب نموده و در انتها گزینه تایید را کلیک نمایید.">
+                                                        <button class="btn btn-info btn-sm" type="button"
+                                                                onclick="$('#df').modal('show');"
+                                                                style="padding: 2px 6px">
+                                                            <i class="icon-search"/>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-md-12" data-step="13" data-intro="جهت مشاهده گزارش بر روی این دکمه کلیک نمایید.">
+                                                <p:commandButton value="گزارش ماه به ماه" styleClass="bg-success" style="width: 100%"
+                                                                 rendered="#{karkardPayanMahBean.readPermission}"
+                                                                 actionListener="#{karkardPayanMahBean.pdfMahBMah}" ajax="false"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:panel>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade text-xs-left" id="df" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+             aria-hidden="true">
+            <div class="modal-dialog modal-full" role="document">
+                <div class="modal-content width-800">
+                    <div class="modal-header bg-success">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="icon icon-remove small"/>
+                        </button>
+                        <h4 class="modal-title" id="persName">جستجوی پرسنل</h4>
+                    </div>
+                    <h:form prependId="false" id="report">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="meliCode" styleClass="control-label" value="شماره ملی"/>
+                                        <h:inputText value="#{karkardPayanMahBean.shomareMeliSearched}"
+                                                     id="meliCode"
+                                                     onkeypress="if (event.which &lt;48 || event.which &gt;57) return false;"
+                                                     styleClass="form-control form-control-sm">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="name" styleClass="control-label" value="نام"/>
+                                        <h:inputText value="#{karkardPayanMahBean.nameSearched}"
+                                                     id="name1"
+                                                     styleClass="form-control form-control-sm">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshan" styleClass="control-label" value="نشان"/>
+                                        <h:inputText value="#{karkardPayanMahBean.neshanSearched}"
+                                                     id="neshan"
+                                                     styleClass="form-control form-control-sm">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshan" styleClass="control-label" value="دایره"/>
+                                        <h:selectOneMenu value="#{karkardPayanMahBean.selectedDayere}"
+                                                         styleClass="form-control form-control-sm">
+                                            <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                            <f:selectItems value="#{karkardPayanMahBean.dayereList}" var="d"
+                                                           itemValue="#{d.id}" itemLabel="#{d.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshan" styleClass="control-label" value="یگان"/>
+                                        <h:selectOneMenu value="#{karkardPayanMahBean.selectedYegan}" id="yegan"
+                                                         styleClass="form-control form-control-sm">
+                                            <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                            <f:selectItems value="#{karkardPayanMahBean.yegans}" var="y"
+                                                           itemValue="#{y.id}" itemLabel="#{y.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <h:outputLabel for="neshan" styleClass="control-label" value="نوع پرسنل"/>
+                                        <h:selectOneMenu value="#{karkardPayanMahBean.selectedNoeEstekhdam}" id="noeEstekhdam"
+                                                         styleClass="form-control form-control-sm">
+                                            <f:selectItem itemLabel="انتخاب کنید..." itemValue="0"/>
+                                            <f:selectItems value="#{karkardPayanMahBean.noeEstekhdams}" var="noeEstekhdam"
+                                                           itemValue="#{noeEstekhdam.id}" itemLabel="#{noeEstekhdam.title}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="yegan" class="control-label"> </label>
+                                    <div class="form-group">
+                                        <span class="input-group-btn">
+                                            <h:commandButton styleClass="btn bg-warning" type="button"
+                                                             value="جستجو">
+                                                <f:ajax execute="report" listener="#{karkardPayanMahBean.searchPersonel}" render="report"/>
+                                            </h:commandButton>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p:separator/>
+                            <p:dataTable value="#{karkardPayanMahBean.searchedPersonels}" var="pers"
+                                         selection="#{karkardPayanMahBean.selectedPersonels}" style="height: 300px;position:relative;overflow: auto"
+                                         rowIndexVar="i" id="tbl2" rowKey="#{pers.id}">
+                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+                                <p:column headerText="ردیف" style="width: 60px">
+                                    <p:outputLabel value="#{i+1}"/>
+                                </p:column>
+
+                                <p:column headerText="ش کارت">
+                                    <p:outputLabel value="#{pers.shomareKart}"/>
+                                </p:column>
+
+                                <p:column headerText="ش پ">
+                                    <p:outputLabel value="#{pers.shomarePersoneli}"/>
+                                </p:column>
+
+                                <p:column headerText="نام و نشان">
+                                    <p:outputLabel value="#{pers.name} #{pers.neshan}"/>
+                                </p:column>
+
+                                <p:column headerText="درجه">
+                                    <p:outputLabel value="#{pers.daraje.title}"/>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </div>
+                        <div class="modal-footer">
+                            <p:commandButton value="انصراف" onclick="$('#df').modal('hide')"/>
+                            <p:commandButton value="تایید" actionListener="#{karkardPayanMahBean.selectDonePersonel}"
+                                             oncomplete="$('#df').modal('hide')" update="personelCount"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+    </ui:define>
+
+</ui:composition>

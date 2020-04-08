@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="dataBaseModel.baseTable" >
+    <class name="Tabaghe" table="_tabaghe" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <property name="code"/>
+        <property name="title"/>
+        <property name="saatShoroKarAddi"/>
+        <property name="saatPayanKarAddi"/>
+        <property name="saatShoroEzfAddi"/>
+        <property name="saatPayanEzfAddi"/>
+        <property name="saatShoroKarTatil"/>
+        <property name="saatPayanKarTatil"/>
+        <property name="saatShoroEzfTatil"/>
+        <property name="saatPayanEzfTatil"/>
+        <property name="saatShoroKarNimTatil"/>
+        <property name="saatPayanKarNimTatil"/>
+        <property name="saatShoroEzfNimTatil"/>
+        <property name="saatPayanEzfNimTatil"/>
+    </class>
+</hibernate-mapping>

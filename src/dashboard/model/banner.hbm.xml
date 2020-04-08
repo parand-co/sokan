@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="dashboard.model.Banner" table="_banner" lazy="false">
+
+        <id name="id"  unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <property name="url"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="ezafekari.model" >
+    <class name="Sanad" table="ez_sanad" lazy="false">
+        <id name="id" type="long" unsaved-value="0">
+            <generator class="increment"/>
+        </id>
+        <property name="mah"/>
+        <property name="sal"/>
+        <property name="code"/>
+        <property name="ghofl"/>
+        <property name="mablaghJirePayvar"/>
+        <property name="mablaghJireGharardadi"/>
+        <property name="kasrYeganiBaz"/>
+        <property name="kasrYeganiGharardadi"/>
+        <property name="kasrYeganiPeymani"/>
+        <property name="kasrYeganiPayvar"/>
+        <set name="ezafeKariSet" fetch="select" inverse="true" lazy="false">
+            <key><column name="sanad"/></key>
+            <one-to-many class="ezafekari.model.EzafeKari"/>
+        </set>
+
+        <set name="ezafatoKosooratSet" fetch="select" inverse="true" lazy="false">
+            <key><column name="sanad"/></key>
+            <one-to-many class="ezafekari.model.EzafatoKosoorat"/>
+        </set>
+    </class>
+</hibernate-mapping>

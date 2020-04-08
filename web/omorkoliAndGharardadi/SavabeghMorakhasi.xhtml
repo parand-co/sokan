@@ -1,0 +1,1120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/amvalDar/baseTemplate.xhtml"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ui:define name="content">
+        <script type="text/javascript">
+            function findPersonel(x, y) {
+                if (x.length === 9) {
+                    document.getElementById('btnFind').click();
+                }
+                if (y.length === 10) {
+                    document.getElementById('btnFind').click();
+                }
+            }
+
+
+            function diffDate(x, y) {
+                x = x.replace("_", "");
+                y = y.replace("_", "");
+                if (x.length === 10 &amp;&amp; y.length === 10) {
+                    var start = x.substring(0, 4);
+                    var end = y.substring(0, 4);
+                    if (start !== end) {
+                        document.getElementById('dateStart').style.backgroundColor = "#ff5f58";
+                        document.getElementById('dateEnd').style.backgroundColor = "#ff5f58";
+                        document.getElementById('modat').value = '0';
+                        document.getElementById('btnSave').hidden = true;
+                        document.getElementById('btnEdit').hidden = true;
+                    } else if (y &lt; x) {
+                        document.getElementById('dateStart').style.backgroundColor = "#ff5f58";
+                        document.getElementById('dateEnd').style.backgroundColor = "#ff5f58";
+                        document.getElementById('modat').value = '0';
+                        document.getElementById('btnSave').hidden = true;
+                        document.getElementById('btnEdit').hidden = true;
+                    } else {
+                        document.getElementById('dateStart').style.backgroundColor = "#acffbf";
+                        document.getElementById('dateEnd').style.backgroundColor = "#acffbf";
+                        document.getElementById('btnDiff').click();
+                        document.getElementById('btnSave').hidden = false;
+                        document.getElementById('btnEdit').hidden = false;
+
+                    }
+                }
+            }
+
+            function checkNull(x, a, b, c, d, e) {
+                var a1 = document.getElementById('table1:0:es').value;
+                var b1 = document.getElementById('table1:0:tash').value;
+                var c1 = document.getElementById('table1:0:tora').value;
+                var d1 = document.getElementById('table1:0:este').value;
+                var e1 = document.getElementById('table1:0:tati').value;
+                var f1 = document.getElementById('table1:0:ash').value;
+                var g1 = document.getElementById('table1:0:dary').value;
+                var h1 = document.getElementById('table1:0:ente').value;
+                var sum = (Number(a1) + Number(b1) + Number(c1) + Number(d1) + Number(e1) + Number(f1) + Number(g1) + Number(h1));
+                var modat1 = document.getElementById('modat').value;
+                var tamdid = document.getElementById('tamdid').value;
+
+
+                if (a === '2') {
+                    if (x !== '' &amp;&amp; a !== '' &amp;&amp; b !== '' &amp;&amp; e !== '0') {
+                        if (Number(sum) === (Number(modat1) + Number(tamdid))) {
+                            document.getElementById('btnSaveFinal').click();
+                        } else {
+                            document.getElementById('table1:0:es').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tash').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tora').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:este').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tati').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:ash').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:dary').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:ente').style.backgroundColor = "#ff8679";
+                        }
+                    } else if (x === '') {
+                        document.getElementById('shp').style.backgroundColor = "#ff8679";
+                    } else if (a === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#ff8679";
+                    } else if (b === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMorakhasi').style.backgroundColor = "#ff8679";
+                    } else if (e === '0') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('modat').style.backgroundColor = "#ff8679";
+                    }
+                } else {
+                    if (x !== '' &amp;&amp; a !== '' &amp;&amp; b !== '' &amp;&amp; c !== '' &amp;&amp; d !== '') {
+                        if (Number(sum) === (Number(modat1) + Number(tamdid))) {
+                            document.getElementById('btnSaveFinal').click();
+                        } else {
+                            document.getElementById('table1:0:es').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tash').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tora').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:este').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tati').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:ash').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:dary').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:ente').style.backgroundColor = "#ff8679";
+                        }
+                    } else if (x === '') {
+                        document.getElementById('shp').style.backgroundColor = "#ff8679";
+                    } else if (a === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#ff8679";
+                    } else if (b === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMorakhasi').style.backgroundColor = "#ff8679";
+                    } else if (c === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateStart').style.backgroundColor = "#ff8679";
+                    } else if (d === '') {
+                        document.getElementById('shp').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateStart').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateEnd').style.backgroundColor = "#ff8679";
+                    }
+                }
+            }
+
+            function checkNullUpdate(a, b, c, d, e) {
+                var a1 = document.getElementById('table1:0:es').value;
+                var b1 = document.getElementById('table1:0:tash').value;
+                var c1 = document.getElementById('table1:0:tora').value;
+                var d1 = document.getElementById('table1:0:este').value;
+                var e1 = document.getElementById('table1:0:tati').value;
+                var f1 = document.getElementById('table1:0:ash').value;
+                var g1 = document.getElementById('table1:0:dary').value;
+                var h1 = document.getElementById('table1:0:ente').value;
+                var sum = (Number(a1) + Number(b1) + Number(c1) + Number(d1) + Number(e1) + Number(f1) + Number(g1) + Number(h1));
+
+                var modat1 = document.getElementById('modat').value;
+                var tamdid = document.getElementById('tamdid').value;
+                if (a === '2') {
+                    if (a !== '' &amp;&amp; e !== '0' &amp;&amp; b !== '') {
+                        if (Number(sum) === (Number(modat1) + Number(tamdid))) {
+                            document.getElementById('btnEditFinal').click();
+                        } else {
+                            document.getElementById('table1:0:es').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tash').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tora').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:este').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tati').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:ash').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:dary').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:ente').style.backgroundColor = "#ff8679";
+                        }
+                    } else if (a === '') {
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#ff8679";
+                    } else if (b === '') {
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMorakhasi').style.backgroundColor = "#ff8679";
+                    } else if (e === '0') {
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('modat').style.backgroundColor = "#ff8679";
+                    }
+                } else {
+                    if (a !== '' &amp;&amp; b !== '' &amp;&amp; c !== '' &amp;&amp; d !== '') {
+                        if (Number(sum) === (Number(modat1) + Number(tamdid))) {
+                            document.getElementById('btnEditFinal').click();
+                        } else {
+                            document.getElementById('table1:0:es').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tash').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tora').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:este').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:tati').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:ash').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:dary').style.backgroundColor = "#ff8679";
+                            document.getElementById('table1:0:ente').style.backgroundColor = "#ff8679";
+                        }
+                    } else if (a === '') {
+
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#ff8679";
+                    } else if (b === '') {
+
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMorakhasi').style.backgroundColor = "#ff8679";
+                    } else if (c === '') {
+
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateStart').style.backgroundColor = "#ff8679";
+                    } else if (d === '') {
+
+                        document.getElementById('vazMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('noeMorakhasi').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateStart').style.backgroundColor = "#d7ffe1";
+                        document.getElementById('dateEnd').style.backgroundColor = "#ff8679";
+                    }
+                }
+            }
+
+            function checkKholaseVazeyatRepot() {
+                var a = document.getElementById('shpkh').value;
+                var b = document.getElementById('melikh').value;
+                var c = document.getElementById('salKh').value;
+
+                if (a.length === 9 &amp;&amp; c.length === 4) {
+                    document.getElementById('btnReporKholaseVazeyat').click();
+                } else if (b.length === 10 &amp;&amp; c.length === 4) {
+                    document.getElementById('btnReporKholaseVazeyat').click();
+                } else if (a === '' || b === '') {
+                    document.getElementById('shpkh').style.backgroundColor = "#ff8679";
+                    document.getElementById('melikh').style.backgroundColor = "#ff8679";
+                } else if (c === '') {
+                    document.getElementById('salKh').style.backgroundColor = "#ff8679";
+                }
+            }
+
+
+        </script>
+        <div class="row">
+            <h:form id="formA" prependId="false">
+                <div class=" col-lg-12">
+                <div class="card">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">اطلاعات پرسنل</h4>
+                        <h4 class="card-title" style="color: white"></h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="card-block">
+                            <div class="row" data-step="2"
+                                 data-intro="در این قسمت با وارد کردن شماره پرسنلی یا کدملی می توان اطلاعات پرسنل را مشاهده کرد">
+                                <h:panelGrid columns="12" id="pga13" style="width: 100%;text-align: center">
+                                    <h:outputLabel style="width: 100%" value="شماره پرسنلی"/>
+                                    <h:inputText styleClass="form-control" id="shp"
+                                                 disabled="#{savabeghMorakhasiBean.disableDispatch}"
+                                                 value="#{savabeghMorakhasiBean.shp}" maxlength="9"
+                                                 onkeyup="findPersonel(document.getElementById('shp').value,document.getElementById('meliCode').value)"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="کدملی"/>
+                                    <h:inputText styleClass="form-control" id="meliCode"
+                                                 disabled="#{savabeghMorakhasiBean.disableDispatch}"
+                                                 value="#{savabeghMorakhasiBean.meliCode}" maxlength="10"
+                                                 onkeyup="findPersonel(document.getElementById('shp').value,document.getElementById('meliCode').value)"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <p:commandButton id="btnFind" style="display: none"
+                                                     actionListener="#{savabeghMorakhasiBean.findPersonel(savabeghMorakhasiBean.shp,savabeghMorakhasiBean.meliCode)}"
+                                                     update="pga13 mask"/>
+                                    <h:outputLabel style="width: 100%"/>
+                                    <h:outputLabel style="width: 100%"/>
+                                    <h:outputLabel style="width: 100%"/>
+                                    <h:outputLabel style="width: 100%"/>
+                                    <h:outputLabel style="width: 100%"/>
+                                    <h:outputLabel style="width: 100%"/>
+                                    <h:outputLabel style="width: 100%"/>
+                                    <h:outputLabel style="width: 100%" value="نام"/>
+                                    <h:inputText readonly="true" styleClass="form-control"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.personel.name}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="نشان"/>
+                                    <h:inputText readonly="true" styleClass="form-control"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.personel.neshan}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="دایره"/>
+                                    <h:inputText readonly="true" styleClass="form-control"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.personel.dayere.title}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="بخش"/>
+                                    <h:inputText readonly="true" styleClass="form-control"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.personel.bakhsh.title}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="سقف مرخصی"/>
+                                    <h:inputText readonly="#{savabeghMorakhasiBean.readSaghfeMorakhasi}"
+                                                 styleClass="form-control"
+                                                 value="#{savabeghMorakhasiBean.saghfeMorakhasi}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="باقی مانده"/>
+                                    <h:inputText readonly="true" styleClass="form-control"
+                                                 value="#{savabeghMorakhasiBean.baghimandeMorakhasi}"
+                                                 style="width: 100%;text-align: center;"/>
+
+                                </h:panelGrid>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 100%;">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">ثبت اطلاعات</h4>
+                        <h4 class="card-title" style="color: white"></h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-block" style="width: 100%" align="right">
+                            <div class="row" data-step="3"
+                                 data-intro="پس از مشاهده اطلاعات پرسنل، در این قسمت می توانید فیلدهای زیر را برای ثبت مرخصی شخص پر نمایید">
+                                <h:panelGrid columns="10" id="pga2" style="width: 100%;text-align: center">
+                                    <h:outputLabel style="width: 100%" value="وضعیت مرخصی"/>
+                                    <h:selectOneMenu id="vazMorakhasi" styleClass="form-control"
+                                                     value="#{savabeghMorakhasiBean.vazMorakhasiId}"
+                                                     style="width: 100%;text-align: center;">
+                                        <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                        <f:selectItems value="#{savabeghMorakhasiBean.vazeyatMorakhasiList}"
+                                                       var="itemVazMorkh"
+                                                       itemLabel="#{itemVazMorkh.title}"
+                                                       itemValue="#{itemVazMorkh.id}"/>
+                                    </h:selectOneMenu>
+                                    <h:outputLabel style="width: 100%" value="نوع مرخصی"/>
+                                    <h:selectOneMenu id="noeMorakhasi" styleClass="form-control"
+                                                     value="#{savabeghMorakhasiBean.noeMorakhasiId}"
+                                                     style="width: 100%;text-align: center;">
+                                        <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                        <f:selectItems value="#{savabeghMorakhasiBean.noeMorakhasiList}"
+                                                       var="itemNoeMorkh"
+                                                       itemLabel="#{itemNoeMorkh.title}"
+                                                       itemValue="#{itemNoeMorkh.id}"/>
+                                    </h:selectOneMenu>
+                                    <h:outputLabel style="width: 100%" value="تاریخ شروع"/>
+                                    <h:inputText id="dateStart" styleClass="form-control date"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.tarikhShoro}"
+                                                 style="width: 100%;text-align: center;"
+                                                 onchange="diffDate(document.getElementById('dateStart').value,document.getElementById('dateEnd').value)"
+                                                 onkeyup="diffDate(document.getElementById('dateStart').value,document.getElementById('dateEnd').value)"/>
+                                    <h:outputLabel style="width: 100%" value="تاریخ پایان"/>
+                                    <h:inputText id="dateEnd" styleClass="form-control date"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.tarikhPayan}"
+                                                 style="width: 100%;text-align: center;"
+                                                 onchange="diffDate(document.getElementById('dateStart').value,document.getElementById('dateEnd').value)"
+                                                 onkeyup="diffDate(document.getElementById('dateStart').value,document.getElementById('dateEnd').value)"/>
+                                    <h:outputLabel style="width: 100%" value="مدت"/>
+                                    <h:inputText id="modat" styleClass="form-control"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.modat}"
+                                                 style="width: 100%;text-align: center;"/>
+
+
+                                    <h:outputLabel style="width: 100%" value="تاریخ ثبت"/>
+                                    <h:inputText id="dateSabt" styleClass="form-control date"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.tarikhSabt}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="تمدید"/>
+                                    <h:inputText styleClass="form-control"
+                                                 id="tamdid"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.tamdid}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="شماره نامه"/>
+                                    <h:inputText styleClass="form-control"
+                                                 id="shoName"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.shomareName}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="تاریخ نامه"/>
+                                    <h:inputText styleClass="form-control date"
+                                                 id="tarikhName"
+                                                 value="#{savabeghMorakhasiBean.savabeghMorakhasi.tarikhName}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="توضیحات"/>
+                                    <h:inputTextarea styleClass="form-control"
+                                                     id="toz"
+                                                     value="#{savabeghMorakhasiBean.savabeghMorakhasi.tozihat}"
+                                                     style="width: 100%;text-align: center;"/>
+                                    <p:commandButton actionListener="#{savabeghMorakhasiBean.diffDate}" id="btnDiff"
+                                                     style="display: none"
+                                                     update="modat formA mask"/>
+                                </h:panelGrid>
+
+
+                                <script type="text/javascript">
+                                    kamaDatepicker('dateSabt', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                    kamaDatepicker('dateEnd', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                    kamaDatepicker('dateStart', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                    kamaDatepicker('tarikhName', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                </script>
+                                <div style="text-align: -webkit-left;">
+                                    <p:dataTable id="table1" style="width: 60%;" value="1" title="میزان درخواست">
+                                        <f:facet name="header">
+                                            میزان درخواست
+                                        </f:facet>
+                                        <p:column headerText="استحقاقی">
+                                            <h:inputText id="es" styleClass="form-control"
+                                                         value="#{savabeghMorakhasiBean.savabeghMorakhasi.tedadEstehghaghi}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        </p:column>
+
+                                        <p:column headerText="تشویقی">
+                                            <h:inputText id="tash" styleClass="form-control"
+                                                         value="#{savabeghMorakhasiBean.savabeghMorakhasi.tedadTashvighi}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        </p:column>
+
+                                        <p:column headerText="توراهی">
+                                            <h:inputText id="tora" styleClass="form-control"
+                                                         value="#{savabeghMorakhasiBean.savabeghMorakhasi.tedadTorahi}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        </p:column>
+
+                                        <p:column headerText="استعلاجی">
+                                            <h:inputText id="este" styleClass="form-control"
+                                                         value="#{savabeghMorakhasiBean.savabeghMorakhasi.tedadEstelaji}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        </p:column>
+
+                                        <p:column headerText="تعطیلی">
+                                            <h:inputText id="tati" styleClass="form-control"
+                                                         value="#{savabeghMorakhasiBean.savabeghMorakhasi.tedadTatili}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        </p:column>
+
+                                        <p:column headerText="اشعه">
+                                            <h:inputText id="ash" styleClass="form-control"
+                                                         value="#{savabeghMorakhasiBean.savabeghMorakhasi.tedadAshae}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        </p:column>
+
+                                        <p:column headerText="دریانوردی">
+                                            <h:inputText id="dary" styleClass="form-control"
+                                                         value="#{savabeghMorakhasiBean.savabeghMorakhasi.tedadDaryanavardi}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        </p:column>
+
+                                        <p:column headerText="انتقال">
+                                            <h:inputText id="ente" styleClass="form-control"
+                                                         value="#{savabeghMorakhasiBean.savabeghMorakhasi.tedadEnteghal}"
+                                                         style="width: 100%;text-align: center;"/>
+                                        </p:column>
+
+
+                                    </p:dataTable>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row" >
+                    <div class="col-md-2">
+                        <div class="row" data-step="4"
+                             data-intro="این بخش قابلیت گزارشگیری از سوابق مرخصی پرسنل را دارد،با انتخاب این دکمه یک دیالوگ باز خواهد شد که در آن قابلیت جستجو و پر نمودن برخی عناوین در گزارش وجود دارد">
+                            <p:commandButton id="btnRep"
+                                             style="width: 100%;background-color: #ff4f4f;"
+                                             value="گزارش سوابق"
+                                             icon="ui-icon-report"
+                                             onclick="PF('dialogRep').show()"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row" data-step="5"
+                             data-intro="این بخش امکان گزارشگیری مرخصی سالیانه برای یک یا چند فرد خاص دارد">
+                            <p:commandButton id="btnRep2"
+                                             style="width: 100%;background-color: #ff4f4f;"
+                                             value="گزارش سالیانه"
+                                             icon="ui-icon-report"
+                                             onclick="PF('dialogRep2').show()"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row" data-step="6"
+                             data-intro="این بخش امکان گزارشگیری خلاصه وضعیت مرخصی برای یک فرد خاص وجود دارد">
+                            <p:commandButton id="btnKholaseVazeyat"
+                                             style="width: 100%;background-color: #ff4f4f;"
+                                             value="خلاصه وضعیت"
+                                             icon="ui-icon-report"
+                                             onclick="PF('dialogKholaseVazeyat').show()"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <p:commandButton id="btnSave" value="ذخیره"
+                                         type="button"
+                                         onclick="checkNull(document.getElementById('shp').value
+                                         ,document.getElementById('vazMorakhasi').value
+                                         ,document.getElementById('noeMorakhasi').value
+                                         ,document.getElementById('dateStart').value
+                                         ,document.getElementById('dateEnd').value
+                                         ,document.getElementById('modat').value)"
+                                         disabled="#{!savabeghMorakhasiBean.createPermission}"
+                                         rendered="#{!savabeghMorakhasiBean.renderedBtnCrud}"
+                                         style="width: 100%"/>
+                    </div>
+
+                    <div class="col-md-2">
+                        <p:commandButton id="btnEdit" value="ویرایش"
+                                         type="button"
+                                         onclick="checkNullUpdate(document.getElementById('vazMorakhasi').value
+                                         ,document.getElementById('noeMorakhasi').value
+                                         ,document.getElementById('dateStart').value
+                                         ,document.getElementById('dateEnd').value
+                                         ,document.getElementById('modat').value)"
+                                         rendered="#{savabeghMorakhasiBean.renderedBtnCrud}"
+                                         disabled="#{!savabeghMorakhasiBean.updatePermission}"
+                                         style="width: 100%"/>
+                    </div>
+                    <div class="col-md-1">
+                        <p:commandButton id="btnDelete"
+                                         style="width: 100%;background-color: #ff4f4f;"
+                                         rendered="#{savabeghMorakhasiBean.renderedBtnCrud}"
+                                         disabled="#{!savabeghMorakhasiBean.deletePermission}"
+                                         value="حذف"
+                                         icon="ui-icon-trash"
+                                         onclick="PF('dialogDel').show()"/>
+                    </div>
+                    <div class="col-md-1">
+                        <p:commandButton id="btnCancel" value="انصراف"
+                                         rendered="#{savabeghMorakhasiBean.renderedBtnCrud}"
+                                         style="width: 100%"
+                                         actionListener="#{savabeghMorakhasiBean.nuller}"
+                                         update="formA mask"/>
+                    </div>
+                </div>
+                    <p:commandButton id="btnSaveFinal"
+                                     actionListener="#{savabeghMorakhasiBean.save}"
+                                     style="display: none;"
+                                     update="formA mask" />
+                    <p:commandButton id="btnEditFinal"
+                                     actionListener="#{savabeghMorakhasiBean.update}"
+                                     style="display: none"
+                                     update="formA mask"/>
+
+                <div class="card" style="width: 100%;">
+                    <div class="card-header" style="background: #bfa67c">
+                        <h4 class="card-title"
+                            style="color: white">جستجو</h4>
+                        <h4 class="card-title" style="color: white"></h4>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="reload"><i class="icon-reload white"></i></a></li>
+                                <li><a data-action="expand"><i class="icon-expand2 white"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-block" style="width: 100%" align="right">
+                            <div class="row" data-step="7"
+                                 data-intro="این بخش به منظور جستجوی سریع سوابق مرخصی پرسنل براساس فیلدهای زیر و مشاهده در جدول  می باشد">
+                                <h:panelGrid columns="9" style="width: 100%">
+                                    <h:outputLabel style="width: 100%" value="شماره پرسنلی"/>
+                                    <h:inputText styleClass="form-control"
+                                                 value="#{savabeghMorakhasiBean.shpFilter}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="شماره کارت"/>
+                                    <h:inputText styleClass="form-control"
+                                                 value="#{savabeghMorakhasiBean.shKartFilter}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="کدملی"/>
+                                    <h:inputText styleClass="form-control"
+                                                 value="#{savabeghMorakhasiBean.meliCodeFilter}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%"/>
+                                    <h:outputLabel style="width: 100%"/>
+                                    <h:outputLabel style="width: 100%;"/>
+                                    <h:outputLabel style="width: 100%" value="وضعیت مرخصی"/>
+                                    <h:selectOneMenu styleClass="form-control"
+                                                     value="#{savabeghMorakhasiBean.vazeyatMorakhasiFilter}"
+                                                     style="width: 100%;text-align: center;">
+                                        <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                        <f:selectItems value="#{savabeghMorakhasiBean.vazeyatMorakhasiList}"
+                                                       var="itemVazMokh"
+                                                       itemLabel="#{itemVazMokh.title}"
+                                                       itemValue="#{itemVazMokh.id}"/>
+                                    </h:selectOneMenu>
+                                    <h:outputLabel style="width: 100%" value="نوع مرخصی"/>
+                                    <h:selectOneMenu styleClass="form-control"
+                                                     value="#{savabeghMorakhasiBean.noeMorakhasiFilter}"
+                                                     style="width: 100%;text-align: center;">
+                                        <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                        <f:selectItems value="#{savabeghMorakhasiBean.noeMorakhasiList}"
+                                                       var="itemNoMkh"
+                                                       itemLabel="#{itemNoMkh.title}"
+                                                       itemValue="#{itemNoMkh.id}"/>
+                                    </h:selectOneMenu>
+
+                                    <h:outputLabel style="width: 100%" value="دایره"/>
+                                    <h:selectOneMenu id="dayere" styleClass="form-control"
+                                                     disabled="#{savabeghMorakhasiBean.checkBakhsh}"
+                                                     value="#{savabeghMorakhasiBean.dayereFilter}"
+                                                     style="width: 100%;text-align: center;">
+                                        <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                        <f:selectItems value="#{savabeghMorakhasiBean.dayereList}"
+                                                       var="itemDayere"
+                                                       itemLabel="#{itemDayere.title}"
+                                                       itemValue="#{itemDayere.id}"/>
+                                        <f:ajax execute="dayere"
+                                                listener="#{savabeghMorakhasiBean.selectDayare(savabeghMorakhasiBean.dayereFilter)}"
+                                                render="bkh"/>
+                                    </h:selectOneMenu>
+                                    <h:outputLabel style="width: 100%" value="بخش"/>
+                                    <h:selectOneMenu id="bkh" styleClass="form-control"
+                                                     value="#{savabeghMorakhasiBean.bakhshFilter}"
+                                                     style="width: 100%;text-align: center;">
+                                        <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                        <f:selectItems value="#{savabeghMorakhasiBean.bakhshList}"
+                                                       var="itemBakhsh"
+                                                       itemLabel="#{itemBakhsh.title}"
+                                                       itemValue="#{itemBakhsh.id}"/>
+                                    </h:selectOneMenu>
+                                    <h:outputLabel style="width: 100%;"/>
+
+                                    <h:outputLabel style="width: 100%" value="تاریخ شروع از"/>
+                                    <h:inputText id="dateStartAz" styleClass="form-control date"
+                                                 value="#{savabeghMorakhasiBean.tarikhShoroAzFilter}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="تا"/>
+                                    <h:inputText id="dateStartTa" styleClass="form-control date"
+                                                 value="#{savabeghMorakhasiBean.tarikhShoroTaFilter}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="تاریخ پایان از"/>
+                                    <h:inputText id="dateEndAz" styleClass="form-control date"
+                                                 value="#{savabeghMorakhasiBean.tarikhPayanAzFilter}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <h:outputLabel style="width: 100%" value="تا"/>
+                                    <h:inputText id="dateEndTa" styleClass="form-control date"
+                                                 value="#{savabeghMorakhasiBean.tarikhPayanTaFilter}"
+                                                 style="width: 100%;text-align: center;"/>
+                                    <p:commandButton value="جستجو" style="width: 100%;background-color: green;"
+                                                     id="btnSerach"
+                                                     actionListener="#{savabeghMorakhasiBean.filterTable}"
+                                                     update="aTable mask"/>
+
+                                </h:panelGrid>
+                                <script type="text/javascript">
+                                    kamaDatepicker('dateEndTa', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                    kamaDatepicker('dateEndAz', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                    kamaDatepicker('dateStartTa', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                    kamaDatepicker('dateStartAz', {
+                                        markToday: true,
+                                        markHolidays: true,
+                                        highlightSelectedDay: true,
+                                        gotoToday: true
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-block" style="width: 100%" align="right">
+                                <div class="row" data-step="8"
+                                     data-intro="در این بخش علاوه بر مشاهده سوابق،کابر می تواند در صورت نیاز به ویرایش یا حذف اطلاعات با کلیک برروی سطر مورد نظر اطلاعات را به بالا ارسال و درصورت مشاهده دکمه حذف یا ویرایش(اگر دسترسی داشته باشد) عملیات مورد نظر خود را انجام دهد.
+در این قسمت همچنین می تواند برگه مرخصی اشخاص را با انتخاب چاپ در سطر جدول چاپ نماید.">
+                                    <p:dataTable id="aTable" value="#{savabeghMorakhasiBean.dataTable}"
+                                                 selection="true"
+                                                 paginator="true"
+                                                 rows="5"
+                                                 rowHover="true"
+                                                 var="dataTable">
+                                        <f:facet name="header">
+                                            مشاهده سوابق
+                                        </f:facet>
+
+                                        <p:column headerText="نمایش">
+                                            <p:commandButton icon="ui-icon-eye"
+                                                             actionListener="#{savabeghMorakhasiBean.dispach(dataTable)}"
+                                                             update="formA mask"/>
+                                        </p:column>
+                                        <p:column headerText="شماره پرسنلی">
+                                            <h:outputLabel value="#{dataTable.personel.shomarePersoneli}"/>
+                                        </p:column>
+                                        <p:column headerText="نام">
+                                            <h:outputLabel value="#{dataTable.personel.name}"/>
+                                        </p:column>
+                                        <p:column headerText="نشان">
+                                            <h:outputLabel value="#{dataTable.personel.neshan}"/>
+                                        </p:column>
+                                        <p:column headerText="تاریخ شروع">
+                                            <h:outputLabel value="#{dataTable.tarikhShoro}"/>
+                                        </p:column>
+                                        <p:column headerText="مدت">
+                                            <h:outputLabel value="#{dataTable.modat}"/>
+                                        </p:column>
+                                        <p:column headerText="تمدید">
+                                            <h:outputLabel value="#{dataTable.tamdid}"/>
+                                        </p:column>
+                                        <p:column headerText="نوع مرخصی">
+                                            <h:outputLabel value="#{dataTable.noeMorakhasi.title}"/>
+                                        </p:column>
+                                        <p:column headerText="وضعیت">
+                                            <h:outputLabel value="#{dataTable.vazeyat.title}"/>
+                                        </p:column>
+
+                                        <p:column headerText="چاپ">
+                                            <p:commandButton icon="ui-icon-print"
+                                                             actionListener="#{savabeghMorakhasiBean.startPrint(dataTable)}"
+                                                             onclick="PF('print_dlg').show()"/>
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </div>
+                            </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </h:form>
+
+        </div>
+        <h:form id="dilForm" prependId="false">
+            <p:dialog header="حذف" closable="true" widgetVar="dialogDel" height="100" width="500"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+                <h4></h4>
+                <div class="row">
+                    <div>آیا از حذف این اطلاعات مطمئنید؟</div>
+                </div>
+
+                <div class="footer">
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="خیر"
+                                     onsuccess="PF('dialogDel').hide()"
+                                     update="formA mask"/>
+                    <p:commandButton styleClass="btn bg-success" value="بله"
+                                     actionListener="#{savabeghMorakhasiBean.delete}"
+                                     onsuccess="PF('dialogDel').hide()"
+                                     update="formA mask"/>
+                </div>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="dilReportForm" prependId="false">
+            <p:dialog header="گزارش" closable="true" widgetVar="dialogRep" height="40%" width="60%"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+                <h:panelGrid id="pgdf" columns="6">
+                    <h:outputLabel value="شماره پرسنلی" style="width: 100%"/>
+                    <h:inputText id="shpR" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.shpReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="شماره کارت" style="width: 100%"/>
+                    <h:inputText id="shkartR" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.shomareKartReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="کدملی" style="width: 100%"/>
+                    <h:inputText id="meliR" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.codeMeliReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="نام" style="width: 100%"/>
+                    <h:inputText id="nameR" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.nameReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="نشان" style="width: 100%"/>
+                    <h:inputText id="neshR" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.neshanReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel style="width: 100%"/>
+                    <h:outputLabel style="width: 100%"/>
+
+                    <h:outputLabel value="تاریخ شروع مرخصی از" style="width: 100%"/>
+                    <h:inputText id="starR" styleClass="form-control date"
+                                 value="#{savabeghMorakhasiBean.startDateAzReport}"
+                                 style="width: 100%;text-align: center;"/>
+
+                    <h:outputLabel value="تا" style="width: 100%"/>
+                    <h:inputText id="satarTR" styleClass="form-control date"
+                                 value="#{savabeghMorakhasiBean.startDateTaReport}"
+                                 style="width: 100%;text-align: center;"/>
+
+                    <h:outputLabel style="width: 100%"/><h:outputLabel style="width: 100%"/>
+                    <h:outputLabel value="تاریخ پایان مرخصی از" style="width: 100%"/>
+                    <h:inputText id="endR" styleClass="form-control date"
+                                 value="#{savabeghMorakhasiBean.endDateAzReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="تا" style="width: 100%"/>
+                    <h:inputText id="endTR" styleClass="form-control date"
+                                 value="#{savabeghMorakhasiBean.endDateTaReport}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel style="width: 100%"/><h:outputLabel style="width: 100%"/>
+                    <h:outputLabel value="دایره" style="width: 100%"/>
+                    <h:selectOneMenu styleClass="form-control"
+                                     id="dayereIDR"
+                                     disabled="#{savabeghMorakhasiBean.checkBakhsh}"
+                                     value="#{savabeghMorakhasiBean.dayereIdReport}"
+                                     style="width: 100%;text-align: center;">
+                        <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                        <f:selectItems value="#{savabeghMorakhasiBean.dayereList}"
+                                       var="itemDayere"
+                                       itemLabel="#{itemDayere.title}"
+                                       itemValue="#{itemDayere.id}"/>
+                        <f:ajax execute="dayereIDR"
+                                listener="#{savabeghMorakhasiBean.selectDayare(savabeghMorakhasiBean.dayereIdReport)}"
+                                render="bkhR"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="بخش" style="width: 100%"/>
+                    <h:selectOneMenu id="bkhR" styleClass="form-control"
+                                     value="#{savabeghMorakhasiBean.bakhshIdReport}"
+                                     style="width: 100%;text-align: center;">
+                        <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                        <f:selectItems value="#{savabeghMorakhasiBean.bakhshList}"
+                                       var="itemBakhsh"
+                                       itemLabel="#{itemBakhsh.title}"
+                                       itemValue="#{itemBakhsh.id}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="وضعیت پرسنل" style="width: 100%"/>
+                    <h:selectOneMenu styleClass="form-control"
+                                     value="#{savabeghMorakhasiBean.vazPersonelReport}"
+                                     style="width: 100%;text-align: center;">
+                        <f:selectItem itemValue="#{1}" itemLabel="فعال"/>
+                        <f:selectItem itemValue="#{2}" itemLabel="غیرفعال"/>
+                        <f:selectItem itemValue="#{3}" itemLabel="هردو"/>
+
+                    </h:selectOneMenu>
+
+
+                </h:panelGrid>
+
+                <script type="text/javascript">
+                    kamaDatepicker('endTR', {
+                        markToday: true,
+                        markHolidays: true,
+                        highlightSelectedDay: true,
+                        gotoToday: true
+                    });
+                    kamaDatepicker('endR', {
+                        markToday: true,
+                        markHolidays: true,
+                        highlightSelectedDay: true,
+                        gotoToday: true
+                    });
+                    kamaDatepicker('satarTR', {
+                        markToday: true,
+                        markHolidays: true,
+                        highlightSelectedDay: true,
+                        gotoToday: true
+                    });
+                    kamaDatepicker('starR', {
+                        markToday: true,
+                        markHolidays: true,
+                        highlightSelectedDay: true,
+                        gotoToday: true
+                    });
+                </script>
+                <h3>امضاکنندگان</h3>
+                <h:panelGrid id="pgdf2" columns="6">
+                    <h:outputLabel value="مسیول اداری" style="width: 100%"/>
+                    <h:inputText id="msed" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.masolEdari}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="رییس دایره" style="width: 100%"/>
+                    <h:inputText id="raeesD" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.raeesDayere}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel style="width: 100%"/>
+                    <h:outputLabel style="width: 100%"/>
+                </h:panelGrid>
+
+                <div class="footer" align="center">
+                    <p:commandButton styleClass="btn bg-success" value="چاپ"
+                                     id="btnPdf"
+                                     actionListener="#{savabeghMorakhasiBean.reportSavabegh(1)}"
+                                     onsuccess="PF('dialogRep').hide()"
+                                     ajax="false"/>
+
+                    <h:commandButton styleClass="btn bg-success" value="اکسل"
+                                     id="btnExcel"
+                                     actionListener="#{savabeghMorakhasiBean.reportSavabegh(2)}"
+                                     onsuccess="PF('dialogRep').hide()">
+                        <p:fileDownload value="#{savabeghMorakhasiBean.exelFile}"/>
+                    </h:commandButton>
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="انصراف"
+                                     onclick="PF('dialogRep').hide()"
+
+                    />
+                </div>
+            </p:dialog>
+            <p:dialog header="گزارش" closable="true" widgetVar="dialogRep2" height="40%" width="60%"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+                <h:panelGrid id="pgdf3" columns="8">
+                    <h:outputLabel value="شماره پرسنلی" style="width: 100%"/>
+                    <h:inputText id="shpR2" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.shpSalR}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="شماره کارت" style="width: 100%"/>
+                    <h:inputText id="shkartR2" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.shomareKartSalR}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="کدملی" style="width: 100%"/>
+                    <h:inputText id="meliR2" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.meliCodeSalR}"
+                                 style="width: 100%;text-align: center;"/>
+
+
+                    <h:outputLabel value="سال" style="width: 100%"/>
+                    <h:inputText id="nameR2" styleClass="form-control" maxlength="4"
+                                 value="#{savabeghMorakhasiBean.salSalR}"
+                                 style="width: 100%;text-align: center;"/>
+
+
+                </h:panelGrid>
+
+
+                <h3>امضاکنندگان</h3>
+                <h:panelGrid id="pgdf22" columns="6">
+                    <h:outputLabel value="مسیول اداری" style="width: 100%"/>
+                    <h:inputText id="msed2" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.masolEdari}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="رییس دایره" style="width: 100%"/>
+                    <h:inputText id="raeesD2" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.raeesDayere}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel style="width: 100%"/>
+                    <h:outputLabel style="width: 100%"/>
+                </h:panelGrid>
+
+                <div class="footer" align="center">
+                    <p:commandButton styleClass="btn bg-success" value="چاپ"
+                                     id="btnPdf2"
+                                     actionListener="#{savabeghMorakhasiBean.reportSaliyane}"
+                                     onsuccess="PF('dialogRep2').hide()"
+                                     ajax="false"/>
+
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="انصراف"
+                                     onclick="PF('dialogRep2').hide()"
+
+                    />
+                </div>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="dilKholaseVazeyatForm" prependId="false">
+            <p:dialog header="گزارش" closable="true" widgetVar="dialogKholaseVazeyat" height="50%" width="70%"
+                      style="background-color: #8ba5bd;margin-top: 10px;margin-left:2%;">
+                <h4 style="color: #db0c00">عناوین: </h4>
+                <h:panelGrid id="pgdfKh1" columns="4" width="100%">
+                    <h:outputLabel value="از:" style="width: 100%"/>
+                    <h:inputText id="azKh" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.azKholaseVazeyat}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="به:" style="width: 100%"/>
+                    <h:inputText id="beKh" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.beKholaseVazeyat}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="موضوع" style="width: 100%"/>
+                    <h:inputText id="mozueKh" styleClass="form-control"
+                                 value="#{savabeghMorakhasiBean.mozoeKholaseVazeyat}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel style="width: 100%"/><h:outputLabel style="width: 100%"/>
+                    <h:outputLabel value="توضیحات" style="width: 100%"/>
+                    <h:inputTextarea id="TozKh" styleClass="form-control"
+                                     value="#{savabeghMorakhasiBean.tozihatKholaseVazeyat}"
+                                     style="width: 200%;text-align: right;"/>
+                    <h:outputLabel style="width: 100%"/>
+                    <h:outputLabel style="width: 100%"/>
+                    <h:outputLabel value="امضااول" style="width: 100%"/>
+                    <p:selectOneMenu value="#{savabeghMorakhasiBean.emza1}">
+                        <f:selectItems value="#{savabeghMorakhasiBean.emzaList}" var="itemEmza1"
+                                       itemValue="#{itemEmza1.id}" itemLabel="#{itemEmza1.semat.title}"/>
+
+                    </p:selectOneMenu>
+                    <h:outputLabel value="امضادوم" style="width: 100%"/>
+                    <p:selectOneMenu value="#{savabeghMorakhasiBean.emza2}">
+                        <f:selectItems value="#{savabeghMorakhasiBean.emzaList}" var="itemEmza2"
+                                       itemValue="#{itemEmza2.id}" itemLabel="#{itemEmza2.semat.title}"/>
+
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <br/>
+                <br/>
+                <h4 style="color: #db0c00">جستجو:</h4>
+                <h:panelGrid id="pgdfKh2" columns="6">
+                    <h:outputLabel value="شماره پرسنلی" style="width: 100%"/>
+                    <h:inputText id="shpkh" styleClass="form-control" maxlength="9"
+                                 value="#{savabeghMorakhasiBean.shpKholaseVazeyat}"
+                                 style="width: 100%;text-align: center;"/>
+                    <h:outputLabel value="کدملی" style="width: 100%"/>
+                    <h:inputText id="melikh" styleClass="form-control"
+                                 maxlength="10"
+                                 value="#{savabeghMorakhasiBean.meliCodeKholaseVazeyat}"
+                                 style="width: 100%;text-align: center;"/>
+
+
+                    <h:outputLabel value="سال" style="width: 100%"/>
+                    <h:inputText id="salKh" styleClass="form-control"
+                                 maxlength="4"
+                                 value="#{savabeghMorakhasiBean.salKholaseVazeyat}"
+                                 style="width: 40%;text-align: center;"/>
+
+
+                </h:panelGrid>
+
+                <div class="footer" align="center">
+                    <p:commandButton styleClass="btn bg-success" value="چاپ"
+                                     id="btnPdfKh"
+                                     onclick="checkKholaseVazeyatRepot()"/>
+
+                    <p:commandButton styleClass="btn bg-danger" type="button" value="انصراف"
+                                     onclick="PF('dialogKholaseVazeyat').hide()"/>
+
+                    <p:commandButton id="btnReporKholaseVazeyat"
+                                     actionListener="#{savabeghMorakhasiBean.reportKholaseVazeyat}"
+                                     onsuccess="PF('dialogKholaseVazeyat').hide()"
+                                     style="display: none"
+                                     ajax="false"/>
+                </div>
+            </p:dialog>
+        </h:form>
+
+        <p:dialog header="چاپ برگه مرخصی" widgetVar="print_dlg" modal="true" dir="rtl" resizable="false">
+
+            <h:form prependId="false" id="print">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <h:outputLabel for="pr1-1" styleClass="control-label" value="شهرستان:"/>
+                            <h:inputText id="pr1-1" styleClass="form-control" value="#{savabeghMorakhasiBean.elat}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="pr1-2" styleClass="control-label" value="امضا کننده:"/>
+                            <h:selectOneMenu id="pr1-2" styleClass="form-control"
+                                             value="#{savabeghMorakhasiBean.farmandeh}"
+                                             style="width: 100%;text-align: center;">
+                                <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                <f:selectItems value="#{savabeghMorakhasiBean.emzaList}"
+                                               var="emza"
+                                               itemLabel="#{emza.semat.title} #{emza.name} #{emza.neshan}"
+                                               itemValue="#{emza.semat.title} #{emza.name} #{emza.neshan}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h:outputLabel for="pr1-3" styleClass="control-label" value="گیرنده:"/>
+                            <h:selectOneMenu id="pr1-3" styleClass="form-control"
+                                             value="#{savabeghMorakhasiBean.girande}"
+                                             style="width: 100%;text-align: center;">
+                                <f:selectItem itemValue="#{null}" itemLabel="انتخاب کنید"/>
+                                <f:selectItems value="#{savabeghMorakhasiBean.semats}"
+                                               var="girande"
+                                               itemLabel="#{girande.title}"
+                                               itemValue="#{girande.title}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <p:commandButton value="برگه A4" styleClass="bg-success"
+                                     actionListener="#{savabeghMorakhasiBean.pdfReport(savabeghMorakhasiBean.selected, 'A4')}"
+                                     oncomplete="PF('print_dlg').hide()" ajax="false"/>
+                    <p:commandButton value="برگه A5"
+                                     actionListener="#{savabeghMorakhasiBean.pdfReport(savabeghMorakhasiBean.selected, 'A5')}"
+                                     oncomplete="PF('print_dlg').hide()" ajax="false"/>
+                </div>
+            </h:form>
+
+        </p:dialog>
+
+        <h:form prependId="false" id="mask">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.date').mask('9999/99/99');
+                });
+
+                $(document).ready(function () {
+                    $('.currency').mask('999,999,999');
+                });
+
+                $(document).ready(function () {
+                    $('.time').mask('99:99');
+                });
+            </script>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
